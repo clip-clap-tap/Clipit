@@ -1,0 +1,3 @@
+cd clipit-front
+echo "Testing commit msg..."
+npx --no-install commitlint --edit $1

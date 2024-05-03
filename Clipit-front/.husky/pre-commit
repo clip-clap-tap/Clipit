@@ -1,0 +1,4 @@
+cd clipit-front
+echo "Testing clipit-front..."
+npm run lint --cached
+cd ..
