@@ -1,6 +1,5 @@
-CREATE DATABASE `clipit`;
-
-USE `clipit`;
+create database clipit;
+use clipit;
 
 CREATE TABLE `user` (
   `id` varchar(20) UNIQUE PRIMARY KEY NOT NULL,
