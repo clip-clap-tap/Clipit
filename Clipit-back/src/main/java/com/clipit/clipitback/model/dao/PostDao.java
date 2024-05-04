@@ -7,13 +7,13 @@ import java.util.List;
 public interface PostDao {
     List<Post> searchPost();
 
-    Post selectPostById();
+    Post selectPostById(int id);
 
-    int updatePost();
+    List<Post> selectPostsByWriterId(int id);
 
-    List<Post> selectPostsByWriterId();
+    List<Post> selectFavoritePostsByUserId(int id);
 
-    List<Post> selectFavoritePostsByUserId();
+    List<Post> selectVisitedPostsByUserId(int id);
 
-    List<Post> selectVisitedPostsByUserId();
+    int updatePost(Post post);
 }
