@@ -5,15 +5,15 @@ import com.clipit.clipitback.model.dto.Post;
 import java.util.List;
 
 public interface PostDao {
-    List<Post> searchPost();
+	List<Post> searchPost();
 
-    Post selectPostById();
+	Post selectPostById();
 
-    int updatePost();
+	int updatePost();
 
-    List<Post> selectPostsByWriterId();
+	List<Post> selectPostsByWriterId();
 
-    List<Post> selectFavoritePostsByUserId();
+	List<Post> selectFavoritePostsByUserId();
 
-    List<Post> selectVisitedPostsByUserId();
+	List<Post> selectVisitedPostsByUserId();
 }

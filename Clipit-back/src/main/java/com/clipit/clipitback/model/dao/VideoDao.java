@@ -5,5 +5,5 @@ import com.clipit.clipitback.model.dto.MarkedVideo;
 import java.util.List;
 
 public interface VideoDao {
-    List<MarkedVideo> getMarkedVideosByUserId();
+	List<MarkedVideo> getMarkedVideosByUserId();
 }
