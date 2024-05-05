@@ -1,14 +1,14 @@
 package com.clipit.clipitback.model.dto;
 
 public class Post {
-    int id;
-    String title;
-    String description;
-    String writerId;
-    String status;
-    String createDate;
-    int viewCount;
-    String updateDate;
+    private int id;
+    private String title;
+    private String description;
+    private String writerId;
+    private String status;
+    private String createDate;
+    private int viewCount;
+    private String updateDate;
     public Post(){}
 
     public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, String updateDate) {

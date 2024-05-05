@@ -10,11 +10,11 @@ public class Video {
         this.markDate = markDate;
     }
 
-    int id;
-    String title;
-    String url;
-    int videoLength;
-    String markDate;
+    private int id;
+    private String title;
+    private String url;
+    private int videoLength;
+    private String markDate;
 
     public int getId() {
         return id;

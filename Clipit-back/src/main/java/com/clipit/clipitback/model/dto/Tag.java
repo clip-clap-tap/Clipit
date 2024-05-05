@@ -1,9 +1,9 @@
 package com.clipit.clipitback.model.dto;
 
 public class Tag {
-    int id;
-    String category;
-    String name;
+    private int id;
+    private String category;
+    private String name;
 
     public Tag() {}
 

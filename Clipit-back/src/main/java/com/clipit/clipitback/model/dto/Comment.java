@@ -1,8 +1,8 @@
 package com.clipit.clipitback.model.dto;
 
 public class Comment {
-    int id;
-    String content;
+    private int id;
+    private String content;
 
     public Comment(){}
     public Comment(int id, String content) {

@@ -1,7 +1,7 @@
 package com.clipit.clipitback.model.dto;
 
 public class MarkedVideo extends Video{
-    String markDate;
+    private String markDate;
     public MarkedVideo(){}
 
     public MarkedVideo(String markDate) {
