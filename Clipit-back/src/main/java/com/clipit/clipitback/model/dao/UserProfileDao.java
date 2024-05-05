@@ -3,7 +3,7 @@ package com.clipit.clipitback.model.dao;
 import com.clipit.clipitback.model.dto.UserProfile;
 
 public interface UserProfileDao {
-    UserProfile selectUserProfile();
+	public UserProfile selectUserProfile();
 
-    UserProfile updateUserProfile();
+	public UserProfile updateUserProfile();
 }
