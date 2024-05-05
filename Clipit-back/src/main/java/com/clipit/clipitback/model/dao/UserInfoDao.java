@@ -5,15 +5,15 @@ import com.clipit.clipitback.model.dto.UserInfo;
 import java.util.List;
 
 public interface UserInfoDao {
-    public int signup();
+    int signup();
 
-    public UserInfo login();
+    UserInfo login();
 
-    public UserInfo selectUserInfoById();
+    UserInfo selectUserInfoById();
 
-    public List<UserInfo> selectAllUsers();
+    List<UserInfo> selectAllUsers();
 
-    public int updateUser();
+    int updateUser();
 
-    public int resign();
+    int resign();
 }
