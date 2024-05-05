@@ -9,9 +9,11 @@ public class Post {
     private String createDate;
     private int viewCount;
     private String updateDate;
-    public Post(){}
 
-    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, String updateDate) {
+    public Post() {
+    }
+
+    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, int routineId, String updateDate) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -84,5 +86,19 @@ public class Post {
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", writerId='" + writerId + '\'' +
+                ", status='" + status + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", viewCount=" + viewCount +
+                ", updateDate='" + updateDate + '\'' +
+                '}';
     }
 }
