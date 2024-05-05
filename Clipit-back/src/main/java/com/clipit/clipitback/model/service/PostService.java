@@ -1,12 +1,13 @@
 package com.clipit.clipitback.model.service;
 
-import com.clipit.clipitback.model.dao.PostDao;
 import com.clipit.clipitback.model.dto.Post;
 
 import java.util.List;
 
 public interface PostService {
     List<Post> searchPostsByCondition();
+
+    List<Post> getAllPosts();
 
     Post getPostById(int id);
 
@@ -17,4 +18,8 @@ public interface PostService {
     List<Post> getVisitedPostsByUserId(int id);
 
     int modifyPost(Post post);
+
+    int addPost(Post post);
+
+    int modifyPostStatus(int id, String status);
 }
