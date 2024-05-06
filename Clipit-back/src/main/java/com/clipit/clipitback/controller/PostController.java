@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
-@RestController()
+@RestController
+@RequestMapping(value = "/posts")
 @Tag(name = "Post-Controller")
 public class PostController {
     private final PostService postService;
@@ -23,21 +24,21 @@ public class PostController {
     }
 
     @Operation(summary = "포스트 검색")
-    @GetMapping("/posts/search")
+    @GetMapping("/search")
     ResponseEntity<?> searchPost() {
         List<Post> posts = postService.searchPostsByCondition();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @Operation(summary = "전체 포스트 목록")
-    @GetMapping("/posts")
+    @GetMapping()
     ResponseEntity<?> getAllPosts() {
         List<Post> posts = postService.getAllPosts();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @Operation(summary = "포스트 등록")
-    @PostMapping("/posts")
+    @PostMapping()
     ResponseEntity<?> addPost(@RequestBody Post post) {
         int result = postService.addPost(post);
         if (result == 1) {
@@ -47,7 +48,7 @@ public class PostController {
     }
 
     @Operation(summary = "포스트 수정")
-    @PutMapping("/post/{id}")
+    @PutMapping("/{id}")
     ResponseEntity<?> modifyPost(@PathVariable("id") int id, @RequestBody Post post) {
         post.setId(id);
         int result = postService.modifyPost(post);
@@ -58,7 +59,7 @@ public class PostController {
     }
 
     @Operation(summary = "포스트 상태 수정")
-    @PatchMapping("/post/{id}")
+    @PatchMapping("/{id}")
     ResponseEntity<?> modifyPostStatus(@PathVariable("id") int id, @RequestBody Map<String, String> statusInfo) {
         int result = postService.modifyPostStatus(id, statusInfo.get("status"));
         if (result == 0) {
