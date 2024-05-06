@@ -5,7 +5,8 @@ public class Tag {
     private String category;
     private String name;
 
-    public Tag() {}
+    public Tag() {
+    }
 
     public Tag(int id, String category, String name) {
         this.id = id;
@@ -35,5 +36,14 @@ public class Tag {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return "Tag{" +
+                "id=" + id +
+                ", category='" + category + '\'' +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

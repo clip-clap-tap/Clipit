@@ -1,7 +1,9 @@
 package com.clipit.clipitback.model.dto;
 
 public class Video {
-    public Video(){}
+    public Video() {
+    }
+
     public Video(int id, String title, String url, int videoLength, String markDate) {
         this.id = id;
         this.title = title;
@@ -54,5 +56,16 @@ public class Video {
 
     public void setMarkDate(String markDate) {
         this.markDate = markDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Video{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", url='" + url + '\'' +
+                ", videoLength=" + videoLength +
+                ", markDate='" + markDate + '\'' +
+                '}';
     }
 }

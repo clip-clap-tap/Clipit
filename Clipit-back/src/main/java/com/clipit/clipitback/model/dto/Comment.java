@@ -4,7 +4,9 @@ public class Comment {
     private int id;
     private String content;
 
-    public Comment(){}
+    public Comment() {
+    }
+
     public Comment(int id, String content) {
         this.id = id;
         this.content = content;
@@ -24,5 +26,13 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "id=" + id +
+                ", content='" + content + '\'' +
+                '}';
     }
 }
