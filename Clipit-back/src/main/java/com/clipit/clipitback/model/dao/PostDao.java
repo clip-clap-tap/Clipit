@@ -6,19 +6,20 @@ import java.util.List;
 import java.util.Map;
 
 public interface PostDao {
-    List<Post> searchPost();
+	List<Post> searchPost();
 
-    Post selectPostById(int id);
+  Post selectPostById(int id);
 
-    List<Post> selectPostsByWriterId(int id);
+  List<Post> selectPostsByWriterId(int id);
 
-    List<Post> selectFavoritePostsByUserId(int id);
+  List<Post> selectFavoritePostsByUserId(int id);
 
-    List<Post> selectVisitedPostsByUserId(int id);
+  List<Post> selectVisitedPostsByUserId(int id);
 
-    int insertPost(Post post);
+  int insertPost(Post post);
 
-    int updatePost(Post post);
+  int updatePost(Post post);
 
-    int updatePostStatus(Map<String, ?> updateInfo);
+  int updatePostStatus(Map<String, ?> updateInfo);
+
 }
