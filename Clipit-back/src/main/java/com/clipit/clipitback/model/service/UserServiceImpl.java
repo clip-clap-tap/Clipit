@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public int signup(UserInfo userInfo) {
+
 		return userInfoDao.signup(userInfo);
 	}
 
@@ -67,8 +68,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int registUserProfile(String id) {
-		return userProfileDao.insertUserProfile(id);
+	public int registUserProfile(UserProfile userProfile) {
+		return userProfileDao.insertUserProfile(userProfile);
 	}
 
 

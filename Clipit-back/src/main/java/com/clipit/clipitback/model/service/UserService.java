@@ -32,5 +32,5 @@ public interface UserService {
 	public int modifyUserProfile(UserProfile userProfile);
 
 	// 회원프로필 등록
-	public int registUserProfile(String id);
+	public int registUserProfile(UserProfile userProfile);
 }

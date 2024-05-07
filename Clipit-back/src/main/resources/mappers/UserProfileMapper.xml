@@ -6,19 +6,19 @@
 
     <select id="selectUserProfile" parameterType="String" resultType="UserProfile">
         SELECT * FROM user_profile
-        WHERE user_id=#{id}
+        WHERE id=#{id}
     </select>
 
-    <insert id="insertUserProfile" parameterType="String">
-        INSERT user_profile(user_id)
-        VALUES (#{id})
+    <insert id="insertUserProfile" parameterType="UserProfile">
+        INSERT INTO user_profile
+        VALUES (#{id}, #{gender}, #{height}, #{weight}, #{age}, #{goal})
     </insert>
 
 
     <update id="updateUserProfile" parameterType="UserProfile">
         UPDATE user_profile
         SET height = #{height}, weight = #{weight}, age = #{age}, goal = #{goal}
-        WHERE user_id = #{id}
+        WHERE id = #{id}
     </update>
 
 </mapper>

@@ -29,13 +29,13 @@ CREATE TABLE `tag`
 
 CREATE TABLE `user_profile`
 (
-    `user_id` varchar(20) UNIQUE PRIMARY KEY NOT NULL,
-    `gender`  varchar(20) DEFAULT 'unknown',
-    `height`  float DEFAULT 0,
-    `weight`  float DEFAULT 0,
-    `age`     integer DEFAULT 0,
-    `goal`    text DEFAULT NULL,
-    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`)
+    `id` varchar(20) UNIQUE PRIMARY KEY NOT NULL,
+    `gender`  varchar(20),
+    `height`  float,
+    `weight`  float,
+    `age`     integer,
+    `goal`    text,
+    CONSTRAINT FOREIGN KEY (`id`) REFERENCES `user_info` (`id`)
 );
 
 CREATE TABLE `post`
