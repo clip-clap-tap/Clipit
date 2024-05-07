@@ -1,8 +1,8 @@
-# drop database clipit;
-create database clipit;
-use clipit;
+#DROP DATABASE clipit;
+CREATE DATABASE clipit;
+USE clipit;
 
-CREATE TABLE `user`
+CREATE TABLE `user_info`
 (
     `id`         varchar(20) UNIQUE PRIMARY KEY NOT NULL,
     `username`   varchar(20)                    NOT NULL,
@@ -27,15 +27,15 @@ CREATE TABLE `tag`
 );
 
 
-CREATE TABLE `user_info`
+CREATE TABLE `user_profile`
 (
     `user_id` varchar(20) UNIQUE PRIMARY KEY NOT NULL,
-    `gender`  varchar(20),
-    `height`  float,
-    `weight`  float,
-    `age`     integer,
-    `goal`    text,
-    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+    `gender`  varchar(20) DEFAULT 'unknown',
+    `height`  float DEFAULT 0,
+    `weight`  float DEFAULT 0,
+    `age`     integer DEFAULT 0,
+    `goal`    text DEFAULT NULL,
+    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`)
 );
 
 CREATE TABLE `post`
@@ -48,7 +48,7 @@ CREATE TABLE `post`
     `created_at`  timestamp                  NOT NULL default current_timestamp,
     `view_count`  integer                    NOT NULL DEFAULT 0,
     `updated_at`  timestamp                  not null default current_timestamp on update current_timestamp,
-    CONSTRAINT FOREIGN KEY (`writer_id`) REFERENCES `user` (`id`)
+    CONSTRAINT FOREIGN KEY (`writer_id`) REFERENCES `user_info` (`id`)
 );
 
 CREATE TABLE `favorite_post`
@@ -56,7 +56,7 @@ CREATE TABLE `favorite_post`
     `user_id` varchar(20) UNIQUE NOT NULL,
     `post_id` integer UNIQUE     NOT NULL,
     PRIMARY KEY (`user_id`, `post_id`),
-    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`),
     CONSTRAINT FOREIGN KEY (`post_id`) REFERENCES `post` (`id`)
 );
 
@@ -65,7 +65,7 @@ CREATE TABLE `favorite_tag`
     `user_id` varchar(20) UNIQUE NOT NULL,
     `tag_id`  integer UNIQUE     NOT NULL,
     PRIMARY KEY (`user_id`, `tag_id`),
-    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`),
     CONSTRAINT FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`)
 
 );
@@ -76,7 +76,7 @@ CREATE TABLE `visited_post`
     `user_id`      varchar(20),
     `post_id`      integer,
     `visited_date` timestamp default current_timestamp,
-    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`),
     CONSTRAINT FOREIGN KEY (`post_id`) REFERENCES `post` (`id`)
 );
 
@@ -97,7 +97,7 @@ CREATE TABLE `mark_video`
     `video_id`    integer UNIQUE     NOT NULL,
     `marked_date` timestamp default current_timestamp,
     PRIMARY KEY (`user_id`, `video_id`),
-    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+    CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`),
     CONSTRAINT FOREIGN KEY (`video_id`) REFERENCES `video` (`id`)
 );
 
@@ -117,7 +117,7 @@ CREATE TABLE `comment`
     `writer_id` varchar(20)                NOT NULL,
     `content`   text                       NOT NULL,
     CONSTRAINT FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
-    CONSTRAINT FOREIGN KEY (`writer_id`) REFERENCES `user` (`id`)
+    CONSTRAINT FOREIGN KEY (`writer_id`) REFERENCES `user_info` (`id`)
 );
 
 SHOW TABLES;

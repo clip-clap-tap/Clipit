@@ -4,7 +4,7 @@ public class UserInfo {
 
 	private String id;
 	private String password;
-	private String nickname;
+	private String username;
 	private String createDate;
 	private String status;
 
@@ -12,11 +12,11 @@ public class UserInfo {
 		super();
 	}
 
-	public UserInfo(String id, String password, String nickname, String createDate, String status) {
+	public UserInfo(String id, String password, String username, String createDate, String status) {
 		super();
 		this.id = id;
 		this.password = password;
-		this.nickname = nickname;
+		this.username = username;
 		this.createDate = createDate;
 		this.status = status;
 	}
@@ -37,12 +37,12 @@ public class UserInfo {
 		this.password = password;
 	}
 
-	public String getNickname() {
-		return nickname;
+	public String getUsername() {
+		return username;
 	}
 
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getCreateDate() {
@@ -63,7 +63,7 @@ public class UserInfo {
 
 	@Override
 	public String toString() {
-		return "UserInfo [id=" + id + ", password=" + password + ", nickname=" + nickname + ", createDate=" + createDate
+		return "UserInfo [id=" + id + ", password=" + password + ", username=" + username + ", createDate=" + createDate
 				+ ", status=" + status + "]";
 	}
 
