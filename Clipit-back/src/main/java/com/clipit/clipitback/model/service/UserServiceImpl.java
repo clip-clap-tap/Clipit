@@ -26,6 +26,7 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public int signup(UserInfo userInfo) {
+
 		return userInfoDao.signup(userInfo);
 	}
 
@@ -36,22 +37,26 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserInfo getUserInfoById(String id) {
-		return null;
+
+		return userInfoDao.selectUserInfoById(id);
 	}
 
 	@Override
 	public List<UserInfo> getUserInfoList() {
-		return null;
+
+		return userInfoDao.selectAllUsers();
 	}
 
 	@Override
 	public int modifyUserInfo(UserInfo userInfo) {
-		return 0;
+
+		return userInfoDao.updateUser(userInfo);
 	}
 
 	@Override
 	public int inactivate(String id) {
-		return 0;
+
+		return userInfoDao.resign(id);
 	}
 	
 	@Override
@@ -67,8 +72,8 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public int registUserProfile(String id) {
-		return userProfileDao.insertUserProfile(id);
+	public int registUserProfile(UserProfile userProfile) {
+		return userProfileDao.insertUserProfile(userProfile);
 	}
 
 
