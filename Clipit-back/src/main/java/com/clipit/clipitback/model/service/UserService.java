@@ -30,4 +30,7 @@ public interface UserService {
 	
 	// 회원프로필 수정
 	public int modifyUserProfile(UserProfile userProfile);
+
+	// 회원프로필 등록
+	public int registUserProfile(String id);
 }
