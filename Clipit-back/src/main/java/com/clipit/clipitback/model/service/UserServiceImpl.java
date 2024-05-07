@@ -37,22 +37,26 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserInfo getUserInfoById(String id) {
-		return null;
+
+		return userInfoDao.selectUserInfoById(id);
 	}
 
 	@Override
 	public List<UserInfo> getUserInfoList() {
-		return null;
+
+		return userInfoDao.selectAllUsers();
 	}
 
 	@Override
 	public int modifyUserInfo(UserInfo userInfo) {
-		return 0;
+
+		return userInfoDao.updateUser(userInfo);
 	}
 
 	@Override
 	public int inactivate(String id) {
-		return 0;
+
+		return userInfoDao.resign(id);
 	}
 	
 	@Override
