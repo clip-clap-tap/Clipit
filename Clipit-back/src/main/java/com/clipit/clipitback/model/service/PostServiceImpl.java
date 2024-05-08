@@ -36,19 +36,19 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getPostsByWriterId(int id) {
+    public List<Post> getPostsByWriterId(String id) {
         List<Post> posts = postDao.selectPostsByWriterId(id);
         return posts;
     }
 
     @Override
-    public List<Post> getFavoritePostsByUserId(int id) {
+    public List<Post> getFavoritePostsByUserId(String id) {
         List<Post> posts = postDao.selectFavoritePostsByUserId(id);
         return posts;
     }
 
     @Override
-    public List<Post> getVisitedPostsByUserId(int id) {
+    public List<Post> getVisitedPostsByUserId(String id) {
         List<Post> posts = postDao.selectVisitedPostsByUserId(id);
         return posts;
     }

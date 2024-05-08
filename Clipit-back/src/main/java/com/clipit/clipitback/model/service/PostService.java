@@ -11,11 +11,11 @@ public interface PostService {
 
     Post getPostById(int id);
 
-    List<Post> getPostsByWriterId(int id);
+    List<Post> getPostsByWriterId(String id);
 
-    List<Post> getFavoritePostsByUserId(int id);
+    List<Post> getFavoritePostsByUserId(String id);
 
-    List<Post> getVisitedPostsByUserId(int id);
+    List<Post> getVisitedPostsByUserId(String id);
 
     int modifyPost(Post post);
 
