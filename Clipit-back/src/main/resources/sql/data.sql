@@ -1,5 +1,7 @@
 INSERT INTO `user_info`(id, username, password)
-VALUES ('airf33', 'cullen64', '3717e7f2h5h'),
+VALUES ('admin', 'admin', 'admin'),
+       ('tester', 'tester', 'tester'),
+       ('airf33', 'cullen64', '3717e7f2h5h'),
        ('bfyq36', 'vincenzo62', '2529s0a2r4g'),
        ('bngz87', 'monroe.o\'kon', '7720e3u7a0n'),
        ('cfgz29', 'funk.harley', '0558r4e9k1e'),
@@ -77,14 +79,17 @@ VALUES ('Delectus quia explic',
         'ynkv75'),
        ('Et aut sequi quaerat',
         'Ut eaque voluptatibus sint repellendus. Est temporibus omnis corporis alias cum nemo. Provident nulla ex nesciunt voluptatem soluta tempora. Nobis tempore quasi et consequatur ex mollitia.',
-        'zgyf73');
+        'zgyf73'),
+        ('test', 'test', 'tester');
         
 INSERT INTO `user_profile`
 VALUES ('airf33', 'F', 155, 45, 20, '주3운동'),
        ('bfyq36', 'M', 160, 50, 22, '하루에30분씩 유산소'),
        ('bngz87', 'F', 165, 55, 24, '홈트 전문가가 될래요'),
        ('cfgz29', 'F', 170, 60, 26, '55kg 목표!!'),
-       ('dnjf38', 'M', 175, 65, 28, '안 맞던 옷 입기');
+       ('dnjf38', 'M', 175, 65, 28, '안 맞던 옷 입기'),
+       ('admin', 'F', 100, 100, 100, '자신감 갖기!'),
+       ('tester', 'M', 200, 200, 200, '습관 만들기');
 
 select *
 from post;
