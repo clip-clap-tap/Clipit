@@ -3,24 +3,30 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clipit.clipitback.model.dao.PostDao">
-    <select id="searchPost" resultType="Post">
+
+    <resultMap id="postMap" type="Post">
+        <result property="createDate" column="created_at"/>
+        <result property="updateDate" column="updated_at"/>
+    </resultMap>
+
+    <select id="searchPost" resultMap="postMap">
         SELECT * FROM post
         <where>
             <if test="title!=null">AND title LIKE concat('%',#{title},'%')</if>
         </where>
     </select>
-    <select id="selectPostById" resultType="Post">
+    <select id="selectPostById" resultMap="postMap">
         SELECT * FROM post
         WHERE id = #{id}
     </select>
-    <select id="selectPostsByWriterId" resultType="Post">
+    <select id="selectPostsByWriterId" parameterType="String" resultMap="postMap">
         SELECT * FROM post
         WHERE writer_id = #{writerId}
     </select>
-    <select id="selectFavoritePostsByUserId" resultType="Post">
+    <select id="selectFavoritePostsByUserId" resultMap="postMap">
 
     </select>
-    <select id="selectVisitedPostsByUserId" resultType="Post">
+    <select id="selectVisitedPostsByUserId" resultMap="postMap">
 
     </select>
     <insert id="insertPost" parameterType="Post">

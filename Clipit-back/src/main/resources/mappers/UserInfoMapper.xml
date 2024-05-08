@@ -4,11 +4,15 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clipit.clipitback.model.dao.UserInfoDao">
 
-    <select id="selectAllUsers" resultType="UserInfo">
+    <resultMap id="userInfoMap" type="UserInfo">
+        <result property="createDate" column="created_at"/>
+    </resultMap>
+
+    <select id="selectAllUsers" resultMap="userInfoMap">
         SELECT * FROM user_info
     </select>
 
-    <select id="selectUserInfoById" parameterType="String" resultType="UserInfo">
+    <select id="selectUserInfoById" parameterType="String" resultMap="userInfoMap">
         SELECT * FROM user_info
         WHERE id=#{id}
     </select>

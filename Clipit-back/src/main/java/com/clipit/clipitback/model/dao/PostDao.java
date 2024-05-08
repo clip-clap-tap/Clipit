@@ -10,11 +10,11 @@ public interface PostDao {
 
   Post selectPostById(int id);
 
-  List<Post> selectPostsByWriterId(int id);
+  List<Post> selectPostsByWriterId(String id);
 
-  List<Post> selectFavoritePostsByUserId(int id);
+  List<Post> selectFavoritePostsByUserId(String id);
 
-  List<Post> selectVisitedPostsByUserId(int id);
+  List<Post> selectVisitedPostsByUserId(String id);
 
   int insertPost(Post post);
 

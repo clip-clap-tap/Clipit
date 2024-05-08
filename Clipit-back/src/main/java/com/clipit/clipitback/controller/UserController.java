@@ -1,6 +1,8 @@
 package com.clipit.clipitback.controller;
 
+import com.clipit.clipitback.model.dto.Post;
 import com.clipit.clipitback.model.dto.UserProfile;
+import com.clipit.clipitback.model.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,13 @@ import java.util.List;
 public class UserController {
 	
 	private final UserService userService;
-	
+	private final PostService postService;
+
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService, PostService postService) {
+
 		this.userService = userService;
+		this.postService = postService;
 	}
 
 	@Operation(summary = "전체 회원정보 목록")
@@ -72,6 +77,14 @@ public class UserController {
 		int res = userService.inactivate(id);
 		return new ResponseEntity<>(res, res==1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
+
+	@Operation(summary="게시한 포스트 목록 확인")
+	@GetMapping("/{id}/posts")
+	public ResponseEntity<?> getPostByUserId(String id){
+		List<Post> list = postService.getPostsByWriterId(id);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
 
 	@Operation(summary="프로필 확인")
 	@GetMapping("/profile/{id}")
