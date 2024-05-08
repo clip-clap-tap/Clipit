@@ -6,7 +6,7 @@ defineProps({
     description: String,
     writer: String,
     date: String
-})
+});
 </script>
 <template>
     <button class="flex items-center gap-4 h-40 py-2">

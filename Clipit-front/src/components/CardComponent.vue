@@ -6,7 +6,7 @@ defineProps({
     description: String,
     writer: String,
     date: String
-})
+});
 </script>
 <template>
     <div>

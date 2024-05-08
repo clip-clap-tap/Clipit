@@ -1,3 +1,14 @@
+<script setup>
+import PostCardComponent from '@/components/PostCardComponent.vue';
+</script>
+<script>
+export default {
+    name: 'TestPage',
+    components: {
+        PostCardComponent
+    }
+};
+</script>
 <template>
     <div class="flex flex-col gap-4">
         <PostCardComponent
@@ -14,14 +25,3 @@
         <!-- <PostCardComponent></PostCardComponent> -->
     </div>
 </template>
-<script setup>
-import PostCardComponent from '@/components/PostCardComponent.vue'
-</script>
-<script>
-export default {
-    name: 'TestPage',
-    components: {
-        PostCardComponent
-    }
-}
-</script>

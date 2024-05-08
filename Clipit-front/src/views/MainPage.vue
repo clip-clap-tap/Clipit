@@ -1,5 +1,5 @@
 <script setup>
-import CardSectionComponent from '@/components/CardSectionComponent.vue'
+import CardSectionComponent from '@/components/CardSectionComponent.vue';
 </script>
 <template>
     <div>

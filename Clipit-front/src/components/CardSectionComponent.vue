@@ -1,9 +1,9 @@
 <script setup>
-import CardComponent from '@/components/CardComponent.vue'
+import CardComponent from '@/components/CardComponent.vue';
 defineProps({
     title: String,
     items: Array
-})
+});
 </script>
 <template>
     <section class="container mx-auto px-4 py-16">

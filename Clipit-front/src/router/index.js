@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import TemplatePage from '@/views/TemplatePage.vue'
-import TestPage from '@/views/TestPage.vue'
-import MainPage from '@/views/MainPage.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import TemplatePage from '@/views/TemplatePage.vue';
+import TestPage from '@/views/TestPage.vue';
+import MainPage from '@/views/MainPage.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,6 +10,6 @@ const router = createRouter({
         { path: '/template', name: 'template', component: TemplatePage },
         { path: '/test', name: 'test', component: TestPage }
     ]
-})
+});
 
-export default router
+export default router;
