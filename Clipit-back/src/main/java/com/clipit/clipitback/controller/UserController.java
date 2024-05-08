@@ -92,7 +92,7 @@ public class UserController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
-	@Operation(summary="유저별 전체 목록 확인")
+	@Operation(summary="유저별 전체 포스트 목록 확인")
 	@GetMapping("/{id}/all-posts")
 	public ResponseEntity<?> getFavoriteOrWrittenPostsById(String id){
 		List<Post> list = postService.getAllPostsById(id);
