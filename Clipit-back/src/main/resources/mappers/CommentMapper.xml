@@ -4,28 +4,28 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clipit.clipitback.model.dao.CommentDao">
     <select id="selectCommentById" parameterType="int" resultType="Comment">
-        SELECT * FROM review
+        SELECT * FROM comment
         WHERE id = #{id}
     </select>
     <select id="selectCommentsByPostId" parameterType="int" resultType="Comment">
-        SELECT * FROM review
+        SELECT * FROM comment
         WHERE post_id = #{id}
     </select>
     <select id="selectCommentsByUserId" parameterType="String" resultType="Comment">
-        SELECT * FROM review
+        SELECT * FROM comment
         WHERE user_id = #{id}
     </select>
     <insert id="insertComment" parameterType="Map">
-        INSERT INTO review
+        INSERT INTO comment(post_id, writer_id, content)
         VALUES (#{postId}, #{userId}, #{content})
     </insert>
     <update id="updateComment" parameterType="Comment">
-        UPDATE review
+        UPDATE comment
         SET content = #{content}
         WHERE id = #{id}
     </update>
     <delete id="deleteComment">
-        DELETE FROM review
+        DELETE FROM comment
         WHERE id = #{id}
     </delete>
 </mapper>
