@@ -2,6 +2,7 @@ package com.clipit.clipitback.controller;
 
 import com.clipit.clipitback.model.dto.UserProfile;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +48,16 @@ public class UserController {
 		
 	}
 
+	@PostMapping("/login")
+	public ResponseEntity<?> login(@RequestBody UserInfo userInfo, HttpSession session){
+		UserInfo target = userService.getUserInfoById(userInfo.getId());
+		if(target.getPassword().equals(userInfo.getPassword())){
+			session.setAttribute("userId", userInfo.getId());
+			return new ResponseEntity<>(userInfo, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(0, HttpStatus.BAD_REQUEST);
+	}
+
 	@Operation(summary="회원정보 수정")
 	@PutMapping("/{id}/info")
 	public ResponseEntity<?> modifyUserInfo(@PathVariable("id") String id, UserInfo userInfo){
@@ -67,7 +78,7 @@ public class UserController {
 	public ResponseEntity<?> getProfile(@PathVariable("id") String id){
 		UserProfile userProfile = userService.getUserProfileById(id);
 
-		return new ResponseEntity<UserProfile>(userProfile, HttpStatus.OK);
+		return new ResponseEntity<>(userProfile, HttpStatus.OK);
 	}
 
 
