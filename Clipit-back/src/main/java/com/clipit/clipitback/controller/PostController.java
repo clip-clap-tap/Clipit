@@ -1,6 +1,8 @@
 package com.clipit.clipitback.controller;
 
+import com.clipit.clipitback.model.dto.Comment;
 import com.clipit.clipitback.model.dto.Post;
+import com.clipit.clipitback.model.service.CommentService;
 import com.clipit.clipitback.model.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -17,10 +19,12 @@ import java.util.Map;
 @Tag(name = "Post-Controller")
 public class PostController {
     private final PostService postService;
+    private final CommentService commentService;
 
     @Autowired
-    PostController(PostService postService) {
+    PostController(PostService postService, CommentService commentService) {
         this.postService = postService;
+        this.commentService = commentService;
     }
 
     @Operation(summary = "포스트 검색")
@@ -44,7 +48,7 @@ public class PostController {
         if (result == 1) {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(result, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @Operation(summary = "포스트 수정")
@@ -70,8 +74,23 @@ public class PostController {
 
     @Operation(summary = "포스트 찜하기")
     @PutMapping("/{id}/favorite")
-    ResponseEntity<?> addFavoritePost(@PathVariable("id") int postId, @SessionAttribute(name = "userId") String userId){
-        int result = postService.addFavoritePost(userId,postId);
+    ResponseEntity<?> addFavoritePost(@PathVariable("id") int postId, @SessionAttribute(name = "userId") String userId) {
+        int result = postService.addFavoritePost(userId, postId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @Operation(summary = "포스트에 댓글 추가")
+    @PostMapping("/{id}/comment")
+    ResponseEntity<?> addPostComment(@PathVariable("id") int postId, @SessionAttribute("userId") String userId, @RequestBody Comment comment) {
+        int result = commentService.addComment(postId, userId, comment);
+        return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.CREATED);
+    }
+
+    @Operation(summary = "포스트에 달린 댓글 목록")
+    @GetMapping("/{id}/comments")
+    ResponseEntity<?> getPostComments(@PathVariable("id") int postId) {
+        List<Comment> comments = commentService.getCommentsByPostId(postId);
+        return new ResponseEntity<>(comments, HttpStatus.OK);
+    }
+
 }
