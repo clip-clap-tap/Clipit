@@ -93,4 +93,18 @@ public class PostController {
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 
+    @Operation(summary = "댓글 수정")
+    @PutMapping("/comment/{id}")
+    ResponseEntity<?> modifyComment(@PathVariable("id") int id, @RequestBody Comment comment) {
+        comment.setId(id);
+        int result = commentService.modifyComment(comment);
+        return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+    }
+
+    @Operation(summary = "댓글 삭제")
+    @DeleteMapping("/comment/{id}")
+    ResponseEntity<?> removeComment(@PathVariable("id") int id) {
+        int result = commentService.removeComment(id);
+        return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.NO_CONTENT);
+    }
 }
