@@ -71,4 +71,10 @@ public class PostServiceImpl implements PostService {
         int result = postDao.updatePostStatus(Map.of("id", id, "status", status));
         return result;
     }
+
+    @Override
+    public int addFavoritePost(String userId, int postId) {
+        int result = postDao.insertFavoritePost(Map.of("userId", userId, "postId", postId));
+        return result;
+    }
 }

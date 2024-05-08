@@ -63,9 +63,15 @@ public class PostController {
     ResponseEntity<?> modifyPostStatus(@PathVariable("id") int id, @RequestBody Map<String, String> statusInfo) {
         int result = postService.modifyPostStatus(id, statusInfo.get("status"));
         if (result == 0) {
-            return new ResponseEntity<>(1, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @Operation(summary = "포스트 찜하기")
+    @PutMapping("/{id}/favorite")
+    ResponseEntity<?> addFavoritePost(@PathVariable("id") int postId, @SessionAttribute(name = "userId") String userId){
+        int result = postService.addFavoritePost(userId,postId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
