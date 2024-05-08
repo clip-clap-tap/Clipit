@@ -1,14 +1,24 @@
-import './assets/input.css'
+import './assets/input.css';
+import 'primevue/resources/themes/aura-light-noir/theme.css';
+import 'primeicons/primeicons.css';
 
-import { createApp } from 'vue'
-import { createPinia } from 'pinia'
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import PrimeVue from 'primevue/config';
 
-import App from './App.vue'
-import router from './router'
+import NavbarComponent from '@/components/Layout/NavbarComponent.vue';
+import FooterComponent from '@/components/Layout/FooterComponent.vue';
 
-const app = createApp(App)
+import App from './App.vue';
+import router from './router';
 
-app.use(createPinia())
-app.use(router)
+const app = createApp(App);
 
-app.mount('#app')
+app.use(createPinia());
+app.use(router);
+app.use(PrimeVue);
+
+app.component('NavbarComponent', NavbarComponent);
+app.component('FooterComponent', FooterComponent);
+
+app.mount('#app');
