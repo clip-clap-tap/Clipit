@@ -4,8 +4,8 @@ public class UserProfile {
 
 	private String id;
 	private String gender;
-	private double height;
-	private double weight;
+	private float height;
+	private float weight;
 	private int age;
 	private String goal;
 
@@ -39,7 +39,7 @@ public class UserProfile {
 		this.gender = gender;
 	}
 
-	public double getHeight() {
+	public float getHeight() {
 		return height;
 	}
 
@@ -47,7 +47,7 @@ public class UserProfile {
 		this.height = height;
 	}
 
-	public double getWeight() {
+	public float getWeight() {
 		return weight;
 	}
 
