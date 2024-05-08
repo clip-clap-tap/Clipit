@@ -15,7 +15,7 @@ export default {
     <NavbarComponent></NavbarComponent>
     <HeaderComponent></HeaderComponent>
 
-    <div class="container mx-auto px-4 py-16 max-w-5xl">
+    <div class="container mx-auto px-4 py-16 max-w-7xl justify-center flex">
         <RouterView></RouterView>
     </div>
 
