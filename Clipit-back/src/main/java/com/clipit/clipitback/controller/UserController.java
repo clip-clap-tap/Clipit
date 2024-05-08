@@ -92,6 +92,13 @@ public class UserController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
+	@Operation(summary="유저별 전체 목록 확인")
+	@GetMapping("/{id}/all-posts")
+	public ResponseEntity<?> getAllPostsById(String id){
+		List<Post> list = postService.getPostsByWriterId(id);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
 
 	@Operation(summary="프로필 확인")
 	@GetMapping("/profile/{id}")
