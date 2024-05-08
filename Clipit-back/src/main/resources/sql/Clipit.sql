@@ -1,8 +1,8 @@
-#DROP DATABASE clipit;
-CREATE DATABASE clipit;
+# DROP DATABASE clipit;
+CREATE DATABASE IF NOT EXISTS clipit;
 USE clipit;
 
-CREATE TABLE `user_info`
+CREATE TABLE IF NOT EXISTS `user_info`
 (
     `id`         varchar(20) UNIQUE PRIMARY KEY NOT NULL,
     `username`   varchar(20)                    NOT NULL,
@@ -11,7 +11,7 @@ CREATE TABLE `user_info`
     `status`     varchar(20)                             DEFAULT 'active'
 );
 
-CREATE TABLE `video`
+CREATE TABLE IF NOT EXISTS `video`
 (
     `id`           integer UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `title`        varchar(20),
@@ -19,7 +19,7 @@ CREATE TABLE `video`
     `video_length` integer
 );
 
-CREATE TABLE `tag`
+CREATE TABLE IF NOT EXISTS `tag`
 (
     `id`       integer UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `category` varchar(20)                NOT NULL,
@@ -27,7 +27,7 @@ CREATE TABLE `tag`
 );
 
 
-CREATE TABLE `user_profile`
+CREATE TABLE IF NOT EXISTS `user_profile`
 (
     `id` varchar(20) UNIQUE PRIMARY KEY NOT NULL,
     `gender`  varchar(20),
@@ -38,7 +38,7 @@ CREATE TABLE `user_profile`
     CONSTRAINT FOREIGN KEY (`id`) REFERENCES `user_info` (`id`)
 );
 
-CREATE TABLE `post`
+CREATE TABLE IF NOT EXISTS `post`
 (
     `id`          integer UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `title`       varchar(20)                NOT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE `post`
     CONSTRAINT FOREIGN KEY (`writer_id`) REFERENCES `user_info` (`id`)
 );
 
-CREATE TABLE `favorite_post`
+CREATE TABLE IF NOT EXISTS `favorite_post`
 (
     `user_id` varchar(20) UNIQUE NOT NULL,
     `post_id` integer UNIQUE     NOT NULL,
@@ -60,7 +60,7 @@ CREATE TABLE `favorite_post`
     CONSTRAINT FOREIGN KEY (`post_id`) REFERENCES `post` (`id`)
 );
 
-CREATE TABLE `favorite_tag`
+CREATE TABLE IF NOT EXISTS `favorite_tag`
 (
     `user_id` varchar(20) UNIQUE NOT NULL,
     `tag_id`  integer UNIQUE     NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE `favorite_tag`
 
 );
 
-CREATE TABLE `visited_post`
+CREATE TABLE IF NOT EXISTS `visited_post`
 (
     `id`           integer PRIMARY KEY,
     `user_id`      varchar(20),
@@ -80,7 +80,7 @@ CREATE TABLE `visited_post`
     CONSTRAINT FOREIGN KEY (`post_id`) REFERENCES `post` (`id`)
 );
 
-CREATE TABLE `post_video`
+CREATE TABLE IF NOT EXISTS `post_video`
 (
     `post_id`  integer UNIQUE NOT NULL,
     `video_id` integer UNIQUE NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE `post_video`
     CONSTRAINT FOREIGN KEY (`video_id`) REFERENCES `video` (`id`)
 );
 
-CREATE TABLE `mark_video`
+CREATE TABLE IF NOT EXISTS `mark_video`
 (
     `user_id`     varchar(20) UNIQUE NOT NULL,
     `video_id`    integer UNIQUE     NOT NULL,
@@ -101,7 +101,7 @@ CREATE TABLE `mark_video`
     CONSTRAINT FOREIGN KEY (`video_id`) REFERENCES `video` (`id`)
 );
 
-CREATE TABLE `video_tag`
+CREATE TABLE IF NOT EXISTS `video_tag`
 (
     `video_id` integer UNIQUE NOT NULL,
     `tag_id`   integer UNIQUE NOT NULL,
@@ -110,7 +110,7 @@ CREATE TABLE `video_tag`
     CONSTRAINT FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`)
 );
 
-CREATE TABLE `comment`
+CREATE TABLE IF NOT EXISTS `comment`
 (
     `id`        integer UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `post_id`   integer                    NOT NULL,
