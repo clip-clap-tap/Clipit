@@ -10,7 +10,7 @@ export default {
 };
 </script>
 <template>
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col gap-2 max-w-5xl">
         <PostCardComponent
             v-for="(item, index) in [1, 2, 3, 4]"
             :key="index"

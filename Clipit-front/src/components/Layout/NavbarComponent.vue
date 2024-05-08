@@ -5,7 +5,7 @@ const { isOpen } = useLayoutStore();
 
 <template>
     <nav x-data="{ isOpen: false }" class="relative bg-white dark:bg-gray-800">
-        <div class="container px-4 py-6 mx-auto">
+        <div class="container px-4 py-6 mx-auto max-w-7xl">
             <div class="lg:flex lg:items-center lg:justify-between">
                 <div class="flex items-center justify-between">
                     <!-- <div class="text-xl font-semibold text-gray-700"> -->

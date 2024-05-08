@@ -1,4 +1,5 @@
 <script setup>
+import Chip from 'primevue/chip';
 defineProps({
     img: String,
     tag: String,
@@ -9,10 +10,10 @@ defineProps({
 });
 </script>
 <template>
-    <button class="flex items-center gap-4 h-40 py-2">
-        <img class="object-cover object-center w-32 h-full rounded-lg" :src="img" alt="" />
-        <div>
-            <div class="flex items-center justify-between">
+    <button class="flex items-center gap-6 h-44 py-3 px-4 rounded hover:bg-slate-100">
+        <img class="object-cover object-center w-36 h-full rounded-lg" :src="img" alt="" />
+        <div class="flex flex-col h-full">
+            <div class="flex items-center justify-between mb-2">
                 <div>
                     <RouterLink
                         :to="`#`"
@@ -20,18 +21,18 @@ defineProps({
                     >
                         {{ writer }}
                     </RouterLink>
-
                     <span class="text-sm text-gray-500 dark:text-gray-400 ml-2">| {{ date }}</span>
                 </div>
 
-                <span class="text-sky-500 uppercase tracking-wider">{{ tag }}</span>
+                <!-- <span class="text-sky-500 uppercase tracking-wider">{{ tag }}</span> -->
             </div>
-            <h1 class="mt-1 text-xl font-semibold text-gray-800 dark:text-white truncate text-left">
+            <h1 class="text-xl font-semibold text-gray-800 dark:text-white truncate text-left">
                 {{ title }}
             </h1>
-            <p class="mt-2 text-gray-500 dark:text-gray-400 text-left">
+            <p class="mt-2 text-gray-500 dark:text-gray-400 text-left grow">
                 {{ description }}
             </p>
+            <Chip class="text-sm bg-slate-100 w-fit" :label="tag" />
         </div>
     </button>
 </template>
