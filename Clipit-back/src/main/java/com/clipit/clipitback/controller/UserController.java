@@ -78,6 +78,13 @@ public class UserController {
 		return new ResponseEntity<>(res, res==1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 	}
 
+	@Operation(summary="찜한 포스트 목록 확인")
+	@GetMapping("/{id}/favorite-posts")
+	public ResponseEntity<?> getFavoritePostByUserId(String id){
+		List<Post> list = postService.getFavoritePostsByUserId(id);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
 	@Operation(summary="게시한 포스트 목록 확인")
 	@GetMapping("/{id}/posts")
 	public ResponseEntity<?> getPostByUserId(String id){

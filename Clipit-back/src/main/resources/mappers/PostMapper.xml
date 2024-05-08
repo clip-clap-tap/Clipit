@@ -23,8 +23,9 @@
         SELECT * FROM post
         WHERE writer_id = #{writerId}
     </select>
-    <select id="selectFavoritePostsByUserId" resultMap="postMap">
-
+    <select id="selectFavoritePostsByUserId" parameterType="String" resultMap="postMap">
+        SELECT * FROM post
+        WHERE id in (SELECT post_id FROM favorite_post WHERE user_id=#{id})
     </select>
     <select id="selectVisitedPostsByUserId" resultMap="postMap">
 
