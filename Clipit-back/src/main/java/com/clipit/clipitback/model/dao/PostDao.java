@@ -23,4 +23,6 @@ public interface PostDao {
   int updatePostStatus(Map<String, ?> updateInfo);
 
   int insertFavoritePost(Map<String, ?> favoritePostInfo);
+
+  List<Post> selectAllPostsByUserId(String id);
 }

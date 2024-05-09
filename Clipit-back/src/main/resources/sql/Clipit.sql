@@ -23,7 +23,8 @@ CREATE TABLE IF NOT EXISTS `tag`
 (
     `id`       integer UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `category` varchar(20)                NOT NULL,
-    `name`     varchar(20)                NOT NULL
+    `name`     varchar(20)                NOT NULL,
+    UNIQUE KEY (`category`, `name`)
 );
 
 
@@ -101,12 +102,12 @@ CREATE TABLE IF NOT EXISTS `mark_video`
     CONSTRAINT FOREIGN KEY (`video_id`) REFERENCES `video` (`id`)
 );
 
-CREATE TABLE IF NOT EXISTS `video_tag`
+CREATE TABLE IF NOT EXISTS `post_tag`
 (
-    `video_id` integer NOT NULL,
+    `post_id` integer NOT NULL,
     `tag_id`   integer NOT NULL,
-    PRIMARY KEY (`video_id`, `tag_id`),
-    CONSTRAINT FOREIGN KEY (`video_id`) REFERENCES `video` (`id`),
+    PRIMARY KEY (`post_id`, `tag_id`),
+    CONSTRAINT FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
     CONSTRAINT FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`)
 );
 
