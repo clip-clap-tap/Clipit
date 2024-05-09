@@ -80,15 +80,22 @@ public class UserController {
 
 	@Operation(summary="찜한 포스트 목록 확인")
 	@GetMapping("/{id}/favorite-posts")
-	public ResponseEntity<?> getFavoritePostByUserId(String id){
+	public ResponseEntity<?> getFavoritePostsByUserId(String id){
 		List<Post> list = postService.getFavoritePostsByUserId(id);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
 	@Operation(summary="게시한 포스트 목록 확인")
 	@GetMapping("/{id}/posts")
-	public ResponseEntity<?> getPostByUserId(String id){
+	public ResponseEntity<?> getWrittenPostsByUserId(String id){
 		List<Post> list = postService.getPostsByWriterId(id);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
+	@Operation(summary="유저별 전체 포스트 목록 확인")
+	@GetMapping("/{id}/all-posts")
+	public ResponseEntity<?> getFavoriteOrWrittenPostsByUserId(String id){
+		List<Post> list = postService.getAllPostsByUserId(id);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 

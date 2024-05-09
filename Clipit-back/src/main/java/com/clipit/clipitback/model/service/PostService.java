@@ -15,6 +15,8 @@ public interface PostService {
 
     List<Post> getFavoritePostsByUserId(String id);
 
+    List<Post> getAllPostsByUserId(String id);
+
     List<Post> getVisitedPostsByUserId(String id);
 
     int modifyPost(Post post);
