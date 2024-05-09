@@ -1,5 +1,5 @@
 <script setup>
-import PostCardComponent from '@/components/PostCardComponent.vue';
+import PostCardComponent from '@/components/util/PostCardComponent.vue';
 </script>
 <script>
 export default {

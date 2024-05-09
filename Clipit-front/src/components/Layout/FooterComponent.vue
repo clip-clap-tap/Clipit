@@ -1,12 +1,7 @@
 <template>
     <footer class="bg-white mt-12 dark:bg-gray-900">
-        <div class="container px-4 py-12 mx-auto max-w-7xl">
-            <div class="md:flex md:-mx-3 md:items-center md:justify-between">
-                <h1
-                    class="text-3xl font-semibold tracking-tight text-gray-800 md:mx-3 xl:text-4xl dark:text-white"
-                >
-                    Subscribe our newsletter to get update.
-                </h1>
+        <div class="container px-4 py-12 max-w-7xl">
+            <!-- <div class="md:flex md:-mx-3 md:items-center md:justify-between">
 
                 <div class="mt-6 md:mx-3 shrink-0 md:mt-0 md:w-auto">
                     <a
@@ -143,12 +138,12 @@
                     </svg>
 
                     <h3 class="mx-2">Blog</h3>
-                </a>
+                </a> -->
 
-                <p class="mt-4 text-sm text-gray-500 sm:mt-0 dark:text-gray-300">
-                    © Copyright 2021. All Rights Reserved.
-                </p>
-            </div>
+            <p class="mt-4 text-sm text-gray-500 sm:mt-0 dark:text-gray-300">
+                © Copyright 2021. All Rights Reserved.
+            </p>
         </div>
+        <!-- </div> -->
     </footer>
 </template>

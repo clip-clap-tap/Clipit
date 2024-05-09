@@ -1,12 +1,12 @@
 <script setup>
-import CardComponent from '@/components/CardComponent.vue';
+import CardComponent from '@/components/util/CardComponent.vue';
 defineProps({
     title: String,
     items: Array
 });
 </script>
 <template>
-    <section class="container mx-auto px-4 py-16">
+    <section class="container px-4 py-16">
         <div class="flex items-center justify-between">
             <h2 class="text-gray-800 font-bold text-3xl">{{ title }}</h2>
 

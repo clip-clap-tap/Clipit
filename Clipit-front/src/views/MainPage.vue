@@ -1,8 +1,9 @@
 <script setup>
-import CardSectionComponent from '@/components/CardSectionComponent.vue';
+import CardSectionComponent from '@/components/util/CardSectionComponent.vue';
 </script>
 <template>
     <div>
+        <HeaderComponent></HeaderComponent>
         <CardSectionComponent
             :title="`Latest Articles`"
             :items="[1, 2, 3, 4]"
@@ -10,9 +11,7 @@ import CardSectionComponent from '@/components/CardSectionComponent.vue';
         <CardSectionComponent :title="`Podcasts`" :items="[1, 2, 3]"></CardSectionComponent>
 
         <section class="bg-white dark:bg-gray-900">
-            <div
-                class="container px-4 py-10 lg:py-16 mx-auto lg:flex lg:items-center lg:justify-between"
-            >
+            <div class="container px-4 py-10 lg:py-16 lg:flex lg:items-center lg:justify-between">
                 <h2
                     class="text-2xl font-semibold tracking-tight text-gray-800 xl:text-3xl dark:text-white"
                 >
