@@ -48,7 +48,7 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getAllPostsById(String id) {
+    public List<Post> getAllPostsByUserId(String id) {
         List<Post> posts = postDao.selectAllPostsByUserId(id);
         return posts;
     }

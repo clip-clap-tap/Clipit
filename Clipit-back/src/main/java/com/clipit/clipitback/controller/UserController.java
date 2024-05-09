@@ -95,7 +95,7 @@ public class UserController {
 	@Operation(summary="유저별 전체 포스트 목록 확인")
 	@GetMapping("/{id}/all-posts")
 	public ResponseEntity<?> getFavoriteOrWrittenPostsByUserId(String id){
-		List<Post> list = postService.getAllPostsById(id);
+		List<Post> list = postService.getAllPostsByUserId(id);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
