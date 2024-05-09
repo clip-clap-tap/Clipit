@@ -1,6 +1,6 @@
 <script setup>
-import { useLayoutStore } from '@/stores/counter.js';
-const { isOpen } = useLayoutStore();
+import { useUserStore } from '@/stores/UserCounter.js';
+const { isOpen } = useUserStore();
 </script>
 
 <template>
@@ -88,6 +88,13 @@ const { isOpen } = useLayoutStore();
                             class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
                             Random Item
+                        </RouterLink>
+
+                        <RouterLink
+                            :to="{ name: 'login' }"
+                            class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                        >
+                            로그인
                         </RouterLink>
                     </div>
                 </div>
