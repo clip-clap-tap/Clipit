@@ -1,7 +1,13 @@
+<script setup>
+defineProps({
+    visible: Boolean
+});
+</script>
+
 <template>
     <div class="card flex justify-content-center">
-        <Button label="Show" @click="visible = true" />
-        <Dialog v-model:visible="visible" header="Edit Profile" :style="{ width: '25rem' }">
+        <Dialog :visible="visible" header="Edit Profile" :style="{ width: '25rem' }">
+            <slot name="test"></slot>
             <span class="p-text-secondary block mb-5">Update your information.</span>
             <div class="flex align-items-center gap-3 mb-3">
                 <label for="username" class="font-semibold w-6rem">Username</label>
@@ -12,20 +18,14 @@
                 <InputText id="email" class="flex-auto" autocomplete="off" />
             </div>
             <div class="flex justify-content-end gap-2">
-                <Button
+                <!-- <Button
                     type="button"
                     label="Cancel"
                     severity="secondary"
                     @click="visible = false"
                 ></Button>
-                <Button type="button" label="Save" @click="visible = false"></Button>
+                <Button type="button" label="Save" @click="visible = false"></Button> -->
             </div>
         </Dialog>
     </div>
 </template>
-
-<script setup>
-import { ref } from 'vue';
-
-const visible = ref(false);
-</script>
