@@ -72,10 +72,10 @@ const { isOpen } = useLayoutStore();
                             Blog
                         </RouterLink>
                         <RouterLink
-                            :to="`/`"
+                            :to="{ name: `myPage` }"
                             class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                         >
-                            Join Slack
+                            MyPage
                         </RouterLink>
                         <RouterLink
                             :to="`/template`"

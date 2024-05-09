@@ -12,6 +12,12 @@
     @tailwind base;
 }
 
+@layer base {
+    :root {
+        --primary: '#3396F4';
+    }
+}
+
 @layer tailwind-utilities {
     @tailwind components;
     @tailwind utilities;
