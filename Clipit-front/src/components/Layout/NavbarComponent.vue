@@ -1,5 +1,5 @@
 <script setup>
-import { useLayoutStore } from '@/stores/counter.js';
+import { useLayoutStore } from '@/stores/LayoutStore.js';
 const store = useLayoutStore();
 </script>
 
@@ -15,7 +15,7 @@ const store = useLayoutStore();
                     <!-- </div> -->
 
                     <!-- Mobile menu button -->
-                    <div class="flex lg:hidden">
+                    <!-- <div class="flex lg:hidden">
                         <button
                             x-cloak
                             @click="isOpen = !isOpen"
@@ -55,7 +55,7 @@ const store = useLayoutStore();
                                 />
                             </svg>
                         </button>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
