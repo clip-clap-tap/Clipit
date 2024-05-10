@@ -1,11 +1,11 @@
 <script setup>
-import { useUserStore } from '@/stores/UserCounter.js';
-const { isOpen } = useUserStore();
+import { useLayoutStore } from '@/stores/counter.js';
+const store = useLayoutStore();
 </script>
 
 <template>
-    <nav x-data="{ isOpen: false }" class="relative bg-white dark:bg-gray-800">
-        <div class="container px-4 py-6 mx-auto max-w-7xl">
+    <nav class="relative bg-white dark:bg-gray-800 flex justify-center">
+        <div class="px-4 py-6 max-w-7xl w-full">
             <div class="lg:flex lg:items-center lg:justify-between">
                 <div class="flex items-center justify-between">
                     <!-- <div class="text-xl font-semibold text-gray-700"> -->
@@ -59,43 +59,43 @@ const { isOpen } = useUserStore();
                 </div>
 
                 <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
-                <div
-                    x-cloak
-                    :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']"
-                    class="absolute inset-x-0 z-20 w-full px-6 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:w-auto lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center"
-                >
-                    <div class="flex flex-col -mx-6 lg:flex-row lg:items-center">
-                        <RouterLink
-                            :to="`/`"
-                            class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 bg-gray-100 dark:bg-gray-700"
-                        >
-                            Blog
-                        </RouterLink>
-                        <RouterLink
-                            :to="`/`"
-                            class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                            Join Slack
-                        </RouterLink>
-                        <RouterLink
-                            :to="`/template`"
-                            class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                            Browse Topics
-                        </RouterLink>
-                        <RouterLink
-                            :to="`/test`"
-                            class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                            Random Item
-                        </RouterLink>
-
-                        <RouterLink
-                            :to="{ name: 'login' }"
-                            class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                        >
-                            로그인
-                        </RouterLink>
+                <!-- :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" -->
+                <div class="relative">
+                    <button class="px-6" @click="store.setIsOpen">ssafy님</button>
+                    <div
+                        x-cloak
+                        v-bind:visible="isOpen"
+                        :class="[
+                            store.isOpen ? 'translate-y-0 opacity-100 ' : 'opacity-0 -translate-y-0'
+                        ]"
+                        class="absolute top-10 right-0 z-20 px-2 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 rounded shadow"
+                    >
+                        <div class="flex flex-col items-center">
+                            <RouterLink
+                                :to="`/`"
+                                class="px-4 py-1.5 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 bg-gray-100 dark:bg-gray-700"
+                            >
+                                Blog
+                            </RouterLink>
+                            <RouterLink
+                                :to="{ name: `myPage` }"
+                                class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            >
+                                MyPage
+                            </RouterLink>
+                            <RouterLink
+                                :to="`/template`"
+                                class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            >
+                                Browse Topics
+                            </RouterLink>
+                            <RouterLink
+                                :to="`/test`"
+                                class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            >
+                                Random Item
+                            </RouterLink>
+                        </div>
                     </div>
                 </div>
             </div>

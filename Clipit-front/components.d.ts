@@ -7,20 +7,21 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AboutComponent: typeof import('./src/components/myPage/AboutComponent.vue')['default']
     Button: typeof import('primevue/button')['default']
     CardComponent: typeof import('./src/components/util/CardComponent.vue')['default']
     CardSectionComponent: typeof import('./src/components/util/CardSectionComponent.vue')['default']
-    FloatLabel: typeof import('primevue/floatlabel')['default']
     FooterComponent: typeof import('./src/components/Layout/FooterComponent.vue')['default']
     HeaderComponent: typeof import('./src/components/Layout/HeaderComponent.vue')['default']
-    InputText: typeof import('primevue/inputtext')['default']
     LoginComponent: typeof import('./src/components/LoginComponent.vue')['default']
+    ModalComponent: typeof import('./src/components/util/ModalComponent.vue')['default']
     NavbarComponent: typeof import('./src/components/Layout/NavbarComponent.vue')['default']
     PostCardComponent: typeof import('./src/components/util/PostCardComponent.vue')['default']
     ProfileComponent: typeof import('./src/components/ProfileComponent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SignUpComponent: typeof import('./src/components/SignUpComponent.vue')['default']
+    StaticComponent: typeof import('./src/components/myPage/StaticComponent.vue')['default']
     TagComponent: typeof import('./src/components/util/TagComponent.vue')['default']
   }
 }

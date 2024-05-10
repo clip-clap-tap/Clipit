@@ -5,6 +5,8 @@ export default {
     theme: {
         extend: {
             colors: {
+                'clip-primary': '#3396F4',
+
                 primary: 'rgb(var(--primary))',
                 'primary-inverse': 'rgb(var(--primary-inverse))',
                 'primary-hover': 'rgb(var(--primary-hover))',
@@ -43,4 +45,4 @@ export default {
         }
     },
     plugins: []
-}
+};
