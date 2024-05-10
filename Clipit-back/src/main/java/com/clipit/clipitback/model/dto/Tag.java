@@ -2,15 +2,13 @@ package com.clipit.clipitback.model.dto;
 
 public class Tag {
     private int id;
-    private String category;
     private String name;
 
     public Tag() {
     }
 
-    public Tag(int id, String category, String name) {
+    public Tag(int id, String name) {
         this.id = id;
-        this.category = category;
         this.name = name;
     }
 
@@ -22,13 +20,6 @@ public class Tag {
         this.id = id;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
 
     public String getName() {
         return name;
@@ -42,7 +33,6 @@ public class Tag {
     public String toString() {
         return "Tag{" +
                 "id=" + id +
-                ", category='" + category + '\'' +
                 ", name='" + name + '\'' +
                 '}';
     }

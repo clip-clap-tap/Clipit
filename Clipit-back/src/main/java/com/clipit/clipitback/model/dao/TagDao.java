@@ -5,15 +5,19 @@ import com.clipit.clipitback.model.dto.Tag;
 import java.util.List;
 
 public interface TagDao {
-	List<Tag> selectFavoriteTagsByUserId();
+    List<Tag> selectFavoriteTagsByUserId();
 
-	List<String> selectAllCategories();
+    List<Tag> selectTagsByName(String name);
 
-	List<Tag> selectTagsByCategory();
+    int insertUserFavoriteTag();
 
-	List<Tag> searchTag();
+    int deleteUserFavoriteTag();
 
-	int insertUserFavoriteTag();
+    int insertTag(Tag tag);
 
-	int deleteUserFavoriteTag();
+    int deleteTag();
+
+    int insertPostTag();
+
+    int deletePostTag();
 }
