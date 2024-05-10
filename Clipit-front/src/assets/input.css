@@ -23,6 +23,9 @@
     @tailwind utilities;
 }
 
+* {
+    scrollbar-width: none;
+}
 .title-word {
     animation: color-animation 4s linear infinite;
 }

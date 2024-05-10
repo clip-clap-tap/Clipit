@@ -2,8 +2,8 @@
 import CardSectionComponent from '@/components/util/CardSectionComponent.vue';
 </script>
 <template>
-    <div>
-        <HeaderComponent></HeaderComponent>
+    <HeaderComponent></HeaderComponent>
+    <div class="container">
         <CardSectionComponent
             :title="`Latest Articles`"
             :items="[1, 2, 3, 4]"

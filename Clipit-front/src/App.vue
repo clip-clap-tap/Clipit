@@ -10,7 +10,7 @@ export default {
 <template>
     <NavbarComponent></NavbarComponent>
     <div class="w-screen justify-center flex">
-        <div class="container min-h-[70vh] justify-center flex">
+        <div class="container min-h-[70vh] items-center flex-col flex">
             <RouterView></RouterView>
         </div>
     </div>
