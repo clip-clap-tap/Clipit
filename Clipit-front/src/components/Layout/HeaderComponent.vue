@@ -4,8 +4,8 @@ import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
 </script>
 <template>
-    <header class="h-[28rem] bg-gray-50">
-        <div class="container px-4 flex h-full py-6 items-center max-w-7xl">
+    <header class="h-[28rem] bg-gray-50 w-screen">
+        <div class="px-4 flex h-full py-6 items-center">
             <div class="flex items-center flex-col w-full">
                 <h2 class="text-7xl font-bold text-gray-800 uppercase">
                     <span class="title-word title-word-1">Clip </span>

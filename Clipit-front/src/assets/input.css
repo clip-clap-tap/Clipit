@@ -12,11 +12,20 @@
     @tailwind base;
 }
 
+@layer base {
+    :root {
+        --primary: '#3396F4';
+    }
+}
+
 @layer tailwind-utilities {
     @tailwind components;
     @tailwind utilities;
 }
 
+* {
+    scrollbar-width: none;
+}
 .title-word {
     animation: color-animation 4s linear infinite;
 }
