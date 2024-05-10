@@ -22,9 +22,26 @@ CREATE TABLE IF NOT EXISTS `video`
 CREATE TABLE IF NOT EXISTS `tag`
 (
     `id`       integer UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    `category` varchar(20)                NOT NULL,
-    `name`     varchar(20)                NOT NULL,
-    UNIQUE KEY (`category`, `name`)
+    `name`     varchar(20)       UNIQUE  NOT NULL
+    
+);
+
+CREATE TABLE IF NOT EXISTS `post_age_range`
+(
+	`post_id` integer,
+    `age_range` integer
+);
+
+CREATE TABLE IF NOT EXISTS `post_body_part`
+(
+	`post_id` integer,
+    `body_part` VARCHAR(20)
+);
+
+CREATE TABLE IF NOT EXISTS `post_strength`
+(
+	`post_id` integer,
+    `strength` integer
 );
 
 

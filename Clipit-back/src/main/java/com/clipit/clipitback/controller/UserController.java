@@ -45,8 +45,7 @@ public class UserController {
 
 	@Operation(summary="회원가입")
 	@PostMapping("/signup")
-	public ResponseEntity<?> signup(UserInfo userinfo){
-		
+	public ResponseEntity<?> signup(@RequestBody UserInfo userinfo){
 		int res = userService.signup(userinfo);
 		
 		return new ResponseEntity<>(res, res==1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
