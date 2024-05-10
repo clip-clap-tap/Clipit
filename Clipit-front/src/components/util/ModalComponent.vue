@@ -5,27 +5,15 @@ defineProps({
 </script>
 
 <template>
-    <div class="card flex justify-content-center">
-        <Dialog :visible="visible" header="Edit Profile" :style="{ width: '25rem' }">
-            <slot name="test"></slot>
-            <span class="p-text-secondary block mb-5">Update your information.</span>
-            <div class="flex align-items-center gap-3 mb-3">
-                <label for="username" class="font-semibold w-6rem">Username</label>
-                <InputText id="username" class="flex-auto" autocomplete="off" />
-            </div>
-            <div class="flex align-items-center gap-3 mb-5">
-                <label for="email" class="font-semibold w-6rem">Email</label>
-                <InputText id="email" class="flex-auto" autocomplete="off" />
-            </div>
-            <div class="flex justify-content-end gap-2">
-                <!-- <Button
-                    type="button"
-                    label="Cancel"
-                    severity="secondary"
-                    @click="visible = false"
-                ></Button>
-                <Button type="button" label="Save" @click="visible = false"></Button> -->
-            </div>
+    <div v-if="visible" class="fixed top-0 left-0 w-screen h-screen bg-black/10"></div>
+    <div class="card flex justify-center relative">
+        <Dialog :visible="visible" header="Edit Profile" class="w-fit py-8 px-5">
+            <template #container>
+                <div class="absolute right-1 top-1"><slot name="closeBtn"></slot></div>
+                <div class="flex align-items-center gap-3">
+                    <slot name="content"></slot>
+                </div>
+            </template>
         </Dialog>
     </div>
 </template>

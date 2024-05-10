@@ -8,7 +8,19 @@ const routes = [
     { path: '/', name: 'main', component: MainPage },
     { path: '/template', name: 'template', component: TemplatePage },
     { path: '/test', name: 'test', component: TestPage },
-    { path: '/myPage', name: 'myPage', component: MyPage }
+    { path: '/myPage', name: 'myPage', component: MyPage },
+    {
+        path: '/tag',
+        name: 'tagPage',
+        component: TestPage,
+        children: [
+            {
+                path: '/:name',
+                name: 'tagSearch',
+                component: TestPage
+            }
+        ]
+    }
 ];
 
 const router = createRouter({

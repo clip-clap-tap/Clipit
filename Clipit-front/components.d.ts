@@ -11,6 +11,7 @@ declare module 'vue' {
     Button: typeof import('primevue/button')['default']
     CardComponent: typeof import('./src/components/util/CardComponent.vue')['default']
     CardSectionComponent: typeof import('./src/components/util/CardSectionComponent.vue')['default']
+    Chip: typeof import('primevue/chip')['default']
     Dialog: typeof import('primevue/dialog')['default']
     FooterComponent: typeof import('./src/components/Layout/FooterComponent.vue')['default']
     HeaderComponent: typeof import('./src/components/Layout/HeaderComponent.vue')['default']
