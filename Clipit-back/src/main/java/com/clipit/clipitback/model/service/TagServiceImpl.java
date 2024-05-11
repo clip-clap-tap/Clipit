@@ -1,11 +1,13 @@
 package com.clipit.clipitback.model.service;
 
 import com.clipit.clipitback.model.dao.TagDao;
+import com.clipit.clipitback.model.dto.Post;
 import com.clipit.clipitback.model.dto.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class TagServiceImpl implements TagService {
@@ -48,8 +50,18 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public int addPostTag() {
-        return 0;
+    public void checkTagInfo(List<Tag> tags) {
+        for (Tag tag : tags) {
+            if (tag.getId() == 0) {
+                tagDao.insertTag(tag);
+            }
+        }
+        ;
+    }
+
+    @Override
+    public int addPostTag(Post post) {
+        return tagDao.insertPostTag(Map.of("postId", post.getId(), "tags", post.getTags()));
     }
 
     @Override

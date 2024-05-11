@@ -3,14 +3,21 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clipit.clipitback.model.dao.TagDao">
-    <insert id="insertTag" parameterType="Tag" useGeneratedKeys="true">
-        INSERT INTO tag(name)
-        VALUES (#{name});
+    <insert id="insertTag" parameterType="Tag" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        INSERT IGNORE INTO tag(name)
+        VALUES (#{name})
     </insert>
     <select id="selectTagsByName" parameterType="Tag">
         SELECT * FROM tag
         WHERE name LIKE concat('%',#{name}, '%');
     </select>
+    <insert id="insertPostTag" parameterType="Map">
+        INSERT INTO post_tag
+        VALUES
+        <foreach collection="tags" item="tag" separator=",">
+            (#{postId}, #{tag.id})
+        </foreach>
 
+    </insert>
 
 </mapper>
