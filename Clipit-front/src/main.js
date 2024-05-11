@@ -11,6 +11,7 @@ import FooterComponent from '@/components/Layout/FooterComponent.vue';
 
 import App from './App.vue';
 import router from './router';
+import { useLayoutStore } from './stores/LayoutStore';
 
 const app = createApp(App);
 
@@ -22,3 +23,8 @@ app.component('NavbarComponent', NavbarComponent);
 app.component('FooterComponent', FooterComponent);
 
 app.mount('#app');
+
+const layoutStore = useLayoutStore();
+router.beforeEach(() => {
+    layoutStore.setIsOpen(false);
+});
