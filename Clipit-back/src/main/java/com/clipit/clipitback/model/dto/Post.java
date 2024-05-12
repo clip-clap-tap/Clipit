@@ -1,5 +1,7 @@
 package com.clipit.clipitback.model.dto;
 
+import java.util.List;
+
 public class Post {
     private int id;
     private String title;
@@ -10,10 +12,13 @@ public class Post {
     private int viewCount;
     private String updateDate;
 
+    private List<Tag> tags;
+
+
     public Post() {
     }
 
-    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, int routineId, String updateDate) {
+    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, String updateDate, List<Tag> tags) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -22,7 +27,9 @@ public class Post {
         this.createDate = createDate;
         this.viewCount = viewCount;
         this.updateDate = updateDate;
+        this.tags = tags;
     }
+
 
     public int getId() {
         return id;
@@ -88,6 +95,14 @@ public class Post {
         this.updateDate = updateDate;
     }
 
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -99,6 +114,7 @@ public class Post {
                 ", createDate='" + createDate + '\'' +
                 ", viewCount=" + viewCount +
                 ", updateDate='" + updateDate + '\'' +
+                ", tags=" + tags +
                 '}';
     }
 }

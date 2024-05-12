@@ -1,4 +1,3 @@
-import { ref } from 'vue';
 import { defineStore } from 'pinia';
 import axios from 'axios';
 import router from '@/router';
@@ -6,11 +5,6 @@ import router from '@/router';
 const URL = `http://localhost:8080`;
 
 export const useUserStore = defineStore('user', () => {
-    const isOpen = ref(false);
-    const setIsOpen = () => {
-        isOpen.value = !isOpen.value;
-    };
-
     const login = function (user) {
         axios({
             url: `${URL}/users/login`,
@@ -32,8 +26,6 @@ export const useUserStore = defineStore('user', () => {
     };
 
     return {
-        isOpen,
-        setIsOpen,
         login,
         register
     };
