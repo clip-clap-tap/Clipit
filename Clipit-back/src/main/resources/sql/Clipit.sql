@@ -39,8 +39,8 @@ CREATE TABLE IF NOT EXISTS `post`
 CREATE TABLE IF NOT EXISTS `video`
 (
     `id`           varchar(20) UNIQUE PRIMARY KEY NOT NULL,
-    `title`        varchar(20),
-    `url`          varchar(20),
+    `title`        varchar(200),
+    `url`          varchar(100),
     `video_length` integer
 );
 

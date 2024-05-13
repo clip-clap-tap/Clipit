@@ -38,7 +38,7 @@
         LEFT JOIN post_tag on post.id = post_tag.post_id
         LEFT JOIN tag on post_tag.tag_id = tag.id
         LEFT JOIN post_video on post.id = post_video.post_id
-        LEFT JOIN video on post_video.video_id = video_id
+        LEFT JOIN video on post_video.video_id = video.id
         <where>
             <if test="title!=null">AND post.title LIKE concat('%',#{title},'%')</if>
         </where>
@@ -68,14 +68,15 @@
     <insert id="insertPost" parameterType="Post"
     >
         <selectKey keyProperty="id" resultType="int" order="BEFORE">
-            SELECT MAX(id)+1 FROM post;
+            select IFNULL(max(id), 0) + 1
+            FROM post;
         </selectKey>
         INSERT INTO post(title, description, writer_id, status)
         VALUES (#{title}, #{description}, #{writerId}, #{status});
-        INSERT INTO video(id, title, url, video_length)
+        INSERT INTO video(id, title, url)
         VALUES
         <foreach collection="videos" item="video" separator="," close=";">
-            (#{video.id}, #{video.title}, #{video.url}, #{video.videoLength})
+            (#{video.id}, #{video.title}, #{video.url})
         </foreach>
         INSERT INTO post_video(`post_id`, `video_id`, `index`)
         VALUES

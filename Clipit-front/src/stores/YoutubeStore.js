@@ -3,14 +3,14 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 
 export const useYoutubeStore = defineStore('youtube', () => {
+    const URL = 'https://www.googleapis.com/youtube/v3/search';
+    const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
     const videos = ref([]);
     const selectedVideos = ref([]);
     const nextToken = ref('');
 
     const youtubeSearch = function (keyword) {
         if (keyword.length == 0) return false;
-        const URL = 'https://www.googleapis.com/youtube/v3/search';
-        const API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
 
         axios({
             url: URL,
@@ -25,7 +25,7 @@ export const useYoutubeStore = defineStore('youtube', () => {
             }
         })
             .then((response) => {
-                // console.log(response.data, nextToken.value);
+                console.log(response.data, nextToken.value);
                 nextToken.value = response.data.nextPageToken;
                 response.data.items.forEach((item) => videos.value.push(item));
                 return true;
@@ -37,5 +37,26 @@ export const useYoutubeStore = defineStore('youtube', () => {
         videos.value = [];
     };
 
-    return { youtubeSearch, videos, selectedVideos, resetVideos };
+    const savePost = async () => {
+        const YOUTUBE_URL = 'https://www.youtube.com/';
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+        console.log({
+            title: '테스트',
+            videos: selectedVideos.value.map((video, i) => {
+                return { ...video, index: i };
+            })
+        });
+        await axios.post(`${REST_URL}/posts`, {
+            title: 'test',
+            videos: selectedVideos.value.map((video, i) => {
+                return {
+                    id: video.id.videoId,
+                    title: video.snippet.title,
+                    url: `${YOUTUBE_URL}/watch?v=${video.id.videoId}`,
+                    index: i
+                };
+            })
+        });
+    };
+    return { youtubeSearch, videos, selectedVideos, resetVideos, savePost };
 });

@@ -123,6 +123,7 @@ public class Post {
                 ", viewCount=" + viewCount +
                 ", updateDate='" + updateDate + '\'' +
                 ", tags=" + tags +
+                ", videos=" + videos +
                 '}';
     }
 }
