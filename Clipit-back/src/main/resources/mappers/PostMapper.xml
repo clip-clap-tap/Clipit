@@ -17,6 +17,13 @@
             <id property="id" column="tag_id"/>
             <result property="name" column="tag_name"/>
         </collection>
+        <collection property="videos" javaType="List" ofType="com.clipit.clipitback.model.dto.Video"
+                    notNullColumn="video_id">
+            <id property="id" column="video_id"/>
+            <result property="title" column="video_title"/>
+            <result property="url" column="video_url"/>
+            <result property="video_length" column="video_length"/>
+        </collection>
     </resultMap>
 
     <select id="searchPost" resultMap="postMap">
@@ -27,7 +34,7 @@
         LEFT JOIN post_tag on post.id = post_tag.post_id
         LEFT JOIN tag on post_tag.tag_id = tag.id
         <where>
-            <if test="title!=null">AND ppst.title LIKE concat('%',#{title},'%')</if>
+            <if test="title!=null">AND post.title LIKE concat('%',#{title},'%')</if>
         </where>
     </select>
     <select id="selectPostById" resultMap="postMap">
@@ -52,10 +59,7 @@
     <select id="selectVisitedPostsByUserId" resultMap="postMap">
 
     </select>
-    <insert id="insertPost" parameterType="Post" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
-        INSERT INTO post(title, description, writer_id, status)
-        VALUES (#{title}, #{description}, #{writerId}, #{status})
-    </insert>
+   
     <update id="updatePost" parameterType="Post">
         UPDATE post SET title = #{title}, description = #{description}, writer_id = #{writerId}, status = #{status}
         WHERE id = #{id}

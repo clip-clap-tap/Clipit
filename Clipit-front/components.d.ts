@@ -19,6 +19,7 @@ declare module 'vue' {
     LoginComponent: typeof import('./src/components/LoginComponent.vue')['default']
     ModalComponent: typeof import('./src/components/util/ModalComponent.vue')['default']
     NavbarComponent: typeof import('./src/components/Layout/NavbarComponent.vue')['default']
+    NewRoutineComponent: typeof import('./src/components/myRoutine/NewRoutineComponent.vue')['default']
     PostCardComponent: typeof import('./src/components/util/PostCardComponent.vue')['default']
     ProfileComponent: typeof import('./src/components/ProfileComponent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
@@ -26,5 +27,6 @@ declare module 'vue' {
     SignUpComponent: typeof import('./src/components/SignUpComponent.vue')['default']
     StaticComponent: typeof import('./src/components/myPage/StaticComponent.vue')['default']
     TagComponent: typeof import('./src/components/util/TagComponent.vue')['default']
+    VideoInfoComponent: typeof import('./src/components/util/VideoInfoComponent.vue')['default']
   }
 }

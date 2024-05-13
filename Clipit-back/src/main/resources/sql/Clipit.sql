@@ -11,40 +11,6 @@ CREATE TABLE IF NOT EXISTS `user_info`
     `status`     varchar(20)                             DEFAULT 'active'
 );
 
-CREATE TABLE IF NOT EXISTS `video`
-(
-    `id`           integer UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    `title`        varchar(20),
-    `url`          varchar(20),
-    `video_length` integer
-);
-
-CREATE TABLE IF NOT EXISTS `tag`
-(
-    `id`       integer UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    `name`     varchar(20)       UNIQUE  NOT NULL
-    
-);
-
-CREATE TABLE IF NOT EXISTS `post_age_range`
-(
-	`post_id` integer,
-    `age_range` integer
-);
-
-CREATE TABLE IF NOT EXISTS `post_body_part`
-(
-	`post_id` integer,
-    `body_part` VARCHAR(20)
-);
-
-CREATE TABLE IF NOT EXISTS `post_strength`
-(
-	`post_id` integer,
-    `strength` integer
-);
-
-
 CREATE TABLE IF NOT EXISTS `user_profile`
 (
     `id`     varchar(20) UNIQUE PRIMARY KEY NOT NULL,
@@ -55,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `user_profile`
     `goal`   text,
     CONSTRAINT FOREIGN KEY (`id`) REFERENCES `user_info` (`id`)
 );
+
 
 CREATE TABLE IF NOT EXISTS `post`
 (
@@ -68,6 +35,42 @@ CREATE TABLE IF NOT EXISTS `post`
     `updated_at`  timestamp                  not null default current_timestamp on update current_timestamp,
     CONSTRAINT FOREIGN KEY (`writer_id`) REFERENCES `user_info` (`id`)
 );
+
+CREATE TABLE IF NOT EXISTS `video`
+(
+    `id`           integer UNIQUE PRIMARY KEY NOT NULL,
+    `title`        varchar(20),
+    `url`          varchar(20),
+    `video_length` integer
+);
+
+CREATE TABLE IF NOT EXISTS `tag`
+(
+    `id`   integer UNIQUE PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    `name` varchar(20) UNIQUE         NOT NULL
+
+);
+
+CREATE TABLE IF NOT EXISTS `post_age_range`
+(
+    `post_id`   integer NOT NULL,
+    `age_range` integer,
+    PRIMARY KEY (`post_id`, `age_range`)
+);
+
+CREATE TABLE IF NOT EXISTS `post_body_part`
+(
+    `post_id`   integer NOT NULL,
+    `body_part` VARCHAR(20),
+    PRIMARY KEY (`post_id`, `body_part`)
+);
+
+CREATE TABLE IF NOT EXISTS `post_strength`
+(
+    `post_id`  integer UNIQUE PRIMARY KEY NOT NULL,
+    `strength` integer
+);
+
 
 CREATE TABLE IF NOT EXISTS `favorite_post`
 (
@@ -102,7 +105,6 @@ CREATE TABLE IF NOT EXISTS `post_video`
 (
     `post_id`  integer NOT NULL,
     `video_id` integer NOT NULL,
-    `title`    varchar(20),
     `index`    integer,
     PRIMARY KEY (`post_id`, `video_id`),
     CONSTRAINT FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
@@ -122,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `mark_video`
 CREATE TABLE IF NOT EXISTS `post_tag`
 (
     `post_id` integer NOT NULL,
-    `tag_id`   integer NOT NULL,
+    `tag_id`  integer NOT NULL,
     PRIMARY KEY (`post_id`, `tag_id`),
     CONSTRAINT FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
     CONSTRAINT FOREIGN KEY (`tag_id`) REFERENCES `tag` (`id`)
@@ -138,8 +140,3 @@ CREATE TABLE IF NOT EXISTS `comment`
     CONSTRAINT FOREIGN KEY (`writer_id`) REFERENCES `user_info` (`id`)
 );
 
-SHOW TABLES;
-
-UPDATE post
-SET status = 'private'
-WHERE id = 1;
