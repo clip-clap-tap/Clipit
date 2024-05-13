@@ -2,8 +2,7 @@
 import LoginComponent from '@/components/LoginComponent.vue';
 </script>
 <template>
-    <div>
-        <h1>로그인</h1>
+    <div class="h-full">
         <LoginComponent />
     </div>
 </template>
