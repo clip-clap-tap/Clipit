@@ -1,5 +1,5 @@
 <script setup>
-import { useLayoutStore } from '@/stores/LayoutStore.js';
+import { useLayoutStore } from '@/stores/LayoutStore';
 const store = useLayoutStore();
 </script>
 
@@ -64,7 +64,7 @@ const store = useLayoutStore();
                     <button class="px-6" @click="store.setIsOpen">ssafy님</button>
                     <div
                         x-cloak
-                        v-bind:visible="isOpen"
+                        v-bind:visible="store.isOpen"
                         :class="[
                             store.isOpen ? 'translate-y-0 opacity-100 ' : 'opacity-0 -translate-y-0'
                         ]"

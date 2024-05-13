@@ -4,6 +4,7 @@ import com.clipit.clipitback.model.dto.Comment;
 import com.clipit.clipitback.model.dto.Post;
 import com.clipit.clipitback.model.service.CommentService;
 import com.clipit.clipitback.model.service.PostService;
+import com.clipit.clipitback.model.service.TagService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +21,13 @@ import java.util.Map;
 public class PostController {
     private final PostService postService;
     private final CommentService commentService;
+    private final TagService tagService;
 
     @Autowired
-    PostController(PostService postService, CommentService commentService) {
+    PostController(PostService postService, CommentService commentService, TagService tagService) {
         this.postService = postService;
         this.commentService = commentService;
+        this.tagService = tagService;
     }
 
     @Operation(summary = "포스트 검색")
@@ -43,8 +46,11 @@ public class PostController {
 
     @Operation(summary = "포스트 등록")
     @PostMapping()
-    ResponseEntity<?> addPost(@RequestBody Post post) {
+    ResponseEntity<?> addPost(@RequestBody Post post, @SessionAttribute("userId") String userId) {
+        post.setWriterId(userId);
         int result = postService.addPost(post);
+        tagService.checkTagInfo(post.getTags());
+        tagService.addPostTag(post);
         if (result == 1) {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
@@ -107,4 +113,6 @@ public class PostController {
         int result = commentService.removeComment(id);
         return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.NO_CONTENT);
     }
+
+
 }
