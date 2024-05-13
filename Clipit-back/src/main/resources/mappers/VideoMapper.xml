@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.clipit.clipitback.model.dao.VideoDao">
+<!--    <select id="selectMarkedVideosByUserId" parameterType="String" resultType="MarkedVideo">-->
+<!--        SELECT * FROM mark_video-->
+<!--        WHERE user_id = #{id}-->
+<!--    </select>-->
+<!--    <insert id="insertMarkedVideo" parameterType="Video">-->
+<!--        INSERT INTO mark_video(user_id, video_id)-->
+<!--        VALUES (#{postId}, #{userId}, #{content})-->
+<!--    </insert>-->
+
+</mapper>

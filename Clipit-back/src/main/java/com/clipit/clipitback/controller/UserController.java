@@ -1,8 +1,8 @@
 package com.clipit.clipitback.controller;
 
-import com.clipit.clipitback.model.dto.Post;
-import com.clipit.clipitback.model.dto.UserProfile;
+import com.clipit.clipitback.model.dto.*;
 import com.clipit.clipitback.model.service.PostService;
+import com.clipit.clipitback.model.service.VideoService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +10,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.clipit.clipitback.model.dto.UserInfo;
 import com.clipit.clipitback.model.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/users")
 @RestController
@@ -21,12 +21,14 @@ public class UserController {
 	
 	private final UserService userService;
 	private final PostService postService;
+	private final VideoService videoService;
 
 	@Autowired
-	public UserController(UserService userService, PostService postService) {
+	public UserController(UserService userService, PostService postService, VideoService videoService) {
 
 		this.userService = userService;
 		this.postService = postService;
+		this.videoService = videoService;
 	}
 
 	@Operation(summary = "전체 회원정보 목록")
@@ -95,6 +97,30 @@ public class UserController {
 		List<Post> list = postService.getPostsByWriterId(id);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
+
+	@Operation(summary="최근 열람 포스트 목록 확인")
+	@GetMapping("/visited-posts")
+	public ResponseEntity<?> getVisitedPostsByUserId(@SessionAttribute("userId") String userId){
+		List<Post> list = postService.getVisitedPostsByUserId(userId);
+		System.out.println(list);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
+//	@Operation(summary="최근 열람 포스트 추가")
+//	@PostMapping("/{id}/visited-posts")
+//	public ResponseEntity<?> addVisitedPosts(@PathVariable("id") String id, @RequestBody Post post){
+//		int res = postService.addVisitedPosts(id);
+//		return new ResponseEntity<>(res, res==1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+//	}
+
+	@Operation(summary="마크한 영상 목록 확인")
+	@GetMapping("/{id}/marked-videos")
+	public ResponseEntity<?> getMarkedVideosByUserId(String id){
+		List<MarkedVideo> list = videoService.getMarkedVideosByUserId(id);
+		return new ResponseEntity<>(list, HttpStatus.OK);
+	}
+
+
 
 	@Operation(summary="유저별 전체 포스트 목록 확인")
 	@GetMapping("/{id}/all-posts")

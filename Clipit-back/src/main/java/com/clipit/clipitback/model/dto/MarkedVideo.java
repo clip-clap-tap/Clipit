@@ -10,8 +10,8 @@ public class MarkedVideo extends Video {
         this.markDate = markDate;
     }
 
-    public MarkedVideo(int id, String title, String url, int videoLength, String markDate, String markDate1) {
-        super(id, title, url, videoLength, markDate);
+    public MarkedVideo(String id, String title, String url, int videoLength, String markDate, int index, String markDate1) {
+        super(id, title, url, videoLength, markDate, index);
         this.markDate = markDate1;
     }
 

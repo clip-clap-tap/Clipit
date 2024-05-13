@@ -2,8 +2,7 @@ package com.clipit.clipitback.model.dto;
 
 public class Video {
 
-
-    private int id;
+    private String id;
     private String title;
     private String url;
     private int videoLength;
@@ -14,7 +13,7 @@ public class Video {
     public Video() {
     }
 
-    public Video(int id, String title, String url, int videoLength, String markDate, int index) {
+    public Video(String id, String title, String url, int videoLength, String markDate, int index) {
         this.id = id;
         this.title = title;
         this.url = url;
@@ -23,11 +22,11 @@ public class Video {
         this.index = index;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

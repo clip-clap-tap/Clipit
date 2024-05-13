@@ -22,7 +22,8 @@
             <id property="id" column="video_id"/>
             <result property="title" column="video_title"/>
             <result property="url" column="video_url"/>
-            <result property="video_length" column="video_length"/>
+            <result property="videoLength" column="video_length"/>
+            <result property="index" column="index"/>
         </collection>
     </resultMap>
 
@@ -30,9 +31,14 @@
         SELECT post.id, post.title,
         post.description, post.writer_id, post.status,
         post.created_at, post.view_count, post.updated_at,
-        tag.id as tag_id, tag.name as tag_name FROM post
+        tag.id as tag_id, tag.name as tag_name,
+        video.id as video_id, video.title as video_title, video.url as video_url, video_length,
+        post_video.index
+        FROM post
         LEFT JOIN post_tag on post.id = post_tag.post_id
         LEFT JOIN tag on post_tag.tag_id = tag.id
+        LEFT JOIN post_video on post.id = post_video.post_id
+        LEFT JOIN video on post_video.video_id = video.id
         <where>
             <if test="title!=null">AND post.title LIKE concat('%',#{title},'%')</if>
         </where>
@@ -59,7 +65,26 @@
     <select id="selectVisitedPostsByUserId" resultMap="postMap">
 
     </select>
-   
+    <insert id="insertPost" parameterType="Post"
+    >
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select IFNULL(max(id), 0) + 1
+            FROM post;
+        </selectKey>
+        INSERT INTO post(title, description, writer_id, status)
+        VALUES (#{title}, #{description}, #{writerId}, #{status});
+        INSERT INTO video(id, title, url)
+        VALUES
+        <foreach collection="videos" item="video" separator="," close=";">
+            (#{video.id}, #{video.title}, #{video.url})
+        </foreach>
+        INSERT INTO post_video(`post_id`, `video_id`, `index`)
+        VALUES
+        <foreach collection="videos" item="video" separator="," close=";">
+            (#{id}, #{video.id}, #{video.index})
+        </foreach>
+
+    </insert>
     <update id="updatePost" parameterType="Post">
         UPDATE post SET title = #{title}, description = #{description}, writer_id = #{writerId}, status = #{status}
         WHERE id = #{id}

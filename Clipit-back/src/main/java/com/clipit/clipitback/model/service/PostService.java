@@ -26,4 +26,6 @@ public interface PostService {
     int modifyPostStatus(int id, String status);
 
     int addFavoritePost(String userId, int postId);
+
+    int addVisitedPost(String userId, int postId);
 }

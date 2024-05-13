@@ -62,6 +62,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public int addPost(Post post) {
+        if (post.getStatus() == null) post.setStatus("public");
+        System.out.println(post);
         int result = postDao.insertPost(post);
         return result;
     }
@@ -81,6 +83,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public int addFavoritePost(String userId, int postId) {
         int result = postDao.insertFavoritePost(Map.of("userId", userId, "postId", postId));
+        return result;
+    }
+
+    @Override
+    public int addVisitedPost(String userId, int postId) {
+        int result = postDao.insertVisitedPost(Map.of("userId", userId, "postId", postId));
         return result;
     }
 }
