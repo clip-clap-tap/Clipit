@@ -3,7 +3,6 @@ import { onMounted } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
 
 const store = useUserStore();
-
 onMounted(() => {
     store.getProfile(store.loginUser.id);
 });
