@@ -15,7 +15,7 @@ public interface PostDao {
 
   List<Post> selectFavoritePostsByUserId(String id);
 
-  List<Post> selectVisitedPostsByUserId(String id);
+  List<Post> selectVisitedPostsByUserId(String userId);
 
   int insertPost(Post post);
 

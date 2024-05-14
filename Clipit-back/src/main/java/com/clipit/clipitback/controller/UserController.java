@@ -98,7 +98,7 @@ public class UserController {
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
-	@Operation(summary="최근 열람 포스트 목록 확인")
+	@Operation(summary="최근 방문 포스트 목록 확인")
 	@GetMapping("/visited-posts")
 	public ResponseEntity<?> getVisitedPostsByUserId(@SessionAttribute("userId") String userId){
 		List<Post> list = postService.getVisitedPostsByUserId(userId);
