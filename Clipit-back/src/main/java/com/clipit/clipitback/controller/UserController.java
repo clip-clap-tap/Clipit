@@ -40,6 +40,11 @@ public class UserController {
 	@GetMapping("/{id}/info")
 	public ResponseEntity<?> getUserInfo(@PathVariable("id") String id){
 		UserInfo userInfo = userService.getUserInfoById(id);
+
+		if(userInfo == null){
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
+
 		return new ResponseEntity<>(userInfo, HttpStatus.OK);
 	}
 
@@ -104,6 +109,9 @@ public class UserController {
 	public ResponseEntity<?> getProfile(@PathVariable("id") String id){
 		UserProfile userProfile = userService.getUserProfileById(id);
 
+		if(userProfile==null){
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		}
 		return new ResponseEntity<>(userProfile, HttpStatus.OK);
 	}
 
