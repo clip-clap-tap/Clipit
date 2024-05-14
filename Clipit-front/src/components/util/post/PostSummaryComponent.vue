@@ -18,29 +18,31 @@ const router = useRouter();
             alt=""
         />
         <div class="flex flex-col h-full w-full">
-            <div class="flex items-center justify-between mb-2">
-                <div>
-                    <span class="font-medium text-gray-700 dark:text-gray-300">
-                        {{ post.writerId }}
-                    </span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400 ml-2"
-                        >| {{ post.createDate }}</span
-                    >
-                </div>
+            <h1
+                class="my-1 text-xl font-semibold text-gray-800 dark:text-white truncate text-left shrink-0"
+            >
+                {{ post.title }}
+            </h1>
+            <div class="flex items-center">
+                <span class="font-medium text-sm text-gray-700 dark:text-gray-300">
+                    {{ post.writerId }}
+                </span>
+                <span class="text-sm text-gray-500 dark:text-gray-400 ml-2"
+                    >| {{ post.createDate }}</span
+                >
 
                 <!-- <span class="text-sky-500 uppercase tracking-wider">{{ tag }}</span> -->
             </div>
-            <h1 class="text-xl font-semibold text-gray-800 dark:text-white truncate text-left">
-                {{ post.title }}
-            </h1>
-            <p class="mt-2 text-gray-500 dark:text-gray-400 text-left grow">
+
+            <p class="mt-1 text-gray-500 dark:text-gray-400 text-left line-clamp-2 text-ellipsis">
                 {{ post.description }}
             </p>
+            <div class="grow"></div>
             <Chip
                 v-for="(tag, index) in post.tags"
                 :key="index"
                 class="text-sm bg-slate-100 w-fit"
-                :label="tag"
+                :label="tag.name"
             />
         </div>
     </button>

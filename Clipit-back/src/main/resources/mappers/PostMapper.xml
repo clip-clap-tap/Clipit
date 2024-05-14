@@ -45,13 +45,34 @@
             <if test="title!=null">AND post.title LIKE concat('%',#{title},'%')</if>
         </where>
     </select>
-    <select id="selectPostById" resultMap="postMap">
-        SELECT * FROM post
-        WHERE id = #{id}
+    <select id="selectPostById" parameterType="int" resultMap="postMap">
+        SELECT post.id, post.title,
+        post.description, post.writer_id, post.status,
+        post.created_at, post.view_count, post.updated_at,
+        tag.id as tag_id, tag.name as tag_name,
+        video.id as video_id, video.title as video_title, video.url as video_url, video_length,
+        post_video.index
+        FROM post
+        LEFT JOIN post_tag on post.id = post_tag.post_id
+        LEFT JOIN tag on post_tag.tag_id = tag.id
+        LEFT JOIN post_video on post.id = post_video.post_id
+        LEFT JOIN video on post_video.video_id = video.id
+        WHERE post.id = #{id}
     </select>
     <select id="selectPostsByWriterId" parameterType="String" resultMap="postMap">
-        SELECT * FROM post
-        WHERE writer_id = #{writerId}
+        SELECT post.id, post.title,
+        post.description, post.writer_id, post.status,
+        post.created_at, post.view_count, post.updated_at,
+        tag.id as tag_id, tag.name as tag_name,
+        video.id as video_id, video.title as video_title, video.url as video_url, video_length,
+        post_video.index
+        FROM post
+        LEFT JOIN post_tag on post.id = post_tag.post_id
+        LEFT JOIN tag on post_tag.tag_id = tag.id
+        LEFT JOIN post_video on post.id = post_video.post_id
+        LEFT JOIN video on post_video.video_id = video.id
+        WHERE post.writer_id = #{userId}
+
     </select>
 
     <select id="selectAllPostsByUserId" parameterType="String" resultMap="postMap">
