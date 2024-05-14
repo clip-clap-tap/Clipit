@@ -1,12 +1,19 @@
 <script setup>
 import NewRoutineComponent from '@/components/myRoutine/NewRoutineComponent.vue';
 import { useYoutubeStore } from '@/stores/YoutubeStore';
+import { useRouter } from 'vue-router';
 
 const store = useYoutubeStore();
+const router = useRouter();
+const handleSave = () => {
+    store.savePost();
+    store.resetVideos();
+    router.push({ name: 'myRoutine' });
+};
 </script>
 <template>
     <div>
-        <InputText class="w-full" placeholder="title"></InputText>
+        <InputText v-model="store.post.title" class="w-full" placeholder="title"></InputText>
         <div>
             <VideoInfoComponent
                 v-for="video in store.selectedVideos"
@@ -18,7 +25,8 @@ const store = useYoutubeStore();
                 </div> -->
         </div>
         <NewRoutineComponent></NewRoutineComponent>
-        <Button @click="store.savePost">저장</Button>
+        <Button @click="handleSave">저장</Button>
+        <Textarea v-model="store.post.description"></Textarea>
         <!-- <div>{{ store.videos }}</div> -->
     </div>
 </template>

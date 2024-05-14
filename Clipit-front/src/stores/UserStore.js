@@ -2,17 +2,23 @@ import { defineStore } from 'pinia';
 import axios from 'axios';
 import router from '@/router';
 import { ref } from 'vue';
+import { useCookies } from 'vue3-cookies';
 
 const URL = `http://localhost:8080/users`;
+axios.defaults.withCredentials = true;
 
 export const useUserStore = defineStore('user', () => {
+    const { cookies } = useCookies();
+
     const login = function (user) {
         axios({
             url: `${URL}/login`,
             method: 'POST',
             data: user
-        }).then(() => {
-            router.push({ name: 'main' });
+        }).then((res) => {
+            cookies.set('token', res.data);
+            cookies.set('user', JSON.parse(atob(res.data.split('.')[1]))['id']);
+            router.push({ name: 'main' }).then(() => router.go(0));
         });
     };
 
@@ -27,15 +33,13 @@ export const useUserStore = defineStore('user', () => {
         });
     };
 
-    const loginUser = ref({});
-
     const register = function (user) {
         axios({
             url: `${URL}/signup`,
             method: 'POST',
             data: user
         }).then(() => {
-            loginUser.value = user;
+            // loginUser.value = user;
             router.push({ name: 'profile' });
         });
     };
@@ -81,7 +85,7 @@ export const useUserStore = defineStore('user', () => {
         login,
         duplicateCheck,
         register,
-        loginUser,
+
         userProfile,
         getProfile,
         saveProfile
