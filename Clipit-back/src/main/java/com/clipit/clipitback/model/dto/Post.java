@@ -13,13 +13,15 @@ public class Post {
     private String updateDate;
     private String visitDate;
     private List<Tag> tags;
-
     private List<Video> videos;
+    private List<Integer> ageRange;
+    private List<String> bodyPart;
+    private String strength;
 
     public Post() {
     }
 
-    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, String updateDate, String visitDate, List<Tag> tags, List<Video> videos) {
+    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, String updateDate, String visitDate, List<Tag> tags, List<Video> videos, List<Integer> ageRange, List<String> bodyPart, String strength) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -31,6 +33,9 @@ public class Post {
         this.visitDate = visitDate;
         this.tags = tags;
         this.videos = videos;
+        this.ageRange = ageRange;
+        this.bodyPart = bodyPart;
+        this.strength = strength;
     }
 
     public int getId() {
@@ -121,6 +126,30 @@ public class Post {
         this.videos = videos;
     }
 
+    public List<Integer> getAgeRange() {
+        return ageRange;
+    }
+
+    public void setAgeRange(List<Integer> ageRange) {
+        this.ageRange = ageRange;
+    }
+
+    public List<String> getBodyPart() {
+        return bodyPart;
+    }
+
+    public void setBodyPart(List<String> bodyPart) {
+        this.bodyPart = bodyPart;
+    }
+
+    public String getStrength() {
+        return strength;
+    }
+
+    public void setStrength(String strength) {
+        this.strength = strength;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -135,6 +164,9 @@ public class Post {
                 ", visitDate='" + visitDate + '\'' +
                 ", tags=" + tags +
                 ", videos=" + videos +
+                ", ageRange=" + ageRange +
+                ", bodyPart=" + bodyPart +
+                ", strength='" + strength + '\'' +
                 '}';
     }
 }

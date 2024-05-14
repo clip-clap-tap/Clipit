@@ -30,4 +30,5 @@ public interface PostDao {
   List<Post> selectAllPostsByUserId(String id);
 
   int insertVisitedPost(Map<String,?> VisitedPostId);
+
 }
