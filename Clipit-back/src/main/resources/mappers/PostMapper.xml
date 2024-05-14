@@ -13,6 +13,7 @@
         <result property="createDate" column="created_at"/>
         <result property="updateDate" column="updated_at"/>
         <result property="visitDate" column="visited_at"/>
+        <result property="strength" column="strength"/>
         <collection property="tags" javaType="List" ofType="com.clipit.clipitback.model.dto.Tag"
                     notNullColumn="tag_id">
             <id property="id" column="tag_id"/>
@@ -26,6 +27,15 @@
             <result property="videoLength" column="video_length"/>
             <result property="index" column="index"/>
         </collection>
+        <collection property="ageRange" javaType="List" ofType="Integer"
+                    notNullColumn="age_range">
+            <result property="ageRange" column="age_range"/>
+        </collection>
+        <collection property="bodyPart" javaType="List" ofType="String"
+                    notNullColumn="body_part">
+            <result property="bodyPart" column="body_part"/>
+        </collection>
+
     </resultMap>
 
     <select id="searchPost" resultMap="postMap">
@@ -34,12 +44,18 @@
         post.created_at, post.view_count, post.updated_at,
         tag.id as tag_id, tag.name as tag_name,
         video.id as video_id, video.title as video_title, video.url as video_url, video_length,
-        post_video.index
+        post_video.index,
+        post_age_range.age_range,
+        post_body_part.body_part,
+        post_strength.strength
         FROM post
         LEFT JOIN post_tag on post.id = post_tag.post_id
         LEFT JOIN tag on post_tag.tag_id = tag.id
         LEFT JOIN post_video on post.id = post_video.post_id
         LEFT JOIN video on post_video.video_id = video.id
+        LEFT JOIN post_age_range on post.id=post_age_range.post_id
+        LEFT JOIN post_body_part on post.id=post_body_part.post_id
+        LEFT JOIN post_strength on post.id=post_strength.post_id
         WHERE post.status = 'public'
         <where>
             <if test="title!=null">AND post.title LIKE concat('%',#{title},'%')</if>
@@ -94,13 +110,19 @@
         tag.id as tag_id, tag.name as tag_name,
         video.id as video_id, video.title as video_title, video.url as video_url, video_length,
         post_video.index,
-        visited_post.visited_at
+        visited_post.visited_at,
+        post_age_range.age_range,
+        post_body_part.body_part,
+        post_strength.strength
         FROM post
         LEFT JOIN visited_post on post.id = visited_post.post_id
         LEFT JOIN post_tag on post.id = post_tag.post_id
         LEFT JOIN tag on post_tag.tag_id = tag.id
         LEFT JOIN post_video on post.id = post_video.post_id
         LEFT JOIN video on post_video.video_id = video.id
+        LEFT JOIN post_age_range on post.id=post_age_range.post_id
+        LEFT JOIN post_body_part on post.id=post_body_part.post_id
+        LEFT JOIN post_strength on post.id=post_strength.post_id
         WHERE visited_post.user_id=#{userId}
     </select>
 
@@ -123,7 +145,21 @@
             (#{id}, #{video.id}, #{video.index})
         </foreach>
 
+        INSERT INTO post_age_range(`post_id`, `age_range`)
+        VALUES
+        <foreach collection="ageRange" item="age" separator="," close=";">
+            (#{id}, #{age})
+        </foreach>
+        INSERT INTO post_body_part(`post_id`, `body_part`)
+        VALUES
+        <foreach collection="bodyPart" item="bpart" separator="," close=";">
+            (#{id}, #{bpart})
+        </foreach>
+        INSERT INTO post_strength
+        VALUES (#{id}, #{strength});
+
     </insert>
+
     <update id="updatePost" parameterType="Post">
         UPDATE post SET title = #{title}, description = #{description}, writer_id = #{writerId}, status = #{status}
         WHERE id = #{id}
@@ -136,6 +172,11 @@
         INSERT INTO favorite_post
         VALUES (#{userId}, #{postId})
     </insert>
+
+    <delete id="deleteFavoritePost" parameterType="Map">
+        DELETE FROM favorite_post
+        WHERE user_id=#{userId} AND post_id=#{postId}
+    </delete>
 
     <insert id="insertVisitedPost" parameterType="Map">
         INSERT INTO visited_post(user_id, post_id)

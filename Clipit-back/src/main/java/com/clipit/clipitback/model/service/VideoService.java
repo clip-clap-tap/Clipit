@@ -8,9 +8,9 @@ import java.util.Map;
 
 public interface VideoService {
 
-    int addMarkedVideo(Map<String, String> map);
+    int addMarkedVideo(String userId, String id);
 
     List<MarkedVideo> getMarkedVideosByUserId(String id);
 
-    Video getVideoById(String id);
+
 }

@@ -25,7 +25,10 @@ public interface PostDao {
 
   int insertFavoritePost(Map<String, ?> favoritePostInfo);
 
+  int deleteFavoritePost(Map<String, ?> favoritePostInfo);
+
   List<Post> selectAllPostsByUserId(String id);
 
   int insertVisitedPost(Map<String,?> VisitedPostId);
+
 }

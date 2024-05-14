@@ -115,7 +115,7 @@ CREATE TABLE IF NOT EXISTS `mark_video`
 (
     `user_id`     varchar(20) NOT NULL,
     `video_id`    varchar(20) NOT NULL,
-    `marked_date` timestamp default current_timestamp,
+    `marked_at` timestamp default current_timestamp,
     PRIMARY KEY (`user_id`, `video_id`),
     CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`),
     CONSTRAINT FOREIGN KEY (`video_id`) REFERENCES `video` (`id`)

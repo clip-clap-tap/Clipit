@@ -22,6 +22,9 @@ public class Video {
         this.index = index;
     }
 
+    public String getVideoId() { return id;}
+    public void setVideoId(String id) { this.id = id;}
+
     public String getId() {
         return id;
     }

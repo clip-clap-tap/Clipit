@@ -8,7 +8,7 @@ import java.util.Map;
 
 public interface VideoDao {
 
-	int insertMarkedVideo(Map<String, String> map);
+	int insertMarkedVideo(Map<String, String> markedVideoInfo);
 
 	List<MarkedVideo> selectMarkedVideosByUserId(String id);
 
