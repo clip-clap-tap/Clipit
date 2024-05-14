@@ -1,10 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import TemplatePage from '@/views/TemplatePage.vue';
-import TestPage from '@/views/TestPage.vue';
+import SearchPage from '@/views/SearchPage.vue';
 import MainPage from '@/views/MainPage.vue';
 import MyPage from '@/views/MyPage.vue';
 import MyRoutine from '@/views/myRoutine/MyRoutine.vue';
 import NewPost from '@/views/myRoutine/NewPost.vue';
+import PostDetailPage from '@/views/PostDetailPage.vue';
 import LoginView from '@/views/LoginView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import ProfileView from '@/views/ProfileView.vue';
@@ -12,7 +13,8 @@ import ProfileView from '@/views/ProfileView.vue';
 const routes = [
     { path: '/', name: 'main', component: MainPage },
     { path: '/template', name: 'template', component: TemplatePage },
-    { path: '/test', name: 'test', component: TestPage },
+    { path: '/search', name: 'search', component: SearchPage },
+    { path: '/post/:id', name: 'postDetail', component: PostDetailPage },
     { path: '/myPage', name: 'myPage', component: MyPage },
     { path: '/login', name: 'login', component: LoginView },
     { path: '/signup', name: 'signup', component: SignUpView },
@@ -22,19 +24,7 @@ const routes = [
         name: 'myRoutine',
         component: MyRoutine
     },
-    { path: '/new', name: 'newPost', component: NewPost },
-    {
-        path: '/tag',
-        name: 'tagPage',
-        component: TestPage,
-        children: [
-            {
-                path: '/:name',
-                name: 'tagSearch',
-                component: TestPage
-            }
-        ]
-    }
+    { path: '/new', name: 'newPost', component: NewPost }
 ];
 
 const router = createRouter({

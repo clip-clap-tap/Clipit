@@ -28,7 +28,6 @@ const handleSearch = () => {
 };
 
 const handleSave = () => {
-    console.log(store.selectedVideos.value);
     handleClose();
 };
 </script>

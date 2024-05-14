@@ -38,9 +38,9 @@ CREATE TABLE IF NOT EXISTS `post`
 
 CREATE TABLE IF NOT EXISTS `video`
 (
-    `id`           integer UNIQUE PRIMARY KEY NOT NULL,
-    `title`        varchar(20),
-    `url`          varchar(20),
+    `id`           varchar(20) UNIQUE PRIMARY KEY NOT NULL,
+    `title`        varchar(200),
+    `url`          varchar(100),
     `video_length` integer
 );
 
@@ -103,8 +103,8 @@ CREATE TABLE IF NOT EXISTS `visited_post`
 
 CREATE TABLE IF NOT EXISTS `post_video`
 (
-    `post_id`  integer NOT NULL,
-    `video_id` integer NOT NULL,
+    `post_id`  integer     NOT NULL,
+    `video_id` varchar(20) NOT NULL,
     `index`    integer,
     PRIMARY KEY (`post_id`, `video_id`),
     CONSTRAINT FOREIGN KEY (`post_id`) REFERENCES `post` (`id`),
@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `post_video`
 CREATE TABLE IF NOT EXISTS `mark_video`
 (
     `user_id`     varchar(20) NOT NULL,
-    `video_id`    integer     NOT NULL,
+    `video_id`    varchar(20) NOT NULL,
     `marked_date` timestamp default current_timestamp,
     PRIMARY KEY (`user_id`, `video_id`),
     CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`),

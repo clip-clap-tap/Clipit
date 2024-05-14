@@ -18,6 +18,7 @@ const store = useYoutubeStore();
                 </div> -->
         </div>
         <NewRoutineComponent></NewRoutineComponent>
+        <Button @click="store.savePost">저장</Button>
         <!-- <div>{{ store.videos }}</div> -->
     </div>
 </template>
