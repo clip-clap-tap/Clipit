@@ -3,6 +3,7 @@ package com.clipit.clipitback.controller;
 import com.clipit.clipitback.model.dto.Comment;
 import com.clipit.clipitback.model.dto.Post;
 import com.clipit.clipitback.model.service.CommentService;
+import com.clipit.clipitback.model.service.JWTService;
 import com.clipit.clipitback.model.service.PostService;
 import com.clipit.clipitback.model.service.TagService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -22,12 +23,14 @@ public class PostController {
     private final PostService postService;
     private final CommentService commentService;
     private final TagService tagService;
+    private final JWTService jwtService;
 
     @Autowired
-    PostController(PostService postService, CommentService commentService, TagService tagService) {
+    PostController(PostService postService, CommentService commentService, TagService tagService, JWTService jwtService) {
         this.postService = postService;
         this.commentService = commentService;
         this.tagService = tagService;
+        this.jwtService = jwtService;
     }
 
     @Operation(summary = "포스트 검색")
@@ -37,17 +40,25 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
+    @Operation(summary = "id로 포스트 검색")
+    @GetMapping("/{id}")
+    ResponseEntity<?> getPostById(@PathVariable("id") int id) {
+        Post post = postService.getPostById(id);
+        return new ResponseEntity<>(post, HttpStatus.OK);
+    }
+
     @Operation(summary = "전체 포스트 목록")
     @GetMapping()
-    ResponseEntity<?> getAllPosts() {
+    ResponseEntity<?> getAllPosts(@CookieValue("token") String token) {
         List<Post> posts = postService.getAllPosts();
+        jwtService.validate(token);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
     @Operation(summary = "포스트 등록")
     @PostMapping()
-    ResponseEntity<?> addPost(@RequestBody Post post, @SessionAttribute("userId") String userId) {
-        post.setWriterId(userId);
+    ResponseEntity<?> addPost(@RequestBody Post post, @CookieValue("token") String token) {
+        post.setWriterId(jwtService.getUserIdFromToken(token));
         int result = postService.addPost(post);
         if (post.getTags() != null && !post.getTags().isEmpty()) {
             tagService.checkTagInfo(post.getTags());
@@ -79,8 +90,8 @@ public class PostController {
 
     @Operation(summary = "포스트 찜하기")
     @PutMapping("/{id}/favorite")
-    ResponseEntity<?> addFavoritePost(@PathVariable("id") int postId, @SessionAttribute(name = "userId") String userId) {
-        int result = postService.addFavoritePost(userId, postId);
+    ResponseEntity<?> addFavoritePost(@PathVariable("id") int postId, @CookieValue("token") String token) {
+        int result = postService.addFavoritePost(jwtService.getUserIdFromToken(token), postId);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -93,16 +104,16 @@ public class PostController {
 
     @Operation(summary = "포스트 방문기록 추가")
     @PostMapping("/{id}/visited-posts")
-    ResponseEntity<?> addVisitedPost(@PathVariable("id") int postId, @SessionAttribute(name = "userId") String userId) {
+    ResponseEntity<?> addVisitedPost(@PathVariable("id") int postId, @CookieValue("token") String token) {
 
-        int result = postService.addVisitedPost(userId, postId);
+        int result = postService.addVisitedPost(jwtService.getUserIdFromToken(token), postId);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @Operation(summary = "포스트에 댓글 추가")
     @PostMapping("/{id}/comment")
-    ResponseEntity<?> addPostComment(@PathVariable("id") int postId, @SessionAttribute("userId") String userId, @RequestBody Comment comment) {
-        int result = commentService.addComment(postId, userId, comment);
+    ResponseEntity<?> addPostComment(@PathVariable("id") int postId, @CookieValue("token") String token, @RequestBody Comment comment) {
+        int result = commentService.addComment(postId, jwtService.getUserIdFromToken(token), comment);
         return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.CREATED);
     }
 

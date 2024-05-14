@@ -8,7 +8,7 @@ export const useYoutubeStore = defineStore('youtube', () => {
     const videos = ref([]);
     const selectedVideos = ref([]);
     const nextToken = ref('');
-    const post = { title: '', desc: '' };
+    const post = ref({ title: '', desc: '' });
 
     const youtubeSearch = function (keyword) {
         if (keyword.length == 0) return false;
@@ -23,10 +23,10 @@ export const useYoutubeStore = defineStore('youtube', () => {
                 q: keyword,
                 type: 'video',
                 pageToken: nextToken.value
-            }
+            },
+            withCredentials: false
         })
             .then((response) => {
-                console.log(response.data, nextToken.value);
                 nextToken.value = response.data.nextPageToken;
                 response.data.items.forEach((item) => videos.value.push(item));
                 return true;
@@ -41,14 +41,8 @@ export const useYoutubeStore = defineStore('youtube', () => {
     const savePost = async () => {
         const YOUTUBE_URL = 'https://www.youtube.com/';
         const REST_URL = import.meta.env.VITE_REST_API_URL;
-        console.log({
-            title: '테스트',
-            videos: selectedVideos.value.map((video, i) => {
-                return { ...video, index: i };
-            })
-        });
         await axios.post(`${REST_URL}/posts`, {
-            ...post,
+            ...post.value,
             videos: selectedVideos.value.map((video, i) => {
                 return {
                     id: video.id.videoId,

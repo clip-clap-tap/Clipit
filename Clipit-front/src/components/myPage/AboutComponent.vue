@@ -20,7 +20,6 @@ const addTag = () => {
 };
 
 const handleSubmit = () => {
-    console.log(newTags.value);
     newTag.value = '';
     tags.value = newTags.value;
     setVisible();
