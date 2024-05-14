@@ -11,7 +11,7 @@ public class Post {
     private String createDate;
     private int viewCount;
     private String updateDate;
-    private String visitedDate;
+    private String visitDate;
     private List<Tag> tags;
 
     private List<Video> videos;
@@ -28,7 +28,7 @@ public class Post {
         this.createDate = createDate;
         this.viewCount = viewCount;
         this.updateDate = updateDate;
-        this.visitedDate = visitedDate;
+        this.visitDate = visitedDate;
         this.tags = tags;
         this.videos = videos;
     }
@@ -124,7 +124,7 @@ public class Post {
                 ", createDate='" + createDate + '\'' +
                 ", viewCount=" + viewCount +
                 ", updateDate='" + updateDate + '\'' +
-                ", visitedDate='" + visitedDate + '\'' +
+                ", visitedDate='" + visitDate + '\'' +
                 ", tags=" + tags +
                 ", videos=" + videos +
                 '}';

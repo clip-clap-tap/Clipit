@@ -1,80 +1,86 @@
 package com.clipit.clipitback.model.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Service;
-
 import com.clipit.clipitback.model.dao.UserInfoDao;
 import com.clipit.clipitback.model.dao.UserProfileDao;
 import com.clipit.clipitback.model.dto.UserInfo;
 import com.clipit.clipitback.model.dto.UserProfile;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-	private final UserInfoDao userInfoDao;
-	private final UserProfileDao userProfileDao;
+    private final UserInfoDao userInfoDao;
+    private final UserProfileDao userProfileDao;
+    private final JWTService jwtService;
 
-	@Autowired
-	public UserServiceImpl(@Qualifier("userInfoDao") UserInfoDao userInfoDao, @Qualifier("userProfileDao") UserProfileDao userProfileDao) {
-	    this.userInfoDao = userInfoDao;
-	    this.userProfileDao = userProfileDao;
-	}
+    @Autowired
+    public UserServiceImpl(@Qualifier("userInfoDao") UserInfoDao userInfoDao, @Qualifier("userProfileDao") UserProfileDao userProfileDao, JWTService jwtService) {
+        this.userInfoDao = userInfoDao;
+        this.userProfileDao = userProfileDao;
+        this.jwtService = jwtService;
+    }
 
-	
-	@Override
-	public int signup(UserInfo userInfo) {
 
-		return userInfoDao.signup(userInfo);
-	}
+    @Override
+    public int signup(UserInfo userInfo) {
 
-	@Override
-	public UserInfo login(String id, String password) {
-		return null;
-	}
+        return userInfoDao.signup(userInfo);
+    }
 
-	@Override
-	public UserInfo getUserInfoById(String id) {
+    @Override
+    public String login(UserInfo userInfo) {
+        UserInfo target = getUserInfoById(userInfo.getId());
+        String token = null;
+        if (target.getPassword().equals(userInfo.getPassword())) {
+            token = jwtService.createToken(userInfo);
+        }
+        return token;
+    }
 
-		return userInfoDao.selectUserInfoById(id);
-	}
+    @Override
+    public UserInfo getUserInfoById(String id) {
 
-	@Override
-	public List<UserInfo> getUserInfoList() {
+        return userInfoDao.selectUserInfoById(id);
+    }
 
-		return userInfoDao.selectAllUsers();
-	}
+    @Override
+    public List<UserInfo> getUserInfoList() {
 
-	@Override
-	public int modifyUserInfo(UserInfo userInfo) {
+        return userInfoDao.selectAllUsers();
+    }
 
-		return userInfoDao.updateUser(userInfo);
-	}
+    @Override
+    public int modifyUserInfo(UserInfo userInfo) {
 
-	@Override
-	public int inactivate(String id) {
+        return userInfoDao.updateUser(userInfo);
+    }
 
-		return userInfoDao.resign(id);
-	}
-	
-	@Override
-	public UserProfile getUserProfileById(String id) {
+    @Override
+    public int inactivate(String id) {
 
-		return userProfileDao.selectUserProfile(id);
-	}
+        return userInfoDao.resign(id);
+    }
 
-	@Override
-	public int modifyUserProfile(UserProfile userProfile) {
+    @Override
+    public UserProfile getUserProfileById(String id) {
 
-		return userProfileDao.updateUserProfile(userProfile);
-	}
+        return userProfileDao.selectUserProfile(id);
+    }
 
-	@Override
-	public int registUserProfile(UserProfile userProfile) {
-		return userProfileDao.insertUserProfile(userProfile);
-	}
+    @Override
+    public int modifyUserProfile(UserProfile userProfile) {
+
+        return userProfileDao.updateUserProfile(userProfile);
+    }
+
+    @Override
+    public int registUserProfile(UserProfile userProfile) {
+        return userProfileDao.insertUserProfile(userProfile);
+    }
 
 
 }
