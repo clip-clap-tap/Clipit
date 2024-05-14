@@ -28,4 +28,6 @@ public interface PostService {
     int addFavoritePost(String userId, int postId);
 
     int addVisitedPost(String userId, int postId);
+
+    int cancelFavoritePost(String userId, int postId);
 }

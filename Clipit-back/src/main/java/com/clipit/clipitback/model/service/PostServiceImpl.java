@@ -90,4 +90,11 @@ public class PostServiceImpl implements PostService {
         int result = postDao.insertVisitedPost(Map.of("userId", userId, "postId", postId));
         return result;
     }
+
+    @Override
+    public int cancelFavoritePost(String userId, int postId) {
+        int result = postDao.deleteFavoritePost(Map.of("userId", userId, "postId", postId));
+        return result;
+    }
+
 }

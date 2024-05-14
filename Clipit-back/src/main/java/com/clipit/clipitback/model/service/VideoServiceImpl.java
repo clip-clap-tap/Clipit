@@ -20,8 +20,8 @@ public class VideoServiceImpl implements VideoService{
     }
 
     @Override
-    public int addMarkedVideo(Map<String, String> map) {
-        return videoDao.insertMarkedVideo(map);
+    public int addMarkedVideo(String userId, String id) {
+        return videoDao.insertMarkedVideo(Map.of("userId", userId, "id", id));
     }
 
     @Override
@@ -29,8 +29,4 @@ public class VideoServiceImpl implements VideoService{
         return videoDao.selectMarkedVideosByUserId(id);
     }
 
-    @Override
-    public Video getVideoById(String id) {
-        return videoDao.selectVideoById(id);
-    }
 }

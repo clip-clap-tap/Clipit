@@ -116,6 +116,11 @@
         VALUES (#{userId}, #{postId})
     </insert>
 
+    <delete id="deleteFavoritePost" parameterType="Map">
+        DELETE FROM favorite_post
+        WHERE user_id=#{userId} AND post_id=#{postId}
+    </delete>
+
     <insert id="insertVisitedPost" parameterType="Map">
         INSERT INTO visited_post(user_id, post_id)
         VALUES (#{userId}, #{postId})

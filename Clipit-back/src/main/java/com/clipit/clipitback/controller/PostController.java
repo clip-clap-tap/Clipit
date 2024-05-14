@@ -84,6 +84,13 @@ public class PostController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @Operation(summary = "포스트 찜하기 취소")
+    @DeleteMapping("/{id}/favorite")
+    ResponseEntity<?> cancelFavoritePost(@PathVariable("id") int postId, @SessionAttribute(name = "userId") String userId) {
+        int result = postService.cancelFavoritePost(userId, postId);
+        return new ResponseEntity<>(result, HttpStatus.NO_CONTENT);
+    }
+
     @Operation(summary = "포스트 방문기록 추가")
     @PostMapping("/{id}/visited-posts")
     ResponseEntity<?> addVisitedPost(@PathVariable("id") int postId, @SessionAttribute(name = "userId") String userId) {
