@@ -11,6 +11,7 @@ public class Post {
     private String createDate;
     private int viewCount;
     private String updateDate;
+    private String visitedDate;
     private List<Tag> tags;
 
     private List<Video> videos;
@@ -18,7 +19,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, String updateDate, List<Tag> tags, List<Video> videos) {
+    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, String updateDate, String visitedDate, List<Tag> tags, List<Video> videos) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -27,6 +28,7 @@ public class Post {
         this.createDate = createDate;
         this.viewCount = viewCount;
         this.updateDate = updateDate;
+        this.visitedDate = visitedDate;
         this.tags = tags;
         this.videos = videos;
     }
@@ -122,6 +124,7 @@ public class Post {
                 ", createDate='" + createDate + '\'' +
                 ", viewCount=" + viewCount +
                 ", updateDate='" + updateDate + '\'' +
+                ", visitedDate='" + visitedDate + '\'' +
                 ", tags=" + tags +
                 ", videos=" + videos +
                 '}';

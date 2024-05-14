@@ -17,7 +17,7 @@ public interface PostService {
 
     List<Post> getAllPostsByUserId(String id);
 
-    List<Post> getVisitedPostsByUserId(String id);
+    List<Post> getVisitedPostsByUserId(String userId);
 
     int modifyPost(Post post);
 
@@ -26,4 +26,6 @@ public interface PostService {
     int modifyPostStatus(int id, String status);
 
     int addFavoritePost(String userId, int postId);
+
+    int addVisitedPost(String userId, int postId);
 }

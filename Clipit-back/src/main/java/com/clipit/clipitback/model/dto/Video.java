@@ -2,7 +2,6 @@ package com.clipit.clipitback.model.dto;
 
 public class Video {
 
-
     private String id;
     private String title;
     private String url;

@@ -2,6 +2,7 @@ package com.clipit.clipitback.model.dao;
 
 import com.clipit.clipitback.model.dto.Post;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ public interface PostDao {
 
   List<Post> selectFavoritePostsByUserId(String id);
 
-  List<Post> selectVisitedPostsByUserId(String id);
+  List<Post> selectVisitedPostsByUserId(String userId);
 
   int insertPost(Post post);
 
@@ -25,4 +26,6 @@ public interface PostDao {
   int insertFavoritePost(Map<String, ?> favoritePostInfo);
 
   List<Post> selectAllPostsByUserId(String id);
+
+  int insertVisitedPost(Map<String,?> VisitedPostId);
 }

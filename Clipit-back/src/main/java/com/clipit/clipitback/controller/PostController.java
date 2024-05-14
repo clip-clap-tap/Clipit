@@ -84,6 +84,14 @@ public class PostController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @Operation(summary = "포스트 방문기록 추가")
+    @PostMapping("/{id}/visited-posts")
+    ResponseEntity<?> addVisitedPost(@PathVariable("id") int postId, @SessionAttribute(name = "userId") String userId) {
+
+        int result = postService.addVisitedPost(userId, postId);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
+
     @Operation(summary = "포스트에 댓글 추가")
     @PostMapping("/{id}/comment")
     ResponseEntity<?> addPostComment(@PathVariable("id") int postId, @SessionAttribute("userId") String userId, @RequestBody Comment comment) {

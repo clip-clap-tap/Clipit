@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `favorite_tag`
 
 CREATE TABLE IF NOT EXISTS `visited_post`
 (
-    `id`           integer PRIMARY KEY,
+    `id`           integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `user_id`      varchar(20),
     `post_id`      integer,
     `visited_at` timestamp default current_timestamp,

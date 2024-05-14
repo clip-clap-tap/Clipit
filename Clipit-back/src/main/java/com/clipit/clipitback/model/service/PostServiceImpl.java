@@ -54,8 +54,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> getVisitedPostsByUserId(String id) {
-        List<Post> posts = postDao.selectVisitedPostsByUserId(id);
+    public List<Post> getVisitedPostsByUserId(String userId) {
+        List<Post> posts = postDao.selectVisitedPostsByUserId(userId);
         return posts;
     }
 
@@ -82,6 +82,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public int addFavoritePost(String userId, int postId) {
         int result = postDao.insertFavoritePost(Map.of("userId", userId, "postId", postId));
+        return result;
+    }
+
+    @Override
+    public int addVisitedPost(String userId, int postId) {
+        int result = postDao.insertVisitedPost(Map.of("userId", userId, "postId", postId));
         return result;
     }
 }

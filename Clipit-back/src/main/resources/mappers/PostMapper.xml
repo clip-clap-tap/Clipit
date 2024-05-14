@@ -39,6 +39,7 @@
         LEFT JOIN tag on post_tag.tag_id = tag.id
         LEFT JOIN post_video on post.id = post_video.post_id
         LEFT JOIN video on post_video.video_id = video.id
+        WHERE post.status = 'public'
         <where>
             <if test="title!=null">AND post.title LIKE concat('%',#{title},'%')</if>
         </where>
@@ -62,9 +63,45 @@
         SELECT * FROM post
         WHERE id in (SELECT post_id FROM favorite_post WHERE user_id=#{id})
     </select>
-    <select id="selectVisitedPostsByUserId" resultMap="postMap">
 
+    <select id="selectVisitedPostsByUserId" parameterType="String" resultMap="postMap">
+        SELECT post.id, post.title,
+        post.description, post.writer_id, post.status,
+        post.created_at, post.view_count, post.updated_at,
+        tag.id as tag_id, tag.name as tag_name,
+        tag.id as tag_id, tag.name as tag_name,
+        video.id as video_id, video.title as video_title, video.url as video_url, video_length,
+        post_video.index,
+        visited_post.visited_at
+        FROM post
+        LEFT JOIN visited_post on post.id = visited_post.post_id
+        LEFT JOIN post_tag on post.id = post_tag.post_id
+        LEFT JOIN tag on post_tag.tag_id = tag.id
+        LEFT JOIN post_video on post.id = post_video.post_id
+        LEFT JOIN video on post_video.video_id = video.id
+        WHERE visited_post.user_id=#{userId}
     </select>
+
+    <insert id="insertPost" parameterType="Post"
+    >
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select IFNULL(max(id), 0) + 1
+            FROM post;
+        </selectKey>
+        INSERT INTO post(title, description, writer_id, status)
+        VALUES (#{title}, #{description}, #{writerId}, #{status});
+        INSERT INTO video(id, title, url)
+        VALUES
+        <foreach collection="videos" item="video" separator="," close=";">
+            (#{video.id}, #{video.title}, #{video.url})
+        </foreach>
+        INSERT INTO post_video(`post_id`, `video_id`, `index`)
+        VALUES
+        <foreach collection="videos" item="video" separator="," close=";">
+            (#{id}, #{video.id}, #{video.index})
+        </foreach>
+
+    </insert>
     <insert id="insertPost" parameterType="Post"
     >
         <selectKey keyProperty="id" resultType="int" order="BEFORE">
@@ -95,6 +132,11 @@
     </update>
     <insert id="insertFavoritePost" parameterType="Map">
         INSERT INTO favorite_post
+        VALUES (#{userId}, #{postId})
+    </insert>
+
+    <insert id="insertVisitedPost" parameterType="Map">
+        INSERT INTO visited_post(user_id, post_id)
         VALUES (#{userId}, #{postId})
     </insert>
 </mapper>
