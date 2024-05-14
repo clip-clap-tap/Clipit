@@ -8,6 +8,7 @@ export const useYoutubeStore = defineStore('youtube', () => {
     const videos = ref([]);
     const selectedVideos = ref([]);
     const nextToken = ref('');
+    const post = { title: '', desc: '' };
 
     const youtubeSearch = function (keyword) {
         if (keyword.length == 0) return false;
@@ -47,7 +48,7 @@ export const useYoutubeStore = defineStore('youtube', () => {
             })
         });
         await axios.post(`${REST_URL}/posts`, {
-            title: 'test',
+            ...post,
             videos: selectedVideos.value.map((video, i) => {
                 return {
                     id: video.id.videoId,
@@ -58,5 +59,5 @@ export const useYoutubeStore = defineStore('youtube', () => {
             })
         });
     };
-    return { youtubeSearch, videos, selectedVideos, resetVideos, savePost };
+    return { youtubeSearch, videos, selectedVideos, resetVideos, savePost, post };
 });

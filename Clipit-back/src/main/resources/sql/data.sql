@@ -103,6 +103,8 @@ from user_profile;
 INSERT INTO video(id, title, url, video_length)
 VALUES ("uuief", "tidjflksjf", "http://sdfhsf", 33);
 
+select IFNULL(max(id), 0) + 1
+FROM post;
 
 select *
 from video;

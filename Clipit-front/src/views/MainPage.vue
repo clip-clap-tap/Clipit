@@ -1,14 +1,14 @@
 <script setup>
-import CardSectionComponent from '@/components/util/CardSectionComponent.vue';
+import PostCardSectionComponent from '@/components/util/post/PostCardSectionComponent.vue';
 </script>
 <template>
     <HeaderComponent></HeaderComponent>
     <div class="container">
-        <CardSectionComponent
+        <PostCardSectionComponent
             :title="`Latest Articles`"
             :items="[1, 2, 3, 4]"
-        ></CardSectionComponent>
-        <CardSectionComponent :title="`Podcasts`" :items="[1, 2, 3]"></CardSectionComponent>
+        ></PostCardSectionComponent>
+        <PostCardSectionComponent :title="`Podcasts`" :items="[1, 2, 3]"></PostCardSectionComponent>
 
         <section class="bg-white dark:bg-gray-900">
             <div class="container px-4 py-10 lg:py-16 lg:flex lg:items-center lg:justify-between">
@@ -40,7 +40,5 @@ import CardSectionComponent from '@/components/util/CardSectionComponent.vue';
                 </div>
             </div>
         </section>
-
-        <CardSectionComponent :title="`Most Popular`" :items="[1, 2]"></CardSectionComponent>
     </div>
 </template>

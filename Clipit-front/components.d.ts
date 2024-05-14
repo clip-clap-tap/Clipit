@@ -9,8 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     AboutComponent: typeof import('./src/components/myPage/AboutComponent.vue')['default']
     Button: typeof import('primevue/button')['default']
-    CardComponent: typeof import('./src/components/util/CardComponent.vue')['default']
-    CardSectionComponent: typeof import('./src/components/util/CardSectionComponent.vue')['default']
     Chip: typeof import('primevue/chip')['default']
     Dialog: typeof import('primevue/dialog')['default']
     FooterComponent: typeof import('./src/components/Layout/FooterComponent.vue')['default']
@@ -20,13 +18,16 @@ declare module 'vue' {
     ModalComponent: typeof import('./src/components/util/ModalComponent.vue')['default']
     NavbarComponent: typeof import('./src/components/Layout/NavbarComponent.vue')['default']
     NewRoutineComponent: typeof import('./src/components/myRoutine/NewRoutineComponent.vue')['default']
-    PostCardComponent: typeof import('./src/components/util/PostCardComponent.vue')['default']
+    PostCardComponent: typeof import('./src/components/util/post/PostCardComponent.vue')['default']
+    PostCardSectionComponent: typeof import('./src/components/util/post/PostCardSectionComponent.vue')['default']
+    PostSummaryComponent: typeof import('./src/components/util/post/PostSummaryComponent.vue')['default']
     ProfileComponent: typeof import('./src/components/ProfileComponent.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SignUpComponent: typeof import('./src/components/SignUpComponent.vue')['default']
     StaticComponent: typeof import('./src/components/myPage/StaticComponent.vue')['default']
     TagComponent: typeof import('./src/components/util/TagComponent.vue')['default']
+    Textarea: typeof import('primevue/textarea')['default']
     VideoInfoComponent: typeof import('./src/components/util/VideoInfoComponent.vue')['default']
   }
 }
