@@ -12,6 +12,7 @@
         <result property="viewCount" column="view_count"/>
         <result property="createDate" column="created_at"/>
         <result property="updateDate" column="updated_at"/>
+        <result property="visitDate" column="visited_at"/>
         <collection property="tags" javaType="List" ofType="com.clipit.clipitback.model.dto.Tag"
                     notNullColumn="tag_id">
             <id property="id" column="tag_id"/>
