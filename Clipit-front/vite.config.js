@@ -7,12 +7,7 @@ import { PrimeVueResolver } from 'unplugin-vue-components/resolvers';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-    plugins: [
-        vue(),
-        Components({
-            resolvers: [PrimeVueResolver()]
-        })
-    ],
+    plugins: [vue(), Components({ dirs: ['src/components/*'], resolvers: [PrimeVueResolver()] })],
     resolve: {
         alias: {
             '@': fileURLToPath(new URL('./src', import.meta.url))

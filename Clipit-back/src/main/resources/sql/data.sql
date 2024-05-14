@@ -80,8 +80,8 @@ VALUES ('Delectus quia explic',
        ('Et aut sequi quaerat',
         'Ut eaque voluptatibus sint repellendus. Est temporibus omnis corporis alias cum nemo. Provident nulla ex nesciunt voluptatem soluta tempora. Nobis tempore quasi et consequatur ex mollitia.',
         'zgyf73'),
-        ('test', 'test', 'tester');
-        
+       ('test', 'test', 'tester');
+
 INSERT INTO `user_profile`
 VALUES ('airf33', 'F', 155, 45, 20, '주3운동'),
        ('bfyq36', 'M', 160, 50, 22, '하루에30분씩 유산소'),
@@ -94,6 +94,20 @@ VALUES ('airf33', 'F', 155, 45, 20, '주3운동'),
 select *
 from post;
 
-select * from user_info;
+select *
+from user_info;
 
-select * from user_profile;
+select *
+from user_profile;
+
+INSERT INTO video(id, title, url, video_length)
+VALUES ("uuief", "tidjflksjf", "http://sdfhsf", 33);
+
+select IFNULL(max(id), 0) + 1
+FROM post;
+
+select *
+from video;
+
+select *
+from post_video;

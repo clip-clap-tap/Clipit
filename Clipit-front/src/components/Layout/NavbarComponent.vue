@@ -6,7 +6,7 @@ const store = useLayoutStore();
 <template>
     <nav class="relative bg-white dark:bg-gray-800 flex justify-center">
         <div class="px-4 py-6 max-w-7xl w-full">
-            <div class="lg:flex lg:items-center lg:justify-between">
+            <div class="flex items-center justify-between">
                 <div class="flex items-center justify-between">
                     <!-- <div class="text-xl font-semibold text-gray-700"> -->
                     <RouterLink :to="`/`">
@@ -84,16 +84,16 @@ const store = useLayoutStore();
                                 MyPage
                             </RouterLink>
                             <RouterLink
-                                :to="`/template`"
+                                :to="{ name: `myRoutine` }"
                                 class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                             >
-                                Browse Topics
+                                MyRoutines
                             </RouterLink>
                             <RouterLink
-                                :to="`/test`"
+                                :to="`/search`"
                                 class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                             >
-                                Random Item
+                                Search(임시)
                             </RouterLink>
                         </div>
                     </div>

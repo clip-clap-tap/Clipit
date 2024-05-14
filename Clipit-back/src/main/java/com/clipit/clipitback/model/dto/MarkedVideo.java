@@ -10,10 +10,6 @@ public class MarkedVideo extends Video {
         this.markDate = markDate;
     }
 
-    public MarkedVideo(int id, String title, String url, int videoLength, String markDate, String markDate1) {
-        super(id, title, url, videoLength, markDate);
-        this.markDate = markDate1;
-    }
 
     @Override
     public String getMarkDate() {

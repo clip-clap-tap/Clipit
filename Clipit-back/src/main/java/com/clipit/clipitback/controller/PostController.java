@@ -49,12 +49,11 @@ public class PostController {
     ResponseEntity<?> addPost(@RequestBody Post post, @SessionAttribute("userId") String userId) {
         post.setWriterId(userId);
         int result = postService.addPost(post);
-        tagService.checkTagInfo(post.getTags());
-        tagService.addPostTag(post);
-        if (result == 1) {
-            return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
+        if (post.getTags() != null && !post.getTags().isEmpty()) {
+            tagService.checkTagInfo(post.getTags());
+            tagService.addPostTag(post);
         }
-        return new ResponseEntity<>(result, HttpStatus.CREATED);
+        return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.CREATED);
     }
 
     @Operation(summary = "포스트 수정")

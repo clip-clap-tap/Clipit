@@ -11,14 +11,14 @@ public class Post {
     private String createDate;
     private int viewCount;
     private String updateDate;
-
     private List<Tag> tags;
 
+    private List<Video> videos;
 
     public Post() {
     }
 
-    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, String updateDate, List<Tag> tags) {
+    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, String updateDate, List<Tag> tags, List<Video> videos) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -28,8 +28,8 @@ public class Post {
         this.viewCount = viewCount;
         this.updateDate = updateDate;
         this.tags = tags;
+        this.videos = videos;
     }
-
 
     public int getId() {
         return id;
@@ -103,6 +103,14 @@ public class Post {
         this.tags = tags;
     }
 
+    public List<Video> getVideos() {
+        return videos;
+    }
+
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
+    }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -115,6 +123,7 @@ public class Post {
                 ", viewCount=" + viewCount +
                 ", updateDate='" + updateDate + '\'' +
                 ", tags=" + tags +
+                ", videos=" + videos +
                 '}';
     }
 }
