@@ -39,6 +39,7 @@
         LEFT JOIN tag on post_tag.tag_id = tag.id
         LEFT JOIN post_video on post.id = post_video.post_id
         LEFT JOIN video on post_video.video_id = video.id
+        WHERE post.status = 'public'
         <where>
             <if test="title!=null">AND post.title LIKE concat('%',#{title},'%')</if>
         </where>
