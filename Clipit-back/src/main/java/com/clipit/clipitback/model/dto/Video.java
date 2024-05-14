@@ -6,19 +6,19 @@ public class Video {
     private String title;
     private String url;
     private int videoLength;
-    private String markDate;
+
 
     private int index;
 
     public Video() {
     }
 
-    public Video(String id, String title, String url, int videoLength, String markDate, int index) {
+    public Video(String id, String title, String url, int videoLength, int index) {
         this.id = id;
         this.title = title;
         this.url = url;
         this.videoLength = videoLength;
-        this.markDate = markDate;
+
         this.index = index;
     }
 
@@ -54,13 +54,7 @@ public class Video {
         this.videoLength = videoLength;
     }
 
-    public String getMarkDate() {
-        return markDate;
-    }
 
-    public void setMarkDate(String markDate) {
-        this.markDate = markDate;
-    }
 
     public int getIndex() {
         return index;
@@ -76,8 +70,7 @@ public class Video {
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", url='" + url + '\'' +
-                ", videoLength=" + videoLength +
-                ", markDate='" + markDate + '\'' +
+                ", videoLength=" + videoLength + '\'' +
                 '}';
     }
 }
