@@ -102,16 +102,9 @@ public class UserController {
 	@GetMapping("/visited-posts")
 	public ResponseEntity<?> getVisitedPostsByUserId(@SessionAttribute("userId") String userId){
 		List<Post> list = postService.getVisitedPostsByUserId(userId);
-		System.out.println(list);
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 
-//	@Operation(summary="최근 열람 포스트 추가")
-//	@PostMapping("/{id}/visited-posts")
-//	public ResponseEntity<?> addVisitedPosts(@PathVariable("id") String id, @RequestBody Post post){
-//		int res = postService.addVisitedPosts(id);
-//		return new ResponseEntity<>(res, res==1? HttpStatus.OK : HttpStatus.BAD_REQUEST);
-//	}
 
 	@Operation(summary="마크한 영상 목록 확인")
 	@GetMapping("/{id}/marked-videos")

@@ -10,13 +10,15 @@ public class MarkedVideo extends Video {
         this.markDate = markDate;
     }
 
+    public MarkedVideo(String id, String title, String url, int videoLength, int index, String markDate) {
+        super(id, title, url, videoLength, index);
+        this.markDate = markDate;
+    }
 
-    @Override
     public String getMarkDate() {
         return markDate;
     }
 
-    @Override
     public void setMarkDate(String markDate) {
         this.markDate = markDate;
     }
