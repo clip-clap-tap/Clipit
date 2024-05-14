@@ -40,6 +40,7 @@
         LEFT JOIN tag on post_tag.tag_id = tag.id
         LEFT JOIN post_video on post.id = post_video.post_id
         LEFT JOIN video on post_video.video_id = video.id
+        WHERE post.status = 'public'
         <where>
             <if test="title!=null">AND post.title LIKE concat('%',#{title},'%')</if>
         </where>
@@ -82,6 +83,26 @@
         WHERE visited_post.user_id=#{userId}
     </select>
 
+    <insert id="insertPost" parameterType="Post"
+    >
+        <selectKey keyProperty="id" resultType="int" order="BEFORE">
+            select IFNULL(max(id), 0) + 1
+            FROM post;
+        </selectKey>
+        INSERT INTO post(title, description, writer_id, status)
+        VALUES (#{title}, #{description}, #{writerId}, #{status});
+        INSERT INTO video(id, title, url)
+        VALUES
+        <foreach collection="videos" item="video" separator="," close=";">
+            (#{video.id}, #{video.title}, #{video.url})
+        </foreach>
+        INSERT INTO post_video(`post_id`, `video_id`, `index`)
+        VALUES
+        <foreach collection="videos" item="video" separator="," close=";">
+            (#{id}, #{video.id}, #{video.index})
+        </foreach>
+
+    </insert>
     <insert id="insertPost" parameterType="Post"
     >
         <selectKey keyProperty="id" resultType="int" order="BEFORE">

@@ -2,13 +2,17 @@ package com.clipit.clipitback.model.dto;
 
 public class Comment {
     private int id;
+    private int postId;
+    private String writerId;
     private String content;
 
     public Comment() {
     }
 
-    public Comment(int id, String content) {
+    public Comment(int id, int postId, String writerId, String content) {
         this.id = id;
+        this.postId = postId;
+        this.writerId = writerId;
         this.content = content;
     }
 
@@ -28,10 +32,28 @@ public class Comment {
         this.content = content;
     }
 
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
+    }
+
+    public String getWriterId() {
+        return writerId;
+    }
+
+    public void setWriterId(String writerId) {
+        this.writerId = writerId;
+    }
+
     @Override
     public String toString() {
         return "Comment{" +
                 "id=" + id +
+                ", postId=" + postId +
+                ", writerId=" + writerId +
                 ", content='" + content + '\'' +
                 '}';
     }

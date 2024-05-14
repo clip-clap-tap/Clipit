@@ -63,7 +63,6 @@ public class PostServiceImpl implements PostService {
     @Override
     public int addPost(Post post) {
         if (post.getStatus() == null) post.setStatus("public");
-        System.out.println(post);
         int result = postDao.insertPost(post);
         return result;
     }
