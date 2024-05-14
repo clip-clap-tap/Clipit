@@ -85,12 +85,7 @@ VALUES ('e9a3a153-d423-3cf3-a', 'corporis', NULL, NULL, 24,
 INSERT INTO `user_profile` (`id`, `gender`, `height`, `weight`, `age`, `goal`)
 VALUES ('f86537c6-215c-3ef1-9', 'et', NULL, NULL, 17, 'Earum error enim quia ducimus eum.');
 INSERT INTO `user_profile`
-VALUES ('airf33', 'F', 155, 45, 20, '주3운동'),
-       ('bfyq36', 'M', 160, 50, 22, '하루에30분씩 유산소'),
-       ('bngz87', 'F', 165, 55, 24, '홈트 전문가가 될래요'),
-       ('cfgz29', 'F', 170, 60, 26, '55kg 목표!!'),
-       ('dnjf38', 'M', 175, 65, 28, '안 맞던 옷 입기'),
-       ('admin', 'F', 100, 100, 100, '자신감 갖기!'),
+VALUES ('admin', 'F', 100, 100, 100, '자신감 갖기!'),
        ('tester', 'M', 200, 200, 200, '습관 만들기');
 
 INSERT INTO `post`(`title`, `description`, `writer_id`)
