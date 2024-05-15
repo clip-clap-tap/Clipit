@@ -1,6 +1,7 @@
 package com.clipit.clipitback.model.service;
 
 import com.clipit.clipitback.model.dto.MarkedVideo;
+import com.clipit.clipitback.model.dto.Tag;
 import com.clipit.clipitback.model.dto.Video;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface VideoService {
 
     List<MarkedVideo> getMarkedVideosByUserId(String id);
 
-
+    void checkVideoInfo(List<Video> videos);
 }

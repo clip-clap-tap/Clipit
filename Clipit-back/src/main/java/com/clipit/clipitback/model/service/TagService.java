@@ -6,7 +6,7 @@ import com.clipit.clipitback.model.dto.Tag;
 import java.util.List;
 
 public interface TagService {
-    List<Tag> getTagsByName(String name);
+    Tag getTagByName(String name);
 
     int addTag(Tag tag);
 

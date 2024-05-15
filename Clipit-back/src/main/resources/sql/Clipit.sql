@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `post_body_part`
 CREATE TABLE IF NOT EXISTS `post_strength`
 (
     `post_id`  integer UNIQUE PRIMARY KEY NOT NULL,
-    `strength` integer
+    `strength` VARCHAR(20)
 );
 
 

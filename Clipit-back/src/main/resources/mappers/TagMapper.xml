@@ -7,17 +7,9 @@
         INSERT IGNORE INTO tag(name)
         VALUES (#{name})
     </insert>
-    <select id="selectTagsByName" parameterType="Tag">
+    <select id="selectTagByName" parameterType="Tag">
         SELECT * FROM tag
         WHERE name LIKE concat('%',#{name}, '%');
     </select>
-    <insert id="insertPostTag" parameterType="Map">
-        INSERT INTO post_tag
-        VALUES
-        <foreach collection="tags" item="tag" separator=",">
-            (#{postId}, #{tag.id})
-        </foreach>
-
-    </insert>
 
 </mapper>
