@@ -2,10 +2,7 @@ package com.clipit.clipitback.controller;
 
 import com.clipit.clipitback.model.dto.Comment;
 import com.clipit.clipitback.model.dto.Post;
-import com.clipit.clipitback.model.service.CommentService;
-import com.clipit.clipitback.model.service.JWTService;
-import com.clipit.clipitback.model.service.PostService;
-import com.clipit.clipitback.model.service.TagService;
+import com.clipit.clipitback.model.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,18 +22,22 @@ public class PostController {
     private final TagService tagService;
     private final JWTService jwtService;
 
+    private final PostSearchService postSearchService;
+
     @Autowired
-    PostController(PostService postService, CommentService commentService, TagService tagService, JWTService jwtService) {
+    PostController(PostService postService, CommentService commentService, TagService tagService, JWTService jwtService, PostSearchService postSearchService) {
         this.postService = postService;
         this.commentService = commentService;
         this.tagService = tagService;
         this.jwtService = jwtService;
+        this.postSearchService = postSearchService;
     }
 
     @Operation(summary = "포스트 검색")
     @GetMapping("/search")
-    ResponseEntity<?> searchPost() {
-        List<Post> posts = postService.searchPostsByCondition();
+    ResponseEntity<?> searchPost(@RequestParam(name = "title", required = false) String title) {
+//        List<Post> posts = postService.searchPostsByCondition();
+        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTitle(title);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
