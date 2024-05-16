@@ -20,6 +20,7 @@ public class PostController {
     private final PostService postService;
     private final CommentService commentService;
     private final TagService tagService;
+    private final VideoService videoService;
     private final JWTService jwtService;
 
     private final PostSearchService postSearchService;
@@ -29,6 +30,7 @@ public class PostController {
         this.postService = postService;
         this.commentService = commentService;
         this.tagService = tagService;
+        this.videoService = videoService;
         this.jwtService = jwtService;
         this.postSearchService = postSearchService;
     }
@@ -36,7 +38,6 @@ public class PostController {
     @Operation(summary = "포스트 검색")
     @GetMapping("/search")
     ResponseEntity<?> searchPost(@RequestParam(name = "title", required = false) String title) {
-//        List<Post> posts = postService.searchPostsByCondition();
         List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTitle(title);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
@@ -60,11 +61,14 @@ public class PostController {
     @PostMapping()
     ResponseEntity<?> addPost(@RequestBody Post post, @CookieValue("token") String token) {
         post.setWriterId(jwtService.getUserIdFromToken(token));
-        int result = postService.addPost(post);
         if (post.getTags() != null && !post.getTags().isEmpty()) {
             tagService.checkTagInfo(post.getTags());
-            tagService.addPostTag(post);
         }
+        
+        if (post.getVideos() != null && !post.getVideos().isEmpty()) {
+            videoService.checkVideoInfo(post.getVideos());
+        }
+        int result = postService.addPost(post);
         postSearchService.insertPost(post);
         return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.CREATED);
     }
