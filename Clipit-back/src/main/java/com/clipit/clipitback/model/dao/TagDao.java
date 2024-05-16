@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface TagDao {
-    List<Tag> selectTagsByName(String name);
+    Tag selectTagByName(String name);
 
     int insertTag(Tag tag);
 

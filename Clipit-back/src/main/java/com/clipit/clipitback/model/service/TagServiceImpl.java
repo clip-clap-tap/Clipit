@@ -24,9 +24,9 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public List<Tag> getTagsByName(String name) {
-        List<Tag> tags = tagDao.selectTagsByName(name);
-        return tags;
+    public Tag getTagByName(String name) {
+        Tag tag = tagDao.selectTagByName(name);
+        return tag;
     }
 
     @Override
@@ -52,9 +52,11 @@ public class TagServiceImpl implements TagService {
     @Override
     public void checkTagInfo(List<Tag> tags) {
         for (Tag tag : tags) {
-            if (tag.getId() == 0) {
+
+            if(tagDao.selectTagByName(tag.getName())==null){
                 tagDao.insertTag(tag);
             }
+
         }
         ;
     }

@@ -2,10 +2,7 @@ package com.clipit.clipitback.controller;
 
 import com.clipit.clipitback.model.dto.Comment;
 import com.clipit.clipitback.model.dto.Post;
-import com.clipit.clipitback.model.service.CommentService;
-import com.clipit.clipitback.model.service.JWTService;
-import com.clipit.clipitback.model.service.PostService;
-import com.clipit.clipitback.model.service.TagService;
+import com.clipit.clipitback.model.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,13 +20,15 @@ public class PostController {
     private final PostService postService;
     private final CommentService commentService;
     private final TagService tagService;
+    private final VideoService videoService;
     private final JWTService jwtService;
 
     @Autowired
-    PostController(PostService postService, CommentService commentService, TagService tagService, JWTService jwtService) {
+    PostController(PostService postService, CommentService commentService, TagService tagService, VideoService videoService, JWTService jwtService) {
         this.postService = postService;
         this.commentService = commentService;
         this.tagService = tagService;
+        this.videoService = videoService;
         this.jwtService = jwtService;
     }
 
@@ -59,11 +58,15 @@ public class PostController {
     @PostMapping()
     ResponseEntity<?> addPost(@RequestBody Post post, @CookieValue("token") String token) {
         post.setWriterId(jwtService.getUserIdFromToken(token));
-        int result = postService.addPost(post);
+
         if (post.getTags() != null && !post.getTags().isEmpty()) {
             tagService.checkTagInfo(post.getTags());
-            tagService.addPostTag(post);
         }
+        if (post.getVideos() != null && !post.getVideos().isEmpty()) {
+            videoService.checkVideoInfo(post.getVideos());
+        }
+        int result = postService.addPost(post);
+
         return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.CREATED);
     }
 

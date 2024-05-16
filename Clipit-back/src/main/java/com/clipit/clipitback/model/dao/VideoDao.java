@@ -10,6 +10,8 @@ public interface VideoDao {
 
 	int insertMarkedVideo(Map<String, String> markedVideoInfo);
 
+	int insertVideo(Video video);
+
 	List<MarkedVideo> selectMarkedVideosByUserId(String id);
 
 	Video selectVideoById(String id);

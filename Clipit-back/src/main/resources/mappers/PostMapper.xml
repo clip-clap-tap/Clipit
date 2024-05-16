@@ -134,11 +134,19 @@
         </selectKey>
         INSERT INTO post(title, description, writer_id, status)
         VALUES (#{title}, #{description}, #{writerId}, #{status});
-        INSERT INTO video(id, title, url)
+        INSERT INTO post_tag
         VALUES
-        <foreach collection="videos" item="video" separator="," close=";">
-            (#{video.id}, #{video.title}, #{video.url})
+        <foreach collection="tags" item="tag" separator="," close=";">
+            (
+            #{id},
+            (SELECT id FROM tag WHERE name = #{tag.name})
+            )
         </foreach>
+<!--        INSERT INTO video(id, title, url)-->
+<!--        VALUES-->
+<!--        <foreach collection="videos" item="video" separator="," close=";">-->
+<!--            (#{video.id}, #{video.title}, #{video.url})-->
+<!--        </foreach>-->
         INSERT INTO post_video(`post_id`, `video_id`, `index`)
         VALUES
         <foreach collection="videos" item="video" separator="," close=";">

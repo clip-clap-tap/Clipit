@@ -20,9 +20,9 @@ public class TagController {
     }
 
     @GetMapping("/{name}")
-    ResponseEntity<?> getTagsByName(@PathVariable("name") String name) {
-        List<Tag> tags = tagService.getTagsByName(name);
-        return new ResponseEntity<>(tags, !tags.isEmpty() ? HttpStatus.OK : HttpStatus.NO_CONTENT);
+    ResponseEntity<?> getTagByName(@PathVariable("name") String name) {
+        Tag tag = tagService.getTagByName(name);
+        return new ResponseEntity<>(tag, tag!=null ? HttpStatus.OK : HttpStatus.NO_CONTENT);
     }
 
     @PostMapping()

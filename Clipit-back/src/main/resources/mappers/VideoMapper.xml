@@ -24,4 +24,14 @@
         VALUES (#{userId}, #{id})
     </insert>
 
+    <insert id="insertVideo" parameterType="Video">
+        INSERT INTO video(id, title, url)
+        VALUES(#{id}, #{title}, #{url})
+    </insert>
+
+    <select id="selectVideoById" parameterType="String">
+        SELECT * FROM video
+        WHERE id=#{id}
+    </select>
+
 </mapper>
