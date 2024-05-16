@@ -1,0 +1,47 @@
+POST _bulk
+{"index": {"_index":"post", "_id": 1}}
+{"title" : "test", "description" : "test", "writer" : "tester", "status" : "public", "created_at" : "2014-04-15 10:34:51", "view_count" : 75, "updated_at" : "1996-07-11 12:15:58" }
+{"index": {"_index":"post", "_id": 2}}
+{"title" : "Vel explicabo eaque ", "description" : "Quod fugiat voluptatum labore consequatur iure exercitationem. Amet error in et veniam et. Aut et autem enim illum. Et consequuntur tenetur quia iusto.", "writer" : "christ19", "status" : "public", "created_at" : "2014-04-15 10:34:51", "view_count" : 75, "updated_at" : "1996-07-11 12:15:58" }
+{"index": {"_index":"post", "_id": 3}}
+{"title" : "Tempore doloribus al","description" : "Voluptas dolores minus itaque exercitationem tempora autem. Veniam dolor non dignissimos dolore omnis. Non nisi dolor sequi rerum voluptatem minus.","writer" : "floy28","status" : "public","created_at" : "1992-08-15 10:18:11","view_count" : 47,"updated_at" : "2003-06-06 02:36:17"}
+{"index": {"_index":"post", "_id": 4}}
+{ "title" : "Culpa quis quibusdam", "description" : "Ipsum velit sit suscipit voluptas voluptatum quis. Nulla ab necessitatibus pariatur natus distinctio. Et vel harum ratione dolor sit.", "writer" : "larson.emily", "status" : "public", "created_at" : "2011-08-21 02:58:17", "view_count" : 48, "updated_at" : "1974-12-10 22:30:09" }
+{"index": {"_index":"post", "_id": 5}}
+{ "title" : "Cumque ut voluptatum", "description" : "Nihil qui dolor incidunt dolor repellendus. Placeat rerum necessitatibus amet consequatur autem quas aperiam. Nihil quam adipisci neque est. Quia vitae consequatur labore sed.", "writer" : "larson.emily", "status" : "public", "created_at" : "2013-08-08 18:34:31", "view_count" : 89, "updated_at" : "1973-12-21 04:58:31"}
+{"index": {"_index":"post", "_id": 6}}
+{ "title" : "Sed fugit aut molest", "description" : "Minima quisquam odio voluptates quae vitae quia. Nam quam sunt aspernatur in. Officiis minima veniam voluptatum et et. Omnis soluta aut minus dicta sunt debitis.", "writer" : "fullrich", "status" : "public", "created_at" : "2022-11-24 15:59:31", "view_count" : 52, "updated_at" : "2018-01-08 14:04:53"}
+{"index": {"_index":"post", "_id": 7}}
+{ "title" : "Quis libero et tenet", "description" : "Debitis sed adipisci harum occaecati. Quia similique facilis facilis quia repudiandae qui. Illo voluptas sit sit nesciunt.", "writer" : "fullrich", "status" : "public", "created_at" : "2007-03-24 14:32:48", "view_count" : 45, "updated_at" : "1973-07-05 16:19:34"}
+{"index": {"_index":"post", "_id": 8}}
+{ "title" : "Sequi quia voluptate", "description" : "Facere perferendis fugit voluptatibus consequatur voluptas ab provident ipsa. Consequuntur est distinctio veniam dolor voluptas.", "writer_id" : "ethelyn.weissnat", "status" : "public", "created_at" : "1980-08-07 18:02:29", "view_count" : 18, "updated_at" : "1977-05-14 21:18:29"}
+{"index": {"_index":"post", "_id": 9}}
+{ "title" : "Quisquam ea accusant", "description" : "Incidunt fuga aut eos iste et numquam. Necessitatibus ut at similique incidunt numquam id. Tempore deserunt rerum voluptatem eius molestias harum.", "writer" : "rosie.quitzon", "status" : "public", "created_at" : "2015-01-26 14:47:19", "view_count" : 61, "updated_at" : "1984-11-28 20:45:53"}
+{"index": {"_index":"post", "_id": 10}}
+{ "title" : "Ut eaque sint est et", "description" : "Eveniet saepe totam reprehenderit enim possimus iure at. Et dignissimos debitis quae enim. Totam ut minima rerum. Maxime aliquam tenetur sint necessitatibus quam voluptates similique.", "writer_id" : "jettie84", "status" : "public", "created_at" : "2003-11-24 21:32:08", "view_count" : 28, "updated_at" : "1996-02-18 05:23:14"}
+{"index": {"_index":"post", "_id": 11}}
+{ "title" : "Provident fuga incid", "description" : "Ut vero modi quos quam. Nihil beatae voluptates sit. Enim ab ut eum dolore neque quia eveniet atque. Nisi fugit ea rerum aut.", "writer" : "erica.renner", "status" : "public", "created_at" : "1974-01-31 19:10:28", "view_count" : 33, "updated_at" : "1992-01-23 22:38:41"}
+{"index": {"_index":"post", "_id": 12}}
+{ "title" : "Nihil et error est a", "description" : "Culpa natus sed eveniet magni reiciendis. Sequi magni ex sapiente corrupti. Laborum aliquam unde praesentium eum quaerat. Nisi labore magni quam quia.", "writer" : "whansen", "status" : "public", "created_at" : "1985-04-25 14:36:20", "view_count" : 68, "updated_at" : "1997-11-22 16:37:07"}
+{"index": {"_index":"post", "_id": 13}}
+{ "title" : "Vitae hic deleniti s", "description" : "Eos odio beatae id voluptas asperiores harum ea. Praesentium nam est eum atque.", "writer" : "payton39", "status" : "public", "created_at" : "1982-02-11 02:00:57", "view_count" : 85, "updated_at" : "2015-02-10 00:20:32"}
+{"index": {"_index":"post", "_id": 14}}
+{ "title" : "Cum odit optio aut a", "description" : "Necessitatibus inventore ipsum minus modi. Culpa consequatur alias dolorem officia repudiandae aperiam in. Quas soluta dolorem necessitatibus ut dolores aut non quas.", "writer" : "lowell.huel", "status" : "public", "created_at" : "2013-04-19 11:15:24", "view_count" : 61, "updated_at" : "2005-06-25 10:12:27"}
+{"index": {"_index":"post", "_id": 15}}
+{ "title" : "Quaerat aut impedit ", "description" : "Ut et et praesentium voluptas. Natus est quasi distinctio sapiente sint et voluptas. Perferendis omnis inventore aliquid est.", "writer" : "schaefer.tressa", "status" : "public", "created_at" : "1981-04-18 04:17:01", "view_count" : 83, "updated_at" : "1993-04-20 00:55:02"}
+{"index": {"_index":"post", "_id": 16}}
+{ "title" : "Aliquam sed at accus", "description" : "In et enim neque ut recusandae. Eligendi a illum eius et a. Et quidem non quia molestiae. Facilis dolores ea eum.", "writer" : "moen.olaf", "status" : "public", "created_at" : "2020-03-16 21:05:31", "view_count" : 18, "updated_at" : "1975-10-17 10:00:58"}
+{"index": {"_index":"post", "_id": 17}}
+{ "title" : "Sint atque veritatis", "description" : "Corporis similique nihil iusto reprehenderit. Inventore ut assumenda porro enim omnis eius. Exercitationem omnis eius expedita corrupti et perferendis.", "writer" : "herta.grant", "status" : "public", "created_at" : "2011-05-07 21:14:13", "view_count" : 28, "updated_at" : "1996-01-20 22:10:45"}
+{"index": {"_index":"post", "_id": 18}}
+{ "title" : "Numquam quidem aut r", "description" : "Quo nulla quod molestias molestiae officia dignissimos. Rerum soluta veritatis tempore recusandae libero. Quo eius consequuntur optio labore eveniet. Alias dolore odit voluptatibus sed quos quia aut.", "writer_id" : "ahollie.stehr", "status" : "public", "created_at" : "2015-04-19 14:33:59", "view_count" : 89, "updated_at" : "1984-02-18 07:19:20"}
+{"index": {"_index":"post", "_id": 19}}
+{ "title" : "Veritatis ea tenetur", "description" : "Sint quaerat ex placeat est sunt aut dolorem est. Id sed expedita amet aut quis corporis eveniet. Quas quis nam dicta rerum.", "writer_id" : "admin", "status" : "public", "created_at" : "2023-07-17 05:39:51", "view_count" : 5, "updated_at" : "1970-10-24 02:44:51"}
+{"index": {"_index":"post", "_id": 20}}
+{ "title" : "Dolores cumque aut a", "description" : "Pariatur vel rem occaecati culpa autem. Eaque quasi ea autem est. Quas tenetur delectus expedita.", "writer_id" : "admin", "status" : "public", "created_at" : "1983-06-05 05:06:26", "view_count" : 12, "updated_at" : "1986-12-27 11:21:27"}
+{"index": {"_index":"post", "_id": 21}}
+{ "title" : "Ea qui recusandae si", "description" : "Dolores voluptates aut vel. Et ut et pariatur perspiciatis.", "writer_id" : "uroob", "status" : "public", "created_at" : "2023-04-18 23:22:33", "view_count" : 53, "updated_at" : "2004-08-15 06:20:08"}
+{"index": {"_index":"post", "_id": 28}}
+{"title":"테스트입니다.", "description":"테스트 테스트 테스트", "writer": "tester", "status":"public", "created_at":"2024-05-10 16:00:25", "view_count":0, "updated_at":"2024-05-10 16:00:25"}
+{"index": {"_index":"post", "_id": 29}}
+{"title":"오늘의 테스트", "description":"오늘의 테스트: 검색이 잘되었으면 좋겠다", "writer": "tester", "status":"public", "created_at":"2024-05-10 16:00:25", "view_count":0, "updated_at":"2024-05-10 16:00:25"}

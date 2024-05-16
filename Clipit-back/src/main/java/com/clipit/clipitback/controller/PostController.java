@@ -23,19 +23,22 @@ public class PostController {
     private final VideoService videoService;
     private final JWTService jwtService;
 
+    private final PostSearchService postSearchService;
+
     @Autowired
-    PostController(PostService postService, CommentService commentService, TagService tagService, VideoService videoService, JWTService jwtService) {
+    PostController(PostService postService, CommentService commentService, TagService tagService, JWTService jwtService, PostSearchService postSearchService) {
         this.postService = postService;
         this.commentService = commentService;
         this.tagService = tagService;
         this.videoService = videoService;
         this.jwtService = jwtService;
+        this.postSearchService = postSearchService;
     }
 
     @Operation(summary = "포스트 검색")
     @GetMapping("/search")
-    ResponseEntity<?> searchPost() {
-        List<Post> posts = postService.searchPostsByCondition();
+    ResponseEntity<?> searchPost(@RequestParam(name = "title", required = false) String title) {
+        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTitle(title);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
@@ -58,15 +61,15 @@ public class PostController {
     @PostMapping()
     ResponseEntity<?> addPost(@RequestBody Post post, @CookieValue("token") String token) {
         post.setWriterId(jwtService.getUserIdFromToken(token));
-
         if (post.getTags() != null && !post.getTags().isEmpty()) {
             tagService.checkTagInfo(post.getTags());
         }
+        
         if (post.getVideos() != null && !post.getVideos().isEmpty()) {
             videoService.checkVideoInfo(post.getVideos());
         }
         int result = postService.addPost(post);
-
+        postSearchService.insertPost(post);
         return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.CREATED);
     }
 

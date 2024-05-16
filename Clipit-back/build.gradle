@@ -25,7 +25,7 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
     implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.12.5'
-
+    implementation 'org.springframework.boot:spring-boot-starter-data-elasticsearch'
 
 }
 
