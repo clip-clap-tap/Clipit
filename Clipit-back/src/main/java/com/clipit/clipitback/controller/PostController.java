@@ -65,6 +65,7 @@ public class PostController {
             tagService.checkTagInfo(post.getTags());
             tagService.addPostTag(post);
         }
+        postSearchService.insertPost(post);
         return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.CREATED);
     }
 

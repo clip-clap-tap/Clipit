@@ -13,8 +13,8 @@ import java.util.List;
 @Setting(settingPath = "elastic/elastic-token.json")
 public class Post {
     @Id
-    @Field(type = FieldType.Text)
-    private String id;
+    @Field(type = FieldType.Integer)
+    private int id;
 
     @Field(type = FieldType.Text)
     private String title;
@@ -27,26 +27,26 @@ public class Post {
     @Field(type = FieldType.Text)
     private String status;
 
-    @Field(type = FieldType.Text)
+    @Field(name = "created_at", type = FieldType.Text)
     private String createDate;
 
 
-    @Field(type = FieldType.Integer)
+    @Field(name = "view_count", type = FieldType.Integer)
     private int viewCount;
 
-    @Field(type = FieldType.Text)
+    @Field(name = "updated_at", type = FieldType.Text)
     private String updateDate;
 
     @Field(type = FieldType.Text)
     private List<Tag> tags;
 
-    @Field(type = FieldType.Text)
+    @Field(name = "thumbnail_url", type = FieldType.Text)
     private String thumbnailURL;
 
-    @Field(type = FieldType.Integer)
+    @Field(name = "age_range", type = FieldType.Integer)
     private List<Integer> ageRange;
 
-    @Field(type = FieldType.Text)
+    @Field(name = "body_part", type = FieldType.Text)
     private List<String> bodyPart;
 
     @Field(type = FieldType.Integer)
@@ -55,7 +55,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(String id, String title, String description, String writer, String status, String createDate, int viewCount, String updateDate, List<Tag> tags, String thumbnailURL, List<Integer> ageRange, List<String> bodyPart, String strength) {
+    public Post(int id, String title, String description, String writer, String status, String createDate, int viewCount, String updateDate, List<Tag> tags, String thumbnailURL, List<Integer> ageRange, List<String> bodyPart, String strength) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -71,11 +71,11 @@ public class Post {
         this.strength = strength;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -7,6 +7,5 @@ import java.util.List;
 
 
 public interface PostRepository extends ElasticsearchRepository<Post, String> {
-
     List<Post> searchAllByTitle(String title);
 }
