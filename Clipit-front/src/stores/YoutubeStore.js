@@ -9,6 +9,10 @@ export const useYoutubeStore = defineStore('youtube', () => {
     const selectedVideos = ref([]);
     const nextToken = ref('');
     const post = ref({ title: '', desc: '' });
+    const ages = ref([10, 20]);
+    const bodyParts = ref(['neck', 'leg']);
+    const strength = ref('hard');
+    const selectedTags = ref([{ name: 'new' }, { name: 'good' }]);
 
     const youtubeSearch = function (keyword) {
         if (keyword.length == 0) return false;
@@ -43,6 +47,7 @@ export const useYoutubeStore = defineStore('youtube', () => {
         const REST_URL = import.meta.env.VITE_REST_API_URL;
         await axios.post(`${REST_URL}/posts`, {
             ...post.value,
+            tags: selectedTags.value,
             videos: selectedVideos.value.map((video, i) => {
                 return {
                     id: video.id.videoId,
@@ -50,7 +55,10 @@ export const useYoutubeStore = defineStore('youtube', () => {
                     url: `${YOUTUBE_URL}/watch?v=${video.id.videoId}`,
                     index: i
                 };
-            })
+            }),
+            ageRange: ages.value,
+            bodyPart: bodyParts.value,
+            strength: strength.value
         });
     };
     return { youtubeSearch, videos, selectedVideos, resetVideos, savePost, post };

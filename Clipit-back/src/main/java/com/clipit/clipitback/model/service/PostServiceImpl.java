@@ -16,13 +16,7 @@ public class PostServiceImpl implements PostService {
     PostServiceImpl(PostDao postDao) {
         this.postDao = postDao;
     }
-
-    @Override
-    public List<Post> searchPostsByCondition() {
-        List<Post> posts = postDao.searchPost();
-        return posts;
-    }
-
+    
     @Override
     public List<Post> getAllPosts() {
         List<Post> posts = postDao.searchPost();
@@ -35,23 +29,6 @@ public class PostServiceImpl implements PostService {
         return post;
     }
 
-    @Override
-    public List<Post> getPostsByWriterId(String id) {
-        List<Post> posts = postDao.selectPostsByWriterId(id);
-        return posts;
-    }
-
-    @Override
-    public List<Post> getFavoritePostsByUserId(String id) {
-        List<Post> posts = postDao.selectFavoritePostsByUserId(id);
-        return posts;
-    }
-
-    @Override
-    public List<Post> getAllPostsByUserId(String id) {
-        List<Post> posts = postDao.selectAllPostsByUserId(id);
-        return posts;
-    }
 
     @Override
     public List<Post> getVisitedPostsByUserId(String userId) {

@@ -1,16 +1,15 @@
 package com.clipit.clipitback.model.entity;
 
 import com.clipit.clipitback.model.dto.Tag;
+import com.clipit.clipitback.model.dto.UserInfo;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.elasticsearch.annotations.Document;
-import org.springframework.data.elasticsearch.annotations.Field;
-import org.springframework.data.elasticsearch.annotations.FieldType;
-import org.springframework.data.elasticsearch.annotations.Setting;
+import org.springframework.data.elasticsearch.annotations.*;
 
 import java.util.List;
 
 @Document(indexName = "post")
 @Setting(settingPath = "elastic/elastic-token.json")
+@Mapping(mappingPath = "elastic/post-mapper.json")
 public class Post {
     @Id
     @Field(type = FieldType.Integer)
@@ -21,8 +20,8 @@ public class Post {
     @Field(type = FieldType.Text)
     private String description;
 
-    @Field(type = FieldType.Text)
-    private String writer;
+    @Field(type = FieldType.Nested)
+    private UserInfo writer;
 
     @Field(type = FieldType.Text)
     private String status;
@@ -55,7 +54,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(int id, String title, String description, String writer, String status, String createDate, int viewCount, String updateDate, List<Tag> tags, String thumbnailURL, List<Integer> ageRange, List<String> bodyPart, String strength) {
+    public Post(int id, String title, String description, UserInfo writer, String status, String createDate, int viewCount, String updateDate, List<Tag> tags, String thumbnailURL, List<Integer> ageRange, List<String> bodyPart, String strength) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -95,11 +94,11 @@ public class Post {
         this.description = description;
     }
 
-    public String getWriter() {
+    public UserInfo getWriter() {
         return writer;
     }
 
-    public void setWriter(String writer) {
+    public void setWriter(UserInfo writer) {
         this.writer = writer;
     }
 

@@ -1,13 +1,15 @@
 <script setup>
 import { useLayoutStore } from '@/stores/LayoutStore';
+import { useUserStore } from '@/stores/UserStore';
 import { useCookies } from 'vue3-cookies';
 
 const layoutStore = useLayoutStore();
+const userStore = useUserStore();
 const { cookies } = useCookies();
 </script>
 
 <template>
-    <nav class="relative bg-white dark:bg-gray-800 flex justify-center">
+    <nav class="bg-white dark:bg-gray-800 flex justify-center fixed top-0 w-full z-[1000]">
         <div class="px-4 py-6 max-w-7xl w-full">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-between">
@@ -105,6 +107,12 @@ const { cookies } = useCookies();
                             >
                                 Search(임시)
                             </RouterLink>
+                            <div
+                                @click="userStore.logout"
+                                class="cursor-pointer px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            >
+                                로그아웃
+                            </div>
                         </div>
                     </div>
                 </div>

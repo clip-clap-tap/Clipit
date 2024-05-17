@@ -26,6 +26,13 @@ public class PostSearchServiceImpl implements PostSearchService {
     }
 
     @Override
+    public List<Post> searchPostsByUserId(String userId) {
+        List<Post> result = postRepository.searchAllByWriter(userId);
+        return result;
+    }
+
+
+    @Override
     public Post insertPost(com.clipit.clipitback.model.dto.Post post) {
         Post result = postRepository.save(convertPost(post));
         return result;
@@ -35,7 +42,7 @@ public class PostSearchServiceImpl implements PostSearchService {
         Post postForSearch = new Post();
         postForSearch.setId(post.getId());
         postForSearch.setTitle(post.getTitle());
-        postForSearch.setWriter(userService.getUserInfoById(post.getWriterId()).getUsername());
+        postForSearch.setWriter(userService.getUserInfoById(post.getWriterId()));
         postForSearch.setDescription(post.getDescription());
         postForSearch.setStatus(post.getStatus());
         postForSearch.setCreateDate(post.getCreateDate());

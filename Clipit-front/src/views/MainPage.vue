@@ -3,6 +3,7 @@ import PostCardSectionComponent from '@/components/util/post/PostCardSectionComp
 </script>
 <template>
     <HeaderComponent></HeaderComponent>
+
     <div class="container">
         <PostCardSectionComponent
             :title="`Latest Articles`"
