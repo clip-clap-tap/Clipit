@@ -16,17 +16,27 @@ public class PostServiceImpl implements PostService {
     PostServiceImpl(PostDao postDao) {
         this.postDao = postDao;
     }
-    
+
     @Override
     public List<Post> getAllPosts() {
-        List<Post> posts = postDao.searchPost();
+        List<Post> posts = postDao.selectAllPosts();
         return posts;
     }
 
     @Override
-    public Post getPostById(int id) {
-        Post post = postDao.selectPostById(id);
-        return post;
+    public List<Post> getWrittenOrFavoritePostsByUserId(String id) {
+        return postDao.selectUserRelatedPostsByUserId(id);
+    }
+
+    @Override
+    public List<Post> getWrittenPostsByUserId(String id) {
+        return postDao.selectPostsByWriterId(id);
+    }
+
+
+    @Override
+    public Post getPostDetailById(int id) {
+        return postDao.selectPostById(id);
     }
 
 
@@ -54,6 +64,11 @@ public class PostServiceImpl implements PostService {
     public int modifyPostStatus(int id, String status) {
         int result = postDao.updatePostStatus(Map.of("id", id, "status", status));
         return result;
+    }
+
+    @Override
+    public List<Post> getFavoritePostsByUserId(String userId) {
+        return postDao.selectFavoritePostsByUserId(userId);
     }
 
     @Override

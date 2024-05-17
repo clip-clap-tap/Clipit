@@ -7,10 +7,12 @@ public class Post {
     private String title;
     private String description;
     private String writerId;
+
+    private String writerName;
     private String status;
     private String createDate;
-    private int viewCount;
     private String updateDate;
+    private int viewCount;
     private String visitDate;
     private List<Tag> tags;
     private List<Video> videos;
@@ -21,15 +23,16 @@ public class Post {
     public Post() {
     }
 
-    public Post(int id, String title, String description, String writerId, String status, String createDate, int viewCount, String updateDate, String visitDate, List<Tag> tags, List<Video> videos, List<Integer> ageRange, List<String> bodyPart, String strength) {
+    public Post(int id, String title, String description, String writerId, String writerName, String status, String createDate, String updateDate, int viewCount, String visitDate, List<Tag> tags, List<Video> videos, List<Integer> ageRange, List<String> bodyPart, String strength) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.writerId = writerId;
+        this.writerName = writerName;
         this.status = status;
         this.createDate = createDate;
-        this.viewCount = viewCount;
         this.updateDate = updateDate;
+        this.viewCount = viewCount;
         this.visitDate = visitDate;
         this.tags = tags;
         this.videos = videos;
@@ -70,6 +73,14 @@ public class Post {
         this.writerId = writerId;
     }
 
+    public String getWriterName() {
+        return writerName;
+    }
+
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -86,20 +97,20 @@ public class Post {
         this.createDate = createDate;
     }
 
-    public int getViewCount() {
-        return viewCount;
-    }
-
-    public void setViewCount(int viewCount) {
-        this.viewCount = viewCount;
-    }
-
     public String getUpdateDate() {
         return updateDate;
     }
 
     public void setUpdateDate(String updateDate) {
         this.updateDate = updateDate;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
     }
 
     public String getVisitDate() {
@@ -148,25 +159,5 @@ public class Post {
 
     public void setStrength(String strength) {
         this.strength = strength;
-    }
-
-    @Override
-    public String toString() {
-        return "Post{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", writerId='" + writerId + '\'' +
-                ", status='" + status + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", viewCount=" + viewCount +
-                ", updateDate='" + updateDate + '\'' +
-                ", visitDate='" + visitDate + '\'' +
-                ", tags=" + tags +
-                ", videos=" + videos +
-                ", ageRange=" + ageRange +
-                ", bodyPart=" + bodyPart +
-                ", strength='" + strength + '\'' +
-                '}';
     }
 }

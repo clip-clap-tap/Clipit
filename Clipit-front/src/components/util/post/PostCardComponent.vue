@@ -29,7 +29,7 @@ defineProps({
                         href="#"
                         class="text-lg font-medium text-gray-700 dark:text-gray-300 hover:underline hover:text-gray-500"
                     >
-                        {{ writer }}
+                        {{ writerName }}
                     </a>
 
                     <p class="text-sm text-gray-500 dark:text-gray-400">{{ date }}</p>

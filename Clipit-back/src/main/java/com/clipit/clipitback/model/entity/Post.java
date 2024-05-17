@@ -1,7 +1,7 @@
 package com.clipit.clipitback.model.entity;
 
 import com.clipit.clipitback.model.dto.Tag;
-import com.clipit.clipitback.model.dto.UserInfo;
+import com.clipit.clipitback.model.dto.Video;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.*;
 
@@ -20,8 +20,11 @@ public class Post {
     @Field(type = FieldType.Text)
     private String description;
 
-    @Field(type = FieldType.Nested)
-    private UserInfo writer;
+    @Field(name = "writer_id", type = FieldType.Text)
+    private String writerId;
+
+    @Field(name = "writer_name", type = FieldType.Text)
+    private String writerName;
 
     @Field(type = FieldType.Text)
     private String status;
@@ -36,11 +39,11 @@ public class Post {
     @Field(name = "updated_at", type = FieldType.Text)
     private String updateDate;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Nested, includeInParent = true)
     private List<Tag> tags;
 
-    @Field(name = "thumbnail_url", type = FieldType.Text)
-    private String thumbnailURL;
+    @Field(type = FieldType.Nested, includeInParent = true)
+    private List<Video> videos;
 
     @Field(name = "age_range", type = FieldType.Integer)
     private List<Integer> ageRange;
@@ -54,17 +57,18 @@ public class Post {
     public Post() {
     }
 
-    public Post(int id, String title, String description, UserInfo writer, String status, String createDate, int viewCount, String updateDate, List<Tag> tags, String thumbnailURL, List<Integer> ageRange, List<String> bodyPart, String strength) {
+    public Post(int id, String title, String description, String writerId, String writerName, String status, String createDate, int viewCount, String updateDate, List<Tag> tags, List<Video> video, List<Integer> ageRange, List<String> bodyPart, String strength) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.writer = writer;
+        this.writerId = writerId;
+        this.writerName = writerName;
         this.status = status;
         this.createDate = createDate;
         this.viewCount = viewCount;
         this.updateDate = updateDate;
         this.tags = tags;
-        this.thumbnailURL = thumbnailURL;
+        this.videos = video;
         this.ageRange = ageRange;
         this.bodyPart = bodyPart;
         this.strength = strength;
@@ -94,12 +98,20 @@ public class Post {
         this.description = description;
     }
 
-    public UserInfo getWriter() {
-        return writer;
+    public String getWriterId() {
+        return writerId;
     }
 
-    public void setWriter(UserInfo writer) {
-        this.writer = writer;
+    public void setWriterId(String writerId) {
+        this.writerId = writerId;
+    }
+
+    public String getWriterName() {
+        return writerName;
+    }
+
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
     }
 
     public String getStatus() {
@@ -142,12 +154,12 @@ public class Post {
         this.tags = tags;
     }
 
-    public String getThumbnailURL() {
-        return thumbnailURL;
+    public List<Video> getVideos() {
+        return videos;
     }
 
-    public void setThumbnailURL(String thumbnailURL) {
-        this.thumbnailURL = thumbnailURL;
+    public void setVideos(List<Video> videos) {
+        this.videos = videos;
     }
 
     public List<Integer> getAgeRange() {
