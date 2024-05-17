@@ -26,6 +26,24 @@ public class PostSearchServiceImpl implements PostSearchService {
     }
 
     @Override
+    public List<Post> searchPostsByDescription(String description) {
+        List<Post> result = postRepository.searchAllByDescription(description);
+        return result;
+    }
+
+    @Override
+    public List<Post> searchPostsByTitleOrDescription(String keyword) {
+        List<Post> result = postRepository.searchAllByTitleOrDescription(keyword, keyword);
+        return result;
+    }
+
+    @Override
+    public List<Post> searchPostsByWriter(String writer) {
+        List<Post> result = postRepository.searchAllByWriter(writer);
+        return result;
+    }
+
+    @Override
     public Post insertPost(com.clipit.clipitback.model.dto.Post post) {
         Post result = postRepository.save(convertPost(post));
         return result;
@@ -46,5 +64,11 @@ public class PostSearchServiceImpl implements PostSearchService {
 
         return postForSearch;
 
+    }
+
+    @Override
+    public List<Post> searchPostsByTag(String tagName) {
+        List<Post> result = postRepository.searchAllByTagsName(tagName);
+        return result;
     }
 }

@@ -37,7 +37,7 @@ public class Post {
     @Field(name = "updated_at", type = FieldType.Text)
     private String updateDate;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Nested, includeInParent = true)
     private List<Tag> tags;
 
     @Field(name = "thumbnail_url", type = FieldType.Text)
