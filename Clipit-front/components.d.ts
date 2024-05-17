@@ -24,7 +24,6 @@ declare module 'vue' {
     PostCardSectionComponent: typeof import('./src/components/util/post/PostCardSectionComponent.vue')['default']
     PostSummaryComponent: typeof import('./src/components/util/post/PostSummaryComponent.vue')['default']
     ProfileComponent: typeof import('./src/components/ProfileComponent.vue')['default']
-    ReviewSection: typeof import('./src/components/section/ReviewSection.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SignUpComponent: typeof import('./src/components/SignUpComponent.vue')['default']
