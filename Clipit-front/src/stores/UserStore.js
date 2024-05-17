@@ -16,10 +16,16 @@ export const useUserStore = defineStore('user', () => {
             method: 'POST',
             data: user
         }).then((res) => {
-            cookies.set('token', res.data);
             cookies.set('user', JSON.parse(atob(res.data.split('.')[1]))['id']);
             router.push({ name: 'main' }).then(() => router.go(0));
         });
+    };
+
+    const logout = async () => {
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+        await axios.post(`${REST_URL}/users/logout`);
+        cookies.remove('user');
+        router.push({ name: 'main' }).then(() => router.go(0));
     };
 
     const duplicateCheck = function (id) {
@@ -85,7 +91,7 @@ export const useUserStore = defineStore('user', () => {
         login,
         duplicateCheck,
         register,
-
+        logout,
         userProfile,
         getProfile,
         saveProfile

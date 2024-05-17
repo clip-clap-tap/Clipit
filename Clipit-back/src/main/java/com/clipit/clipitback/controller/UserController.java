@@ -78,6 +78,17 @@ public class UserController {
         return new ResponseEntity<>(token, headers, HttpStatus.OK);
     }
 
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+
+        HttpHeaders headers = new HttpHeaders();
+        ResponseCookie resCookie = ResponseCookie.from("token", "deleted").maxAge(0).path("/").httpOnly(true).secure(false).build();
+        headers.set(HttpHeaders.SET_COOKIE, resCookie.toString());
+
+        return new ResponseEntity<>("deleted", headers, HttpStatus.OK);
+    }
+
+
     @Operation(summary = "회원정보 수정")
     @PutMapping("/{id}/info")
     public ResponseEntity<?> modifyUserInfo(@PathVariable("id") String id, UserInfo userInfo) {
