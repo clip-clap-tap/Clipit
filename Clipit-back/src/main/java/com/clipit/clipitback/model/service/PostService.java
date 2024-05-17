@@ -5,29 +5,30 @@ import com.clipit.clipitback.model.dto.Post;
 import java.util.List;
 
 public interface PostService {
-    List<Post> searchPostsByCondition();
 
     List<Post> getAllPosts();
 
-    Post getPostById(int id);
+    List<Post> getWrittenOrFavoritePostsByUserId(String id);
 
-    List<Post> getPostsByWriterId(String id);
+    List<Post> getWrittenPostsByUserId(String id);
 
-    List<Post> getFavoritePostsByUserId(String id);
-
-    List<Post> getAllPostsByUserId(String id);
-
-    List<Post> getVisitedPostsByUserId(String userId);
-
-    int modifyPost(Post post);
+    Post getPostDetailById(int id);
 
     int addPost(Post post);
 
+    int modifyPost(Post post);
+
     int modifyPostStatus(int id, String status);
+
+    List<Post> getFavoritePostsByUserId(String userId);
 
     int addFavoritePost(String userId, int postId);
 
+    int cancelFavoritePost(String userId, int postId);
+
+    List<Post> getVisitedPostsByUserId(String userId);
+
     int addVisitedPost(String userId, int postId);
 
-    int cancelFavoritePost(String userId, int postId);
+
 }

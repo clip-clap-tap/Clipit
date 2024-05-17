@@ -1,9 +1,13 @@
 <script setup>
 import { usePostStore } from '@/stores/PostStore';
 import Button from 'primevue/button';
+import { onMounted } from 'vue';
 
 const store = usePostStore();
-store.getUserPosts();
+
+onMounted(() => {
+    store.getUserPosts();
+});
 </script>
 <template>
     <div class="w-full flex flex-col items-center max-w-4xl gap-3">

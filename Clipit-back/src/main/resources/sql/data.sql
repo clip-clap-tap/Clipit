@@ -42,6 +42,9 @@ VALUES ('e9a3a153-d423-3cf3-a', 'sonny.runolfsdottir', '1983-12-13 15:33:09', 'f
 INSERT INTO `user_info` (`id`, `username`, `created_at`, `password`)
 VALUES ('f86537c6-215c-3ef1-9', 'pacocha.rylan', '1999-07-15 02:59:37', '06e725165aa2877eea29');
 
+SELECT *
+FROM user_info;
+
 INSERT INTO `user_profile` (`id`, `gender`, `height`, `weight`, `age`, `goal`)
 VALUES ('18cbaac1-980d-389f-b', 'at', NULL, NULL, 49, 'Sint modi ullam quia delectus quia vel.');
 INSERT INTO `user_profile` (`id`, `gender`, `height`, `weight`, `age`, `goal`)
@@ -403,3 +406,34 @@ VALUES (19, 91, 3);
 INSERT INTO `post_video` (`post_id`, `video_id`, `index`)
 VALUES (20, 94, 5);
 
+SELECT post.id,
+       post.title,
+       post.description,
+       post.writer_id,
+       post.status,
+       post.created_at,
+       post.view_count,
+       post.updated_at
+#        tag.id      as tag_id,
+#        tag.name    as tag_name,
+#        tag.id      as tag_id,
+#        tag.name    as tag_name,
+#        video.id    as video_id,
+#        video.title as video_title,
+#        video.url   as video_url,
+#        video_length,
+#        post_video.index,
+#        visited_post.visited_at,
+#        post_age_range.age_range,
+#        post_body_part.body_part,
+#        post_strength.strength
+FROM post
+         LEFT JOIN visited_post on post.id = visited_post.post_id
+         LEFT JOIN post_tag on post.id = post_tag.post_id
+         LEFT JOIN tag on post_tag.tag_id = tag.id
+         LEFT JOIN post_video on post.id = post_video.post_id
+         LEFT JOIN video on post_video.video_id = video.id
+         LEFT JOIN post_age_range on post.id = post_age_range.post_id
+         LEFT JOIN post_body_part on post.id = post_body_part.post_id
+         LEFT JOIN post_strength on post.id = post_strength.post_id
+WHERE visited_post.user_id = 'admin';

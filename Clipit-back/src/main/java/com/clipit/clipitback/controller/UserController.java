@@ -4,10 +4,7 @@ import com.clipit.clipitback.model.dto.MarkedVideo;
 import com.clipit.clipitback.model.dto.Post;
 import com.clipit.clipitback.model.dto.UserInfo;
 import com.clipit.clipitback.model.dto.UserProfile;
-import com.clipit.clipitback.model.service.JWTService;
-import com.clipit.clipitback.model.service.PostService;
-import com.clipit.clipitback.model.service.UserService;
-import com.clipit.clipitback.model.service.VideoService;
+import com.clipit.clipitback.model.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -28,7 +25,7 @@ public class UserController {
     private final JWTService jwtService;
 
     @Autowired
-    public UserController(UserService userService, PostService postService, VideoService videoService, JWTService jwtService) {
+    public UserController(UserService userService, PostService postService, VideoService videoService, JWTService jwtService, PostSearchService postSearchService) {
 
         this.userService = userService;
         this.postService = postService;
@@ -104,9 +101,17 @@ public class UserController {
         return new ResponseEntity<>(res, res == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
     }
 
+    @Operation(summary = "찜한 포스트/작성한 포스트 목록 확인")
+    @GetMapping("/{id}/all-posts")
+    public ResponseEntity<?> getWrittenOrFavoritePostsByUserId(@PathVariable("id") String id) {
+        List<Post> list = postService.getWrittenOrFavoritePostsByUserId(id);
+        return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+
     @Operation(summary = "찜한 포스트 목록 확인")
     @GetMapping("/{id}/favorite-posts")
-    public ResponseEntity<?> getFavoritePostsByUserId(String id) {
+    public ResponseEntity<?> getFavoritePostsByUserId(@PathVariable("id") String id) {
         List<Post> list = postService.getFavoritePostsByUserId(id);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
@@ -114,7 +119,7 @@ public class UserController {
     @Operation(summary = "게시한 포스트 목록 확인")
     @GetMapping("/{id}/posts")
     public ResponseEntity<?> getWrittenPostsByUserId(@PathVariable("id") String id) {
-        List<Post> list = postService.getPostsByWriterId(id);
+        List<Post> list = postService.getWrittenPostsByUserId(id);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -122,7 +127,6 @@ public class UserController {
     @GetMapping("/visited-posts")
     public ResponseEntity<?> getVisitedPostsByUserId(@CookieValue("token") String token) {
         List<Post> list = postService.getVisitedPostsByUserId(jwtService.getUserIdFromToken(token));
-        System.out.println(list);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -131,14 +135,6 @@ public class UserController {
     @GetMapping("/{id}/marked-videos")
     public ResponseEntity<?> getMarkedVideosByUserId(String id) {
         List<MarkedVideo> list = videoService.getMarkedVideosByUserId(id);
-        return new ResponseEntity<>(list, HttpStatus.OK);
-    }
-
-
-    @Operation(summary = "유저별 전체 포스트 목록 확인")
-    @GetMapping("/{id}/all-posts")
-    public ResponseEntity<?> getFavoriteOrWrittenPostsByUserId(String id) {
-        List<Post> list = postService.getAllPostsByUserId(id);
         return new ResponseEntity<>(list, HttpStatus.OK);
     }
 
@@ -167,7 +163,6 @@ public class UserController {
     @Operation(summary = "프로필 등록")
     @PostMapping("/profile/{id}")
     public ResponseEntity<?> regist(@PathVariable("id") String id, @RequestBody UserProfile userProfile) {
-
         userProfile.setId(id);
         int res = userService.registUserProfile(userProfile);
         return new ResponseEntity<>(res, res == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);

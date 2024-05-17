@@ -1,0 +1,59 @@
+{
+  "properties": {
+    "title": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "tags": {
+      "type": "nested",
+      "properties": {
+        "tag_id": {
+          "type": "integer"
+        },
+        "tag_name": {
+          "type": "text"
+        }
+      }
+    },
+    "videos": {
+      "type": "nested",
+      "properties": {
+        "video_id": {
+          "type": "integer"
+        },
+        "video_title": {
+          "type": "text"
+        }
+      }
+    },
+    "updated_at": {
+      "type": "text"
+    },
+    "created_at": {
+      "type": "text"
+    },
+    "writer_id": {
+      "type": "text"
+    },
+    "writer_name": {
+      "type": "text"
+    },
+    "view_count": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "text"
+    },
+    "age_range": {
+      "type": "integer"
+    },
+    "body_part": {
+      "type": "text"
+    },
+    "strength": {
+      "type": "integer"
+    }
+  }
+}

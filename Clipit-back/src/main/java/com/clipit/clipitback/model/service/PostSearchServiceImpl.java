@@ -2,6 +2,7 @@ package com.clipit.clipitback.model.service;
 
 import com.clipit.clipitback.model.entity.Post;
 import com.clipit.clipitback.model.repository.PostRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +26,7 @@ public class PostSearchServiceImpl implements PostSearchService {
         return result;
     }
 
+
     @Override
     public List<Post> searchPostsByDescription(String description) {
         List<Post> result = postRepository.searchAllByDescription(description);
@@ -38,10 +40,11 @@ public class PostSearchServiceImpl implements PostSearchService {
     }
 
     @Override
-    public List<Post> searchPostsByWriter(String writer) {
-        List<Post> result = postRepository.searchAllByWriter(writer);
+    public List<Post> searchPostsByWriter(String name) {
+        List<Post> result = postRepository.searchAllByWriterName(name);
         return result;
     }
+
 
     @Override
     public Post insertPost(com.clipit.clipitback.model.dto.Post post) {
@@ -50,18 +53,9 @@ public class PostSearchServiceImpl implements PostSearchService {
     }
 
     public Post convertPost(com.clipit.clipitback.model.dto.Post post) {
-        Post postForSearch = new Post();
-        postForSearch.setId(post.getId());
-        postForSearch.setTitle(post.getTitle());
-        postForSearch.setWriter(userService.getUserInfoById(post.getWriterId()).getUsername());
-        postForSearch.setDescription(post.getDescription());
-        postForSearch.setStatus(post.getStatus());
-        postForSearch.setCreateDate(post.getCreateDate());
-        postForSearch.setUpdateDate(post.getUpdateDate());
-        postForSearch.setAgeRange(post.getAgeRange());
-        postForSearch.setBodyPart(post.getBodyPart());
-        postForSearch.setStrength(post.getStrength());
-
+        ModelMapper mapper = new ModelMapper();
+        Post postForSearch = mapper.map(post, Post.class);
+        postForSearch.setWriterName(userService.getUserInfoById(post.getWriterId()).getUsername());
         return postForSearch;
 
     }

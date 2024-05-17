@@ -18,40 +18,27 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public List<Post> searchPostsByCondition() {
-        List<Post> posts = postDao.searchPost();
-        return posts;
-    }
-
-    @Override
     public List<Post> getAllPosts() {
-        List<Post> posts = postDao.searchPost();
+        List<Post> posts = postDao.selectAllPosts();
         return posts;
     }
 
     @Override
-    public Post getPostById(int id) {
-        Post post = postDao.selectPostById(id);
-        return post;
+    public List<Post> getWrittenOrFavoritePostsByUserId(String id) {
+        return postDao.selectUserRelatedPostsByUserId(id);
     }
 
     @Override
-    public List<Post> getPostsByWriterId(String id) {
-        List<Post> posts = postDao.selectPostsByWriterId(id);
-        return posts;
+    public List<Post> getWrittenPostsByUserId(String id) {
+        return postDao.selectPostsByWriterId(id);
     }
 
-    @Override
-    public List<Post> getFavoritePostsByUserId(String id) {
-        List<Post> posts = postDao.selectFavoritePostsByUserId(id);
-        return posts;
-    }
 
     @Override
-    public List<Post> getAllPostsByUserId(String id) {
-        List<Post> posts = postDao.selectAllPostsByUserId(id);
-        return posts;
+    public Post getPostDetailById(int id) {
+        return postDao.selectPostById(id);
     }
+
 
     @Override
     public List<Post> getVisitedPostsByUserId(String userId) {
@@ -77,6 +64,11 @@ public class PostServiceImpl implements PostService {
     public int modifyPostStatus(int id, String status) {
         int result = postDao.updatePostStatus(Map.of("id", id, "status", status));
         return result;
+    }
+
+    @Override
+    public List<Post> getFavoritePostsByUserId(String userId) {
+        return postDao.selectFavoritePostsByUserId(userId);
     }
 
     @Override

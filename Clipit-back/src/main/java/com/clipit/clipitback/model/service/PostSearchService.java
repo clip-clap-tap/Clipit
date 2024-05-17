@@ -11,12 +11,13 @@ public interface PostSearchService {
 
     List<Post> searchPostsByTitleOrDescription(String keyword);
 
-    List<Post> searchPostsByWriter(String writer);
+    List<Post> searchPostsByWriter(String name);
+
+    List<Post> searchPostsByTag(String name);
 
     Post insertPost(com.clipit.clipitback.model.dto.Post post);
 
     Post convertPost(com.clipit.clipitback.model.dto.Post post);
 
-    List<Post> searchPostsByTag(String name);
 
 }

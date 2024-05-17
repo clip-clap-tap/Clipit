@@ -42,13 +42,13 @@ public class PostController {
         List<com.clipit.clipitback.model.entity.Post> posts = null;
 
         if (category.equals("none")) {
-           posts = postSearchService.searchPostsByTitleOrDescription(keyword);
-        } else if(category.equals("title")) {
+            posts = postSearchService.searchPostsByTitleOrDescription(keyword);
+        } else if (category.equals("title")) {
             posts = postSearchService.searchPostsByTitle(keyword);
-        } else if(category.equals("dsp")) {
+        } else if (category.equals("dsp")) {
 
             posts = postSearchService.searchPostsByDescription(keyword);
-        } else if(category.equals("tag")) {
+        } else if (category.equals("tag")) {
 
             posts = postSearchService.searchPostsByTag(keyword);
         }
@@ -58,48 +58,46 @@ public class PostController {
     }
 
 
+    @Operation(summary = "타이틀로 포스트 검색")
+    @GetMapping("/search/title")
+    ResponseEntity<?> searchPostByTitle(@RequestParam(name = "title", required = false) String title) {
+        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTitle(title);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
 
-//    @Operation(summary = "타이틀로 포스트 검색")
-//    @GetMapping("/search/title")
-//    ResponseEntity<?> searchPostByTitle(@RequestParam(name = "title", required = false) String title) {
-//        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTitle(title);
-//        return new ResponseEntity<>(posts, HttpStatus.OK);
-//    }
-//
-//    @Operation(summary = "상세내용으로 포스트 검색")
-//    @GetMapping("/search/description")
-//    ResponseEntity<?> searchPostByDescription(@RequestParam(name = "dsp", required = false) String description) {
-//        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByDescription(description);
-//        return new ResponseEntity<>(posts, HttpStatus.OK);
-//    }
-//
-//    @Operation(summary = "타이틀 또는 상세내용으로 포스트 검색")
-//    @GetMapping("/search")
-//    ResponseEntity<?> searchPostByPostOrDescription(@RequestParam(name = "keyword", required = false) String keyword) {
-//        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTitleOrDescription(keyword);
-//        return new ResponseEntity<>(posts, HttpStatus.OK);
-//    }
-//
-//    @Operation(summary = "작성자로 포스트 검색")
-//    @GetMapping("/search/writer")
-//    ResponseEntity<?> searchPostByTag(@RequestParam(name = "writer", required = false) String writer) {
-//        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByWriter(writer);
-//        return new ResponseEntity<>(posts, HttpStatus.OK);
-//    }
-//
-//    @Operation(summary = "태그로 포스트 검색")
-//    @GetMapping("/tag-earch")
-//    ResponseEntity<?> searchPostByTag(@RequestParam(name = "tagName", required = false) String tagName) {
-//        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTag(tagName);
-//        return new ResponseEntity<>(posts, HttpStatus.OK);
-//    }
-    
-    
+    @Operation(summary = "상세내용으로 포스트 검색")
+    @GetMapping("/search/description")
+    ResponseEntity<?> searchPostByDescription(@RequestParam(name = "dsp", required = false) String description) {
+        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByDescription(description);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    @Operation(summary = "타이틀 또는 상세내용으로 포스트 검색")
+    @GetMapping("/search")
+    ResponseEntity<?> searchPostByPostOrDescription(@RequestParam(name = "keyword", required = false) String keyword) {
+        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTitleOrDescription(keyword);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    @Operation(summary = "작성자로 포스트 검색")
+    @GetMapping("/search/writer")
+    ResponseEntity<?> searchPostByWriterName(@RequestParam(name = "writer", required = false) String writer) {
+        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByWriter(writer);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    @Operation(summary = "태그로 포스트 검색")
+    @GetMapping("/tag-earch")
+    ResponseEntity<?> searchPostByTag(@RequestParam(name = "tagName", required = false) String tagName) {
+        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTag(tagName);
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
 
     @Operation(summary = "id로 포스트 검색")
     @GetMapping("/{id}")
     ResponseEntity<?> getPostById(@PathVariable("id") int id) {
-        Post post = postService.getPostById(id);
+        Post post = postService.getPostDetailById(id);
         return new ResponseEntity<>(post, HttpStatus.OK);
     }
 
@@ -118,7 +116,7 @@ public class PostController {
         if (post.getTags() != null && !post.getTags().isEmpty()) {
             tagService.checkTagInfo(post.getTags());
         }
-        
+
         if (post.getVideos() != null && !post.getVideos().isEmpty()) {
             videoService.checkVideoInfo(post.getVideos());
         }
@@ -194,7 +192,10 @@ public class PostController {
 
     @Operation(summary = "댓글 삭제")
     @DeleteMapping("/comment/{id}")
-    ResponseEntity<?> removeComment(@PathVariable("id") int id) {
+    ResponseEntity<?> removeComment(@PathVariable("id") int id, @CookieValue("token") String token) {
+        if (!jwtService.getUserIdFromToken(token).equals(commentService.getCommentById(id).getWriterId())) {
+            return new ResponseEntity<>(0, HttpStatus.FORBIDDEN);
+        }
         int result = commentService.removeComment(id);
         return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.NO_CONTENT);
     }

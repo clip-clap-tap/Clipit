@@ -13,7 +13,9 @@ export const usePostStore = defineStore('post', () => {
     const getUserPosts = async () => {
         const REST_URL = import.meta.env.VITE_REST_API_URL;
         const { cookies } = useCookies();
-        userPosts.value = (await axios.get(`${REST_URL}/users/${cookies.get('user')}/posts`)).data;
+        userPosts.value = (
+            await axios.get(`${REST_URL}/users/${cookies.get('user')}/all-posts`)
+        ).data;
     };
 
     const post = ref({});

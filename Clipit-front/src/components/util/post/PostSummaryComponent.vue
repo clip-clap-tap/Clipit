@@ -25,7 +25,7 @@ const router = useRouter();
             </h1>
             <div class="flex items-center">
                 <span class="font-medium text-sm text-gray-700 dark:text-gray-300">
-                    {{ post.writerId }}
+                    {{ post.writerName }}
                 </span>
                 <span class="text-sm text-gray-500 dark:text-gray-400 ml-2"
                     >| {{ post.createDate }}</span
