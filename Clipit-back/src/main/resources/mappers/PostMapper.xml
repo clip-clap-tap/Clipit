@@ -67,12 +67,18 @@
         post.created_at, post.view_count, post.updated_at,
         tag.id as tag_id, tag.name as tag_name,
         video.id as video_id, video.title as video_title, video.url as video_url, video_length,
-        post_video.index
+        post_video.index,
+        post_age_range.age_range,
+        post_body_part.body_part,
+        post_strength.strength
         FROM post
         LEFT JOIN post_tag on post.id = post_tag.post_id
         LEFT JOIN tag on post_tag.tag_id = tag.id
         LEFT JOIN post_video on post.id = post_video.post_id
         LEFT JOIN video on post_video.video_id = video.id
+        LEFT JOIN post_age_range on post.id=post_age_range.post_id
+        LEFT JOIN post_body_part on post.id=post_body_part.post_id
+        LEFT JOIN post_strength on post.id=post_strength.post_id
         WHERE post.id = #{id}
     </select>
     <select id="selectPostsByWriterId" parameterType="String" resultMap="postMap">
@@ -142,11 +148,11 @@
             (SELECT id FROM tag WHERE name = #{tag.name})
             )
         </foreach>
-<!--        INSERT INTO video(id, title, url)-->
-<!--        VALUES-->
-<!--        <foreach collection="videos" item="video" separator="," close=";">-->
-<!--            (#{video.id}, #{video.title}, #{video.url})-->
-<!--        </foreach>-->
+        <!--        INSERT INTO video(id, title, url)-->
+        <!--        VALUES-->
+        <!--        <foreach collection="videos" item="video" separator="," close=";">-->
+        <!--            (#{video.id}, #{video.title}, #{video.url})-->
+        <!--        </foreach>-->
         INSERT INTO post_video(`post_id`, `video_id`, `index`)
         VALUES
         <foreach collection="videos" item="video" separator="," close=";">

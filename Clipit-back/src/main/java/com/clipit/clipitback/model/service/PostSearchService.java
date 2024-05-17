@@ -7,7 +7,11 @@ import java.util.List;
 public interface PostSearchService {
     List<Post> searchPostsByTitle(String title);
 
+    List<Post> searchPostsByUserId(String userId);
+
     Post insertPost(com.clipit.clipitback.model.dto.Post post);
 
     Post convertPost(com.clipit.clipitback.model.dto.Post post);
+
+
 }

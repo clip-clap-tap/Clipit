@@ -87,6 +87,11 @@ export const useUserStore = defineStore('user', () => {
         }
     };
 
+    const validate = (id) => {
+        if (id === cookies.get('user')) return true;
+        return false;
+    };
+
     return {
         login,
         duplicateCheck,
@@ -94,6 +99,7 @@ export const useUserStore = defineStore('user', () => {
         logout,
         userProfile,
         getProfile,
-        saveProfile
+        saveProfile,
+        validate
     };
 });

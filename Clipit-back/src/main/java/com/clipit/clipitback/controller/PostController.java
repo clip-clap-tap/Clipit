@@ -26,7 +26,7 @@ public class PostController {
     private final PostSearchService postSearchService;
 
     @Autowired
-    PostController(PostService postService, CommentService commentService, TagService tagService, JWTService jwtService, PostSearchService postSearchService) {
+    PostController(PostService postService, CommentService commentService, TagService tagService, VideoService videoService, JWTService jwtService, PostSearchService postSearchService) {
         this.postService = postService;
         this.commentService = commentService;
         this.tagService = tagService;
@@ -64,7 +64,7 @@ public class PostController {
         if (post.getTags() != null && !post.getTags().isEmpty()) {
             tagService.checkTagInfo(post.getTags());
         }
-        
+
         if (post.getVideos() != null && !post.getVideos().isEmpty()) {
             videoService.checkVideoInfo(post.getVideos());
         }
@@ -140,7 +140,10 @@ public class PostController {
 
     @Operation(summary = "댓글 삭제")
     @DeleteMapping("/comment/{id}")
-    ResponseEntity<?> removeComment(@PathVariable("id") int id) {
+    ResponseEntity<?> removeComment(@PathVariable("id") int id, @CookieValue("token") String token) {
+        if (!jwtService.getUserIdFromToken(token).equals(commentService.getCommentById(id).getWriterId())) {
+            return new ResponseEntity<>(0, HttpStatus.FORBIDDEN);
+        }
         int result = commentService.removeComment(id);
         return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.NO_CONTENT);
     }

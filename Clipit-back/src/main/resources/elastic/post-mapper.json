@@ -1,0 +1,52 @@
+{
+  "properties": {
+    "title": {
+      "type": "text"
+    },
+    "description": {
+      "type": "text"
+    },
+    "tags": {
+      "type": "nested",
+      "properties": {
+        "tag_id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "text"
+        }
+      }
+    },
+    "video_url": {
+      "type": "text"
+    },
+    "updated_at": {
+      "type": "text"
+    },
+    "created_at": {
+      "type": "text"
+    },
+    "writer": {
+      "type": "nested",
+      "properties": {
+        "user_id": "text",
+        "username": "text"
+      }
+    },
+    "view_count": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "text"
+    },
+    "age_range": {
+      "type": "integer"
+    },
+    "body_part": {
+      "type": "text"
+    },
+    "strength": {
+      "type": "text"
+    }
+  }
+}
