@@ -15,7 +15,7 @@ defineProps({
 <template>
     <div class="border-b py-4 px-2">
         <div class="flex items-center">
-            <div>{{ comment.writerId }}</div>
+            <div>{{ comment.writerName }}</div>
             <Button
                 v-if="userStore.validate(comment.writerId)"
                 @click="commentStore.deleteComment(route.params.id, comment.id)"

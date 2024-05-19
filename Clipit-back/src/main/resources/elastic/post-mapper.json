@@ -12,13 +12,21 @@
         "tag_id": {
           "type": "integer"
         },
-        "name": {
+        "tag_name": {
           "type": "text"
         }
       }
     },
-    "video_url": {
-      "type": "text"
+    "videos": {
+      "type": "nested",
+      "properties": {
+        "video_id": {
+          "type": "integer"
+        },
+        "video_title": {
+          "type": "text"
+        }
+      }
     },
     "updated_at": {
       "type": "text"
@@ -26,12 +34,11 @@
     "created_at": {
       "type": "text"
     },
-    "writer": {
-      "type": "nested",
-      "properties": {
-        "user_id": "text",
-        "username": "text"
-      }
+    "writer_id": {
+      "type": "text"
+    },
+    "writer_name": {
+      "type": "text"
     },
     "view_count": {
       "type": "integer"
@@ -46,7 +53,7 @@
       "type": "text"
     },
     "strength": {
-      "type": "text"
+      "type": "integer"
     }
   }
 }

@@ -42,6 +42,9 @@ VALUES ('e9a3a153-d423-3cf3-a', 'sonny.runolfsdottir', '1983-12-13 15:33:09', 'f
 INSERT INTO `user_info` (`id`, `username`, `created_at`, `password`)
 VALUES ('f86537c6-215c-3ef1-9', 'pacocha.rylan', '1999-07-15 02:59:37', '06e725165aa2877eea29');
 
+SELECT *
+FROM user_info;
+
 INSERT INTO `user_profile` (`id`, `gender`, `height`, `weight`, `age`, `goal`)
 VALUES ('18cbaac1-980d-389f-b', 'at', NULL, NULL, 49, 'Sint modi ullam quia delectus quia vel.');
 INSERT INTO `user_profile` (`id`, `gender`, `height`, `weight`, `age`, `goal`)

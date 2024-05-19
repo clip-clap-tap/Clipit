@@ -12,8 +12,9 @@ const router = useRouter();
         class="flex items-center gap-6 h-44 py-3 px-4 rounded hover:bg-slate-100 w-full"
     >
         <img
+            v-if="post.videos.length > 0"
             class="object-cover object-center w-36 h-full rounded-lg"
-            :src="post.thumbnailURL"
+            :src="`https://i.ytimg.com/vi/${post.videos[0].id}/default.jpg`"
             alt=""
         />
         <div class="flex flex-col h-full w-full">
@@ -24,7 +25,7 @@ const router = useRouter();
             </h1>
             <div class="flex items-center">
                 <span class="font-medium text-sm text-gray-700 dark:text-gray-300">
-                    {{ post.writer.id }}
+                    {{ post.writerName }}
                 </span>
                 <span class="text-sm text-gray-500 dark:text-gray-400 ml-2"
                     >| {{ post.createDate }}</span
