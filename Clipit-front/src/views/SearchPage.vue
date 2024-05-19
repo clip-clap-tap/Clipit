@@ -1,11 +1,16 @@
 <script setup>
 import PostSummaryComponent from '@/components/util/post/PostSummaryComponent.vue';
 import { usePostStore } from '@/stores/PostStore';
-import { onMounted } from 'vue';
+import { onBeforeUnmount, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 
 const store = usePostStore();
 onMounted(() => {
-    store.getPosts();
+    const route = useRoute();
+    store.search(route.query);
+});
+onBeforeUnmount(() => {
+    store.searchInfo = {};
 });
 </script>
 

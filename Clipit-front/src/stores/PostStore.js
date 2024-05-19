@@ -2,6 +2,8 @@ import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useCookies } from 'vue3-cookies';
+import qs from 'qs';
+
 export const usePostStore = defineStore('post', () => {
     const posts = ref([]);
     const getPosts = async () => {
@@ -24,5 +26,25 @@ export const usePostStore = defineStore('post', () => {
         post.value = (await axios.get(`${REST_URL}/posts/${id}`)).data;
     };
 
-    return { getPosts, posts, userPosts, getUserPosts, post, getPostDetail };
+    const searchInfo = ref({
+        category: null,
+        keyword: '',
+        ageRange: [],
+        bodyParts: [],
+        strength: 0
+    });
+
+    const search = async (searchQuery) => {
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+        axios.defaults.paramsSerializer = (params) => qs.stringify(params);
+        posts.value = (
+            await axios.get(`${REST_URL}/posts/search`, {
+                params: {
+                    ...searchQuery
+                }
+            })
+        ).data;
+    };
+
+    return { getPosts, posts, userPosts, getUserPosts, post, getPostDetail, search, searchInfo };
 });

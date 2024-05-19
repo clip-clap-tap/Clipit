@@ -2,6 +2,7 @@ package com.clipit.clipitback.controller;
 
 import com.clipit.clipitback.model.dto.Comment;
 import com.clipit.clipitback.model.dto.Post;
+import com.clipit.clipitback.model.dto.SearchInfo;
 import com.clipit.clipitback.model.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,22 +37,17 @@ public class PostController {
     }
 
     @Operation(summary = "포스트 검색")
-    @GetMapping("/search/{category}")
-    ResponseEntity<?> searchPost(@PathVariable("category") String category, @RequestParam(name = "keyword", required = false) String keyword) {
+    @GetMapping("/search")
+    ResponseEntity<?> searchPost(SearchInfo searchInfo) {
 
-        List<com.clipit.clipitback.model.entity.Post> posts = null;
-
-        if (category.equals("none")) {
-            posts = postSearchService.searchPostsByTitleOrDescription(keyword);
-        } else if (category.equals("title")) {
-            posts = postSearchService.searchPostsByTitle(keyword);
-        } else if (category.equals("dsp")) {
-
-            posts = postSearchService.searchPostsByDescription(keyword);
-        } else if (category.equals("tag")) {
-
-            posts = postSearchService.searchPostsByTag(keyword);
-        }
+        System.out.println(searchInfo);
+        if (searchInfo.getCategory() == null) searchInfo.setCategory("");
+        List<com.clipit.clipitback.model.entity.Post> posts = switch (searchInfo.getCategory()) {
+            case "title" -> postSearchService.searchPostsByTitle(searchInfo.getKeyword());
+            case "description" -> postSearchService.searchPostsByDescription(searchInfo.getKeyword());
+            case "tag" -> postSearchService.searchPostsByTag(searchInfo.getKeyword());
+            default -> postSearchService.searchPostsByTitleOrDescription(searchInfo.getKeyword());
+        };
 
         return new ResponseEntity<>(posts, HttpStatus.OK);
 
@@ -72,12 +68,12 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
-    @Operation(summary = "타이틀 또는 상세내용으로 포스트 검색")
-    @GetMapping("/search")
-    ResponseEntity<?> searchPostByPostOrDescription(@RequestParam(name = "keyword", required = false) String keyword) {
-        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTitleOrDescription(keyword);
-        return new ResponseEntity<>(posts, HttpStatus.OK);
-    }
+//    @Operation(summary = "타이틀 또는 상세내용으로 포스트 검색")
+//    @GetMapping("/search")
+//    ResponseEntity<?> searchPostByPostOrDescription(@RequestParam(name = "keyword", required = false) String keyword) {
+//        List<com.clipit.clipitback.model.entity.Post> posts = postSearchService.searchPostsByTitleOrDescription(keyword);
+//        return new ResponseEntity<>(posts, HttpStatus.OK);
+//    }
 
     @Operation(summary = "작성자로 포스트 검색")
     @GetMapping("/search/writer")
@@ -103,9 +99,8 @@ public class PostController {
 
     @Operation(summary = "전체 포스트 목록")
     @GetMapping()
-    ResponseEntity<?> getAllPosts(@CookieValue("token") String token) {
+    ResponseEntity<?> getAllPosts() {
         List<Post> posts = postService.getAllPosts();
-        jwtService.validate(token);
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
