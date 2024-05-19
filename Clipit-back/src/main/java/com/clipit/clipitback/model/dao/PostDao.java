@@ -10,6 +10,8 @@ public interface PostDao {
 
     Post selectPostById(int id);
 
+    List<Post> selectRecentPosts();
+
     List<Post> selectUserRelatedPostsByUserId(String id);
 
     List<Post> selectPostsByWriterId(String id);

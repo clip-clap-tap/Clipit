@@ -55,7 +55,7 @@ const search = () => {
 </script>
 <template>
     <form ref="categoryModal" @submit.prevent="search" class="relative w-full flex justify-center">
-        <div ref="categoryModal" class="flex mt-8 w-full max-w-2xl gap-1">
+        <div ref="categoryModal" class="flex mt-8 w-full gap-1">
             <Dropdown
                 v-model="postStore.searchInfo.category"
                 placeholder="전체"
@@ -72,13 +72,14 @@ const search = () => {
                     @focus="() => (showCategory = true)"
                     class="w-full py-3"
                     placeholder="Search"
+                    autocomplete="off"
                 />
             </IconField>
             <Button type="submit" class="" severity="success" label="검색" />
         </div>
         <div
             v-if="showCategory"
-            class="absolute top-[5.4rem] bg-white w-full max-w-2xl min-h-16 px-4 md:px-8 shadow-lg border-2 rounded transition-all"
+            class="absolute top-[5.4rem] bg-white w-full min-h-16 px-4 md:px-8 shadow-lg border-2 rounded transition-all py-6 ease-in-out"
         >
             <div class="py-4">
                 <div class="mb-3 text-lg">연령대</div>

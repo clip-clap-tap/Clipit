@@ -26,6 +26,11 @@ export const usePostStore = defineStore('post', () => {
         post.value = (await axios.get(`${REST_URL}/posts/${id}`)).data;
     };
 
+    const getRecentPosts = async () => {
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+        posts.value = (await axios.get(`${REST_URL}/posts/recent`)).data;
+    };
+
     const searchInfo = ref({
         category: null,
         keyword: '',
@@ -46,5 +51,15 @@ export const usePostStore = defineStore('post', () => {
         ).data;
     };
 
-    return { getPosts, posts, userPosts, getUserPosts, post, getPostDetail, search, searchInfo };
+    return {
+        getPosts,
+        posts,
+        userPosts,
+        getUserPosts,
+        post,
+        getPostDetail,
+        search,
+        searchInfo,
+        getRecentPosts
+    };
 });

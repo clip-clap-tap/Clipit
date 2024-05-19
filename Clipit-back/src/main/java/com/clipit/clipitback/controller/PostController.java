@@ -39,8 +39,6 @@ public class PostController {
     @Operation(summary = "포스트 검색")
     @GetMapping("/search")
     ResponseEntity<?> searchPost(SearchInfo searchInfo) {
-
-        System.out.println(searchInfo);
         if (searchInfo.getCategory() == null) searchInfo.setCategory("");
         List<com.clipit.clipitback.model.entity.Post> posts = switch (searchInfo.getCategory()) {
             case "title" -> postSearchService.searchPostsByTitle(searchInfo.getKeyword());
@@ -101,6 +99,13 @@ public class PostController {
     @GetMapping()
     ResponseEntity<?> getAllPosts() {
         List<Post> posts = postService.getAllPosts();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    @Operation(summary = "최근 포스트 목록")
+    @GetMapping("/recent")
+    ResponseEntity<?> getRecentPosts() {
+        List<Post> posts = postService.getRecentPosts();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
