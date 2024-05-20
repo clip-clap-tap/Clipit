@@ -1,5 +1,6 @@
 package com.clipit.clipitback.model.service;
 
+import com.clipit.clipitback.model.dto.SearchInfo;
 import com.clipit.clipitback.model.entity.Post;
 import com.clipit.clipitback.model.repository.PostRepository;
 import org.modelmapper.ModelMapper;
@@ -24,6 +25,25 @@ public class PostSearchServiceImpl implements PostSearchService {
     public List<Post> searchPostsByTitle(String title) {
         List<Post> result = postRepository.searchAllByTitleContaining(title);
         return result;
+    }
+
+    @Override
+    public List<Post> search(SearchInfo searchInfo) {
+        String keyword = searchInfo.getKeyword();
+        String ageRangeQuery = (searchInfo.getAgeRange() == null || searchInfo.getAgeRange().isEmpty()) ? "" : String.join(" AND ", searchInfo.getAgeRange().stream().map(age -> "(" + age + ")").toList());
+        String bodyPartsQuery = (searchInfo.getBodyParts() == null || searchInfo.getBodyParts().isEmpty()) ? "" : String.join(" AND ", searchInfo.getBodyParts());
+        int strength = searchInfo.getStrength();
+        return postRepository.search(keyword, ageRangeQuery, bodyPartsQuery, strength);
+    }
+
+    @Override
+    public List<Post> searchByCategory(SearchInfo searchInfo) {
+        String category = searchInfo.getCategory();
+        String keyword = searchInfo.getKeyword();
+        String ageRangeQuery = (searchInfo.getAgeRange() == null || searchInfo.getAgeRange().isEmpty()) ? "" : String.join(" AND ", searchInfo.getAgeRange().stream().map(age -> "(" + age + ")").toList());
+        String bodyPartsQuery = (searchInfo.getBodyParts() == null || searchInfo.getBodyParts().isEmpty()) ? "" : String.join(" AND ", searchInfo.getBodyParts());
+        int strength = searchInfo.getStrength();
+        return postRepository.searchByCategory(category, keyword, ageRangeQuery, bodyPartsQuery, strength);
     }
 
 

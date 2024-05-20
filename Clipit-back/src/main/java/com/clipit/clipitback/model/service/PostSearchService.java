@@ -1,11 +1,16 @@
 package com.clipit.clipitback.model.service;
 
+import com.clipit.clipitback.model.dto.SearchInfo;
 import com.clipit.clipitback.model.entity.Post;
 
 import java.util.List;
 
 public interface PostSearchService {
     List<Post> searchPostsByTitle(String title);
+
+    List<Post> search(SearchInfo searchInfo);
+
+    List<Post> searchByCategory(SearchInfo searchInfo);
 
     List<Post> searchPostsByDescription(String description);
 

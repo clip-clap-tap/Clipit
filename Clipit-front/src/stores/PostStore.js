@@ -51,6 +51,11 @@ export const usePostStore = defineStore('post', () => {
         ).data;
     };
 
+    const disablePost = async (id) => {
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+        await axios.patch(`${REST_URL}/posts/${id}`, { status: 'disabled' });
+    };
+
     return {
         getPosts,
         posts,
@@ -60,6 +65,7 @@ export const usePostStore = defineStore('post', () => {
         getPostDetail,
         search,
         searchInfo,
-        getRecentPosts
+        getRecentPosts,
+        disablePost
     };
 });

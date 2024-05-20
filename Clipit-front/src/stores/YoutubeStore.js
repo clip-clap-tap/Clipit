@@ -9,8 +9,8 @@ export const useYoutubeStore = defineStore('youtube', () => {
     const selectedVideos = ref([]);
     const nextToken = ref('');
     const post = ref({ title: '', desc: '' });
-    const ages = ref([10, 20]);
-    const bodyParts = ref(['neck', 'leg']);
+    const ages = ref([40]);
+    const bodyParts = ref(['leg']);
     const strength = ref(0);
     const selectedTags = ref([{ name: 'new' }, { name: 'good' }]);
 

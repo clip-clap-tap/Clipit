@@ -84,32 +84,21 @@ const { cookies } = useCookies();
                     >
                         <div class="flex flex-col items-center">
                             <RouterLink
-                                :to="`/`"
-                                class="px-4 py-1.5 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 bg-gray-100 dark:bg-gray-700"
-                            >
-                                Blog
-                            </RouterLink>
-                            <RouterLink
                                 :to="{ name: `myPage` }"
-                                class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                class="break-keep px-4 py-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                             >
-                                MyPage
+                                마이페이지
                             </RouterLink>
                             <RouterLink
                                 :to="{ name: `myRoutine` }"
-                                class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                class="px-4 py-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                             >
-                                MyRoutines
+                                마이루틴
                             </RouterLink>
-                            <RouterLink
-                                :to="`/search`"
-                                class="px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
-                            >
-                                Search(임시)
-                            </RouterLink>
+
                             <div
                                 @click="userStore.logout"
-                                class="cursor-pointer px-4 py-1.5 mx-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                                class="cursor-pointer px-4 py-3 mt-4 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
                             >
                                 로그아웃
                             </div>
