@@ -19,9 +19,9 @@ const removePost = async () => {
 </script>
 
 <template>
-    <div class="w-full max-w-4xl">
-        <div class="w-full">
-            <h1 class="text-3xl font-bold py-4">{{ store.post.title }}</h1>
+    <div class="w-full max-w-4xl px-4">
+        <div class="w-full p-3">
+            <h1 class="text-3xl font-bold py-2 lg:py-4">{{ store.post.title }}</h1>
             <div class="flex mb-4 items-center">
                 <TagComponent
                     :name="tag.name"
