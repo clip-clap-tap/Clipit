@@ -33,7 +33,7 @@ const handleSave = () => {
 </script>
 <template>
     <div>
-        <Button @click="setIsOpen">비디오 편집</Button>
+        <Button severity="success" text @click="setIsOpen">편집</Button>
 
         <ModalComponent :visible="isOpen">
             <template #content>
