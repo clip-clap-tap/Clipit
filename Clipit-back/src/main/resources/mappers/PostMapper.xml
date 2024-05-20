@@ -60,7 +60,7 @@
         LEFT JOIN post_age_range on post.id=post_age_range.post_id
         LEFT JOIN post_body_part on post.id=post_body_part.post_id
         LEFT JOIN post_strength on post.id=post_strength.post_id
-        WHERE post.id = #{id}
+        WHERE post.id = #{id} and post.status!="disabled"
     </select>
 
     <select id="selectRecentPosts" parameterType="String" resultMap="postMap">
@@ -81,6 +81,7 @@
         LEFT JOIN post_age_range on post.id=post_age_range.post_id
         LEFT JOIN post_body_part on post.id=post_body_part.post_id
         LEFT JOIN post_strength on post.id=post_strength.post_id
+        WHERE post.status = "public"
         ORDER BY created_at DESC LIMIT 4;
     </select>
 
@@ -102,7 +103,7 @@
         LEFT JOIN post_age_range on post.id=post_age_range.post_id
         LEFT JOIN post_body_part on post.id=post_body_part.post_id
         LEFT JOIN post_strength on post.id=post_strength.post_id
-        WHERE post.writer_id = #{userId}
+        WHERE post.writer_id = #{userId} and post.status!="disabled"
 
     </select>
 
@@ -124,7 +125,7 @@
         LEFT JOIN post_age_range on post.id=post_age_range.post_id
         LEFT JOIN post_body_part on post.id=post_body_part.post_id
         LEFT JOIN post_strength on post.id=post_strength.post_id
-        where writer_id = #{id}
+        where (writer_id = #{id} and post.status!="disabled")
         or post.id in (select post_id from favorite_post fp where fp.user_id = #{id} and fp.post_id = post.id);
     </select>
 

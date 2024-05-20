@@ -9,6 +9,7 @@ import java.util.List;
 public interface PostRepository extends ElasticsearchRepository<Post, String> {
     List<Post> searchAllByTitleContaining(String title);
 
+    int deleteById(int id);
 
     List<Post> searchAllByDescriptionContaining(String description);
 

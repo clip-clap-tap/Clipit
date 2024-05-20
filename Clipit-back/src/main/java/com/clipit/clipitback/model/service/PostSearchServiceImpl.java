@@ -52,6 +52,12 @@ public class PostSearchServiceImpl implements PostSearchService {
         return result;
     }
 
+    @Override
+    public int deletePost(int id) {
+        return postRepository.deleteById(id);
+    }
+
+
     public Post convertPost(com.clipit.clipitback.model.dto.Post post) {
         ModelMapper mapper = new ModelMapper();
         Post postForSearch = mapper.map(post, Post.class);

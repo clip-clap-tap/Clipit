@@ -141,6 +141,7 @@ public class PostController {
     @PatchMapping("/{id}")
     ResponseEntity<?> modifyPostStatus(@PathVariable("id") int id, @RequestBody Map<String, String> statusInfo) {
         int result = postService.modifyPostStatus(id, statusInfo.get("status"));
+        postSearchService.deletePost(id);
         if (result == 0) {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
