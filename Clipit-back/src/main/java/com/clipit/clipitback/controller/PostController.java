@@ -113,6 +113,7 @@ public class PostController {
     @PostMapping()
     ResponseEntity<?> addPost(@RequestBody Post post, @CookieValue("token") String token) {
         post.setWriterId(jwtService.getUserIdFromToken(token));
+        System.out.println(post);
         if (post.getTags() != null && !post.getTags().isEmpty()) {
             tagService.checkTagInfo(post.getTags());
         }

@@ -18,12 +18,12 @@ public class Post {
     private List<Video> videos;
     private List<Integer> ageRange;
     private List<String> bodyPart;
-    private String strength;
+    private int strength;
 
     public Post() {
     }
 
-    public Post(int id, String title, String description, String writerId, String writerName, String status, String createDate, String updateDate, int viewCount, String visitDate, List<Tag> tags, List<Video> videos, List<Integer> ageRange, List<String> bodyPart, String strength) {
+    public Post(int id, String title, String description, String writerId, String writerName, String status, String createDate, String updateDate, int viewCount, String visitDate, List<Tag> tags, List<Video> videos, List<Integer> ageRange, List<String> bodyPart, int strength) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -153,11 +153,11 @@ public class Post {
         this.bodyPart = bodyPart;
     }
 
-    public String getStrength() {
+    public int getStrength() {
         return strength;
     }
 
-    public void setStrength(String strength) {
+    public void setStrength(int strength) {
         this.strength = strength;
     }
 }

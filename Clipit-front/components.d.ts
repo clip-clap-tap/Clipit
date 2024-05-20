@@ -9,7 +9,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     AboutComponent: typeof import('./src/components/myPage/AboutComponent.vue')['default']
     Button: typeof import('primevue/button')['default']
-    Checkbox: typeof import('primevue/checkbox')['default']
     Chip: typeof import('primevue/chip')['default']
     CommentComponent: typeof import('./src/components/util/post/CommentComponent.vue')['default']
     CommentSection: typeof import('./src/components/section/CommentSection.vue')['default']
@@ -30,9 +29,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SearchComponent: typeof import('./src/components/SearchComponent.vue')['default']
     SignUpComponent: typeof import('./src/components/SignUpComponent.vue')['default']
-    Slider: typeof import('primevue/slider')['default']
     StaticComponent: typeof import('./src/components/myPage/StaticComponent.vue')['default']
-    Tag: typeof import('primevue/tag')['default']
     TagComponent: typeof import('./src/components/util/TagComponent.vue')['default']
     Textarea: typeof import('primevue/textarea')['default']
     VideoComponent: typeof import('./src/components/util/post/VideoComponent.vue')['default']
