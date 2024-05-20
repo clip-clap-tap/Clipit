@@ -18,7 +18,10 @@ defineProps({
             <h2 class="text-gray-800 font-bold text-3xl">{{ title }}</h2>
         </div>
 
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 mt-12 max-w-5xl w-full">
+        <div
+            v-if="postStore.posts.length > 0"
+            class="grid grid-cols-1 gap-8 md:grid-cols-2 mt-12 max-w-5xl w-full"
+        >
             <PostCardComponent
                 v-for="item in postStore.posts"
                 :post="item"
