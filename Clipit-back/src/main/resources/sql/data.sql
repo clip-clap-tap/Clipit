@@ -437,3 +437,75 @@ FROM post
          LEFT JOIN post_body_part on post.id = post_body_part.post_id
          LEFT JOIN post_strength on post.id = post_strength.post_id
 WHERE visited_post.user_id = 'admin';
+
+UPDATE post
+SET view_count = view_count + 1
+WHERE id = 2;
+
+select *
+from post
+where post.status != 'disabled'
+  and post.id in (select post_id
+                  from visited_post vp
+                  where vp.user_id = 'user2'
+                    and vp.post_id = post.id
+                  order by vp.visited_at)
+;
+
+select *
+from visited_post;
+
+
+SELECT post.id,
+       post.title,
+       post.description,
+       post.writer_id,
+       post.writer_name,
+       post.status,
+       post.created_at,
+       post.view_count,
+       post.updated_at,
+       tag.id           as tag_id,
+       tag.name         as tag_name,
+       video.id         as video_id,
+       video.title      as video_title,
+       video.url        as video_url,
+       video_length,
+       post_video.index as video_index,
+       post_age_range.age_range,
+       post_body_part.body_part,
+       post_strength.strength
+from (select v_post.post_id, v_post.visited_at, post.*
+      from post,
+           (select user_id,
+                   post_id,
+                   visited_at,
+                   ROW_NUMBER() over (PARTITION BY vp.post_id order by vp.post_id desc) as RN
+            from visited_post vp) as v_post
+      where status != 'disabled'
+        and v_post.post_id = post.id
+        and RN = 1
+      order by post.view_count desc
+      limit 5) as post
+         LEFT JOIN post_tag on post.id = post_tag.post_id
+         LEFT JOIN tag on post_tag.tag_id = tag.id
+         LEFT JOIN post_video on post.id = post_video.post_id
+         LEFT JOIN video on post_video.video_id = video.id
+         LEFT JOIN post_age_range on post.id = post_age_range.post_id
+         LEFT JOIN post_body_part on post.id = post_body_part.post_id
+         LEFT JOIN post_strength on post.id = post_strength.post_id;
+
+select v_post.post_id, v_post.visited_at, post.*
+from post,
+     (select user_id,
+             post_id,
+             visited_at,
+             ROW_NUMBER() over (PARTITION BY vp.post_id order by vp.post_id desc) as RN
+      from visited_post vp) as v_post
+where status != 'disabled'
+  and post.writer_id != 'user2'
+  and v_post.user_id = 'user2'
+  and v_post.post_id = post.id
+  and RN = 1
+order by v_post.visited_at
+limit 5

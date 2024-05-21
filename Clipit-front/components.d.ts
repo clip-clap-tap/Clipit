@@ -36,5 +36,6 @@ declare module 'vue' {
     Textarea: typeof import('primevue/textarea')['default']
     VideoComponent: typeof import('./src/components/util/post/VideoComponent.vue')['default']
     VideoInfoComponent: typeof import('./src/components/util/VideoInfoComponent.vue')['default']
+    VisitedPostComponent: typeof import('./src/components/myPage/VisitedPostComponent.vue')['default']
   }
 }

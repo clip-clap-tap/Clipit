@@ -16,11 +16,15 @@ public interface PostService {
 
     List<Post> getRecentPosts();
 
+    List<Post> getPopularPosts();
+
     int addPost(Post post);
 
     int modifyPost(Post post);
 
     int modifyPostStatus(int id, String status);
+
+    int increaseViewCount(int id);
 
     List<Post> getFavoritePostsByUserId(String userId);
 

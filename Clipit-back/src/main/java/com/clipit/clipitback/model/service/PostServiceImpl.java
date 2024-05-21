@@ -44,6 +44,11 @@ public class PostServiceImpl implements PostService {
         return postDao.selectRecentPosts();
     }
 
+    @Override
+    public List<Post> getPopularPosts() {
+        return postDao.selectPopularPosts();
+    }
+
 
     @Override
     public List<Post> getVisitedPostsByUserId(String userId) {
@@ -69,6 +74,11 @@ public class PostServiceImpl implements PostService {
     public int modifyPostStatus(int id, String status) {
         int result = postDao.updatePostStatus(Map.of("id", id, "status", status));
         return result;
+    }
+
+    @Override
+    public int increaseViewCount(int id) {
+        return postDao.increaseViewCount(id);
     }
 
     @Override
