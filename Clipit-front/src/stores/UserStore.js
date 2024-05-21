@@ -39,13 +39,23 @@ export const useUserStore = defineStore('user', () => {
         });
     };
 
+    const loginUser = ref({});
+
     const register = function (user) {
         axios({
             url: `${URL}/signup`,
             method: 'POST',
             data: user
         }).then(() => {
-            // loginUser.value = user;
+            loginUser.value = user;
+
+            axios({
+                url: `${URL}/login`,
+                method: 'POST',
+                data: user
+            }).then((res) => {
+                cookies.set('user', JSON.parse(atob(res.data.split('.')[1]))['id']);
+            });
             router.push({ name: 'profile' });
         });
     };
@@ -65,12 +75,12 @@ export const useUserStore = defineStore('user', () => {
         });
     };
 
-    const saveProfile = function (id) {
+    const saveProfile = function (id, profile) {
         if (initialRegist.value === true) {
             axios({
                 url: `${URL}/profile/${id}`,
                 method: 'POST',
-                data: userProfile
+                data: profile
             }).then(() => {
                 router.push({ name: 'main' });
                 userProfile.value = {};
@@ -79,7 +89,7 @@ export const useUserStore = defineStore('user', () => {
             axios({
                 url: `${URL}/profile/${id}`,
                 method: 'PUT',
-                data: userProfile
+                data: profile
             }).then(() => {
                 router.push({ name: 'main' });
                 userProfile.value = {};
@@ -96,6 +106,7 @@ export const useUserStore = defineStore('user', () => {
         login,
         duplicateCheck,
         register,
+        loginUser,
         logout,
         userProfile,
         getProfile,

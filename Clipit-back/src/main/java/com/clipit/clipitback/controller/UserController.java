@@ -88,7 +88,7 @@ public class UserController {
 
     @Operation(summary = "회원정보 수정")
     @PutMapping("/{id}/info")
-    public ResponseEntity<?> modifyUserInfo(@PathVariable("id") String id, UserInfo userInfo) {
+    public ResponseEntity<?> modifyUserInfo(@PathVariable("id") String id, @RequestBody UserInfo userInfo) {
         userInfo.setId(id);
         int res = userService.modifyUserInfo(userInfo);
         return new ResponseEntity<>(res, res == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
@@ -153,7 +153,7 @@ public class UserController {
 
     @Operation(summary = "프로필 수정")
     @PutMapping("/profile/{id}")
-    public ResponseEntity<?> updateProfile(@PathVariable("id") String id, UserProfile userProfile) {
+    public ResponseEntity<?> updateProfile(@PathVariable("id") String id, @RequestBody UserProfile userProfile) {
         userProfile.setId(id);
         int res = userService.modifyUserProfile(userProfile);
         return new ResponseEntity<>(res, res == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);

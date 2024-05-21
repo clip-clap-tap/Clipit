@@ -22,6 +22,8 @@ public interface PostSearchService {
 
     Post insertPost(com.clipit.clipitback.model.dto.Post post);
 
+    Post updatePost(com.clipit.clipitback.model.dto.Post post);
+
     int deletePost(int id);
 
     Post convertPost(com.clipit.clipitback.model.dto.Post post);

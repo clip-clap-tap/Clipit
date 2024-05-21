@@ -95,6 +95,12 @@ const { cookies } = useCookies();
                             >
                                 마이루틴
                             </RouterLink>
+                            <RouterLink
+                                :to="{ name: `profile` }"
+                                class="px-4 py-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"
+                            >
+                                마이프로필
+                            </RouterLink>
 
                             <div
                                 @click="userStore.logout"
