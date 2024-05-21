@@ -2,12 +2,16 @@
 import { onMounted } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
 import { useCookies } from 'vue3-cookies';
+import { ref } from 'vue';
 
 const store = useUserStore();
 const { cookies } = useCookies();
 
+const username = ref('');
+
 onMounted(() => {
     store.getProfile(cookies.get('user'));
+    username.value = localStorage.getItem('username');
 });
 
 const saveProfile = function () {
@@ -22,11 +26,7 @@ const saveProfile = function () {
         >
             <td className="whitespace-nowrap px-6 py-4 font-medium">닉네임</td>
             <td className="whitespace-nowrap px-6 py-4">
-                {{
-                    store.userProfile.username === undefined
-                        ? store.loginUser.username
-                        : store.userProfile.username
-                }}
+                {{ username }}
             </td>
         </tr>
         <tr

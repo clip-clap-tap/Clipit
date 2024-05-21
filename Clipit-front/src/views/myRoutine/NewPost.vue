@@ -9,7 +9,7 @@ const router = useRouter();
 const handleSave = () => {
     store.savePost();
     store.resetVideos();
-    router.push({ name: 'myRoutine' });
+    router.push({ name: 'myRoutine' }).then(() => router.go(0));
 };
 
 const ageRangeProps = [

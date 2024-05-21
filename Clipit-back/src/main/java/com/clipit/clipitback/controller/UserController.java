@@ -153,6 +153,7 @@ public class UserController {
     @GetMapping("/profile/{id}")
     public ResponseEntity<?> getProfile(@PathVariable("id") String id) {
         UserProfile userProfile = userService.getUserProfileById(id);
+        System.out.println(id);
 
         if (userProfile == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
