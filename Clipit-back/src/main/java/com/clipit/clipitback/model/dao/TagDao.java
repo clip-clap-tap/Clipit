@@ -1,5 +1,6 @@
 package com.clipit.clipitback.model.dao;
 
+import com.clipit.clipitback.model.dto.FavoriteTag;
 import com.clipit.clipitback.model.dto.Tag;
 
 import java.util.List;
@@ -12,12 +13,13 @@ public interface TagDao {
 
     int deleteTag();
 
-    List<Tag> selectFavoriteTagsByUserId();
+    List<FavoriteTag> selectFavoriteTagsByUserId(String id);
 
+    int insertUserFavoriteTag(Map<String, ?> favoriteTag);
 
-    int insertUserFavoriteTag();
+    int updateUserFavoriteTag(Map<String, ?> favoriteTag);
 
-    int deleteUserFavoriteTag();
+    int deleteUserFavoriteTagByUserId(String userId);
 
     int insertPostTag(Map<String, ?> tagInfo);
 

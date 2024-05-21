@@ -1,6 +1,8 @@
 package com.clipit.clipitback.model.service;
 
+import com.clipit.clipitback.model.dao.PostDao;
 import com.clipit.clipitback.model.dao.TagDao;
+import com.clipit.clipitback.model.dto.FavoriteTag;
 import com.clipit.clipitback.model.dto.Post;
 import com.clipit.clipitback.model.dto.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,15 +14,12 @@ import java.util.Map;
 @Service
 public class TagServiceImpl implements TagService {
     private final TagDao tagDao;
+    private final PostDao postDao;
 
     @Autowired
-    TagServiceImpl(TagDao tagDao) {
+    TagServiceImpl(TagDao tagDao, PostDao postDao) {
         this.tagDao = tagDao;
-    }
-
-    @Override
-    public List<Tag> getFavoriteTagsByUserId() {
-        return null;
+        this.postDao = postDao;
     }
 
     @Override
@@ -30,13 +29,8 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public int addUserFavoriteTag() {
-        return 0;
-    }
-
-    @Override
-    public int removeUserFavoriteTag() {
-        return 0;
+    public int removeAllUserFavoriteTag(String userId) {
+        return tagDao.deleteUserFavoriteTagByUserId(userId);
     }
 
     @Override
@@ -60,6 +54,29 @@ public class TagServiceImpl implements TagService {
         }
         ;
     }
+
+    @Override
+    public List<FavoriteTag> getFavoriteTagsByUserId(String userId) {
+        return tagDao.selectFavoriteTagsByUserId(userId);
+    }
+
+    @Override
+    public int addUserFavoriteTag(String userId, List<Tag> tags) {
+
+        boolean allTagsAdded = true;
+        for (Tag tag : tags) {
+            System.out.println(tag.getId());
+            int res = tagDao.insertUserFavoriteTag(Map.of("userId", userId,"tagId", tag.getId()));
+            if(res==0) allTagsAdded = false;
+        }
+        return allTagsAdded?1:0;
+    }
+
+    @Override
+    public int modifyFavoriteTag(String userId, List<Tag> tags) {
+        return 0;
+    }
+
 
     @Override
     public int addPostTag(Post post) {
