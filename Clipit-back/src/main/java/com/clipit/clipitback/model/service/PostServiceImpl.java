@@ -72,6 +72,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public int increaseViewCount(int id) {
+        return postDao.increaseViewCount(id);
+    }
+
+    @Override
     public List<Post> getFavoritePostsByUserId(String userId) {
         return postDao.selectFavoritePostsByUserId(userId);
     }

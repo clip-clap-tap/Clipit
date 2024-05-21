@@ -31,6 +31,11 @@ export const usePostStore = defineStore('post', () => {
         posts.value = (await axios.get(`${REST_URL}/posts/recent`)).data;
     };
 
+    const getRecentVisitedPosts = async () => {
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+        posts.value = (await axios.get(`${REST_URL}/users/visited-posts`)).data;
+    };
+
     const searchInfo = ref({
         category: null,
         keyword: '',
@@ -66,6 +71,7 @@ export const usePostStore = defineStore('post', () => {
         search,
         searchInfo,
         getRecentPosts,
-        disablePost
+        disablePost,
+        getRecentVisitedPosts
     };
 });

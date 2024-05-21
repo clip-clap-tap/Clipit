@@ -26,6 +26,8 @@ public interface PostDao {
 
     int updatePostStatus(Map<String, ?> updateInfo);
 
+    int increaseViewCount(int id);
+
     int insertFavoritePost(Map<String, ?> favoritePostInfo);
 
     int deleteFavoritePost(Map<String, ?> favoritePostInfo);

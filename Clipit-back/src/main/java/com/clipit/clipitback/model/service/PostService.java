@@ -22,6 +22,8 @@ public interface PostService {
 
     int modifyPostStatus(int id, String status);
 
+    int increaseViewCount(int id);
+
     List<Post> getFavoritePostsByUserId(String userId);
 
     int addFavoritePost(String userId, int postId);
