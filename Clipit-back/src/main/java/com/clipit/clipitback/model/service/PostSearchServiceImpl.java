@@ -22,26 +22,26 @@ public class PostSearchServiceImpl implements PostSearchService {
 
     @Override
     public List<Post> searchPostsByTitle(String title) {
-        List<Post> result = postRepository.searchAllByTitle(title);
+        List<Post> result = postRepository.searchAllByTitleContaining(title);
         return result;
     }
 
 
     @Override
     public List<Post> searchPostsByDescription(String description) {
-        List<Post> result = postRepository.searchAllByDescription(description);
+        List<Post> result = postRepository.searchAllByDescriptionContaining(description);
         return result;
     }
 
     @Override
     public List<Post> searchPostsByTitleOrDescription(String keyword) {
-        List<Post> result = postRepository.searchAllByTitleOrDescription(keyword, keyword);
+        List<Post> result = postRepository.searchAllByTitleContainingOrDescriptionContaining(keyword, keyword);
         return result;
     }
 
     @Override
     public List<Post> searchPostsByWriter(String name) {
-        List<Post> result = postRepository.searchAllByWriterName(name);
+        List<Post> result = postRepository.searchAllByWriterNameContaining(name);
         return result;
     }
 

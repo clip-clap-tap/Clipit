@@ -14,6 +14,8 @@ public interface PostService {
 
     Post getPostDetailById(int id);
 
+    List<Post> getRecentPosts();
+
     int addPost(Post post);
 
     int modifyPost(Post post);

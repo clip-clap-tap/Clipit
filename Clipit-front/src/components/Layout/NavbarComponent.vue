@@ -14,9 +14,9 @@ const { cookies } = useCookies();
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-between">
                     <!-- <div class="text-xl font-semibold text-gray-700"> -->
-                    <RouterLink :to="`/`">
+                    <a :href="$router.resolve({ name: 'main' }).href">
                         <img src="@/assets/Clipit_logo.png" class="w-36 h-8 object-cover" />
-                    </RouterLink>
+                    </a>
                     <!-- </div> -->
 
                     <!-- Mobile menu button -->

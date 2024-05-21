@@ -7,17 +7,14 @@ import java.util.List;
 
 
 public interface PostRepository extends ElasticsearchRepository<Post, String> {
-    List<Post> searchAllByTitle(String title);
+    List<Post> searchAllByTitleContaining(String title);
 
 
-    List<Post> searchAllByWriterId(String username);
+    List<Post> searchAllByDescriptionContaining(String description);
 
+    List<Post> searchAllByTitleContainingOrDescriptionContaining(String title, String desc);
 
-    List<Post> searchAllByDescription(String description);
-
-    List<Post> searchAllByTitleOrDescription(String title, String description);
-
-    List<Post> searchAllByWriterName(String writer);
+    List<Post> searchAllByWriterNameContaining(String writer);
 
     List<Post> searchAllByTagsName(String tagName);
 
