@@ -9,9 +9,24 @@ import PostDetailPage from '@/views/PostDetailPage.vue';
 import LoginView from '@/views/LoginView.vue';
 import SignUpView from '@/views/SignUpView.vue';
 import ProfileView from '@/views/ProfileView.vue';
+// import axios from 'axios';
+// import { useUserStore } from '@/stores/UserStore';
 
 const routes = [
-    { path: '/', name: 'main', component: MainPage },
+    {
+        path: '/',
+        name: 'main',
+        component: MainPage
+        // beforeEnter: async () => {
+        //     const userStore = useUserStore();
+        //     try {
+        //         const token = (await axios.get('http://localhost:8080/users/validate')).data;
+        //         userStore.setUserData(token);
+        //     } catch (error) {
+        //         console.log('login needed');
+        //     }
+        // }
+    },
     { path: '/template', name: 'template', component: TemplatePage },
     { path: '/search', name: 'search', component: SearchPage },
     { path: '/post/:id', name: 'postDetail', component: PostDetailPage },
@@ -31,6 +46,7 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes,
+
     scrollBehavior(to) {
         if (to.hash) {
             return {

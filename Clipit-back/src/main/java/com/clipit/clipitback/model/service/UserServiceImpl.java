@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int signup(UserInfo userInfo) {
-
         return userInfoDao.signup(userInfo);
     }
 

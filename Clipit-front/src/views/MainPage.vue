@@ -1,14 +1,14 @@
 <script setup>
 import PostCardSectionComponent from '@/components/util/post/PostCardSectionComponent.vue';
 import { usePostStore } from '@/stores/PostStore';
+
 import { onMounted } from 'vue';
 
 const postStore = usePostStore();
+
 onMounted(async () => {
     await postStore.getRecentPosts();
     await postStore.getPopularPosts();
-    // console.log(postStore.recentPosts);
-    // console.log(postStore.popularPosts);
 });
 </script>
 <template>

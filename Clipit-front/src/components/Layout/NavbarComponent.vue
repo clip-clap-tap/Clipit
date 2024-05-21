@@ -1,11 +1,18 @@
 <script setup>
 import { useLayoutStore } from '@/stores/LayoutStore';
 import { useUserStore } from '@/stores/UserStore';
+import { ref } from 'vue';
+import { onMounted } from 'vue';
 import { useCookies } from 'vue3-cookies';
 
 const layoutStore = useLayoutStore();
 const userStore = useUserStore();
 const { cookies } = useCookies();
+
+const username = ref('');
+onMounted(() => {
+    username.value = localStorage.getItem('username');
+});
 </script>
 
 <template>
@@ -66,8 +73,8 @@ const { cookies } = useCookies();
                 <!-- Mobile Menu open: "block", Menu closed: "hidden" -->
                 <!-- :class="[isOpen ? 'translate-x-0 opacity-100 ' : 'opacity-0 -translate-x-full']" -->
                 <div class="relative">
-                    <button v-if="cookies.get('user')" class="px-6" @click="layoutStore.setIsOpen">
-                        {{ cookies.get('user') }}님
+                    <button v-if="username" class="px-6" @click="layoutStore.setIsOpen">
+                        {{ username }}님
                     </button>
                     <RouterLink v-if="!cookies.get('user')" class="px-6" :to="{ name: 'login' }">
                         로그인
@@ -82,7 +89,7 @@ const { cookies } = useCookies();
                         ]"
                         class="absolute top-10 right-0 z-20 px-2 py-4 transition-all duration-300 ease-in-out bg-white dark:bg-gray-800 rounded shadow"
                     >
-                        <div class="flex flex-col items-center">
+                        <div class="flex flex-col items-centerw">
                             <RouterLink
                                 :to="{ name: `myPage` }"
                                 class="break-keep px-4 py-3 mt-2 text-gray-700 transition-colors duration-300 transform rounded-lg lg:mt-0 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700"

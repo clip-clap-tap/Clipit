@@ -5,6 +5,7 @@ import com.clipit.clipitback.model.dto.Post;
 import com.clipit.clipitback.model.dto.UserInfo;
 import com.clipit.clipitback.model.dto.UserProfile;
 import com.clipit.clipitback.model.service.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -13,6 +14,8 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 @RequestMapping("/users")
@@ -24,13 +27,16 @@ public class UserController {
     private final VideoService videoService;
     private final JWTService jwtService;
 
+    private final KakaoService kakaoService;
+
     @Autowired
-    public UserController(UserService userService, PostService postService, VideoService videoService, JWTService jwtService, PostSearchService postSearchService) {
+    public UserController(UserService userService, PostService postService, VideoService videoService, JWTService jwtService, PostSearchService postSearchService, KakaoService kakaoService) {
 
         this.userService = userService;
         this.postService = postService;
         this.videoService = videoService;
         this.jwtService = jwtService;
+        this.kakaoService = kakaoService;
     }
 
     @Operation(summary = "전체 회원정보 목록")
@@ -56,9 +62,13 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody UserInfo userinfo) {
         int res = userService.signup(userinfo);
+        String token = userService.login(userinfo);
 
-        return new ResponseEntity<>(res, res == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        HttpHeaders headers = new HttpHeaders();
+        ResponseCookie resCookie = ResponseCookie.from("token", token).maxAge(1000 * 60).path("/").httpOnly(true).secure(false).build();
+        headers.set(HttpHeaders.SET_COOKIE, resCookie.toString());
 
+        return new ResponseEntity<>(token, headers, HttpStatus.OK);
     }
 
 
@@ -168,4 +178,46 @@ public class UserController {
         return new ResponseEntity<>(res, res == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
 
     }
+
+    @GetMapping("/login/kakao")
+    public ResponseEntity<?> kakaoLogin() throws URISyntaxException {
+        StringBuffer url = new StringBuffer();
+        url.append("https://kauth.kakao.com/oauth/authorize?");
+        url.append("client_id=27b5dbc96596ad8fccb20d4c85f25f2b");
+        url.append("&redirect_uri=http://localhost:8080/users/login/kakao/token");
+        url.append("&response_type=code");
+
+        URI redirectUri = new URI(url.toString());
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.setLocation(redirectUri);
+
+
+        return new ResponseEntity<>("login", httpHeaders, HttpStatus.TEMPORARY_REDIRECT);
+    }
+
+    @GetMapping("/login/kakao/token")
+    public ResponseEntity<?> kakaoGetToken(@RequestParam("code") String code) throws URISyntaxException, JsonProcessingException {
+        String accessToken = kakaoService.getKakaoToken(code);
+        UserInfo user = kakaoService.getKakaoInfo(accessToken);
+        user = kakaoService.getUserInfo(user);
+        String token = userService.login(user);
+
+        URI redirectUri = new URI("http://localhost:5173/login");
+        HttpHeaders headers = new HttpHeaders();
+        headers.setLocation(redirectUri);
+
+        ResponseCookie resCookie = ResponseCookie.from("token", token).maxAge(1000 * 60).path("/").httpOnly(true).secure(false).build();
+        headers.set(HttpHeaders.SET_COOKIE, resCookie.toString());
+
+        return new ResponseEntity<>(token, headers, HttpStatus.TEMPORARY_REDIRECT);
+
+
+    }
+
+    @GetMapping("/validate")
+    public ResponseEntity<?> validateToken(@CookieValue(value = "token", required = false) String token) {
+        boolean result = token != null ? jwtService.validate(token) : false;
+        return new ResponseEntity<>(token, result ? HttpStatus.OK : HttpStatus.FORBIDDEN);
+    }
+
 }

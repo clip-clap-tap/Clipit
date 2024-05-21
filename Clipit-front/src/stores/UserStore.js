@@ -16,15 +16,25 @@ export const useUserStore = defineStore('user', () => {
             method: 'POST',
             data: user
         }).then((res) => {
-            cookies.set('user', JSON.parse(atob(res.data.split('.')[1]))['id']);
-            router.push({ name: 'main' }).then(() => router.go(0));
+            setUserData(res.data).then(() =>
+                router.push({ name: 'main' }).then(() => router.go(0))
+            );
         });
+    };
+
+    const setUserData = async (token) => {
+        const id = JSON.parse(atob(token.split('.')[1]))['id'];
+        const user = (await axios.get(`${URL}/${id}/info`)).data;
+        cookies.set('user', id);
+        localStorage.setItem('username', user.username);
+        console.log(user);
     };
 
     const logout = async () => {
         const REST_URL = import.meta.env.VITE_REST_API_URL;
         await axios.post(`${REST_URL}/users/logout`);
         cookies.remove('user');
+        localStorage.removeItem('username');
         router.push({ name: 'main' }).then(() => router.go(0));
     };
 
@@ -97,9 +107,15 @@ export const useUserStore = defineStore('user', () => {
         }
     };
 
-    const validate = (id) => {
-        if (id === cookies.get('user')) return true;
-        return false;
+    const validate = async () => {
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+        try {
+            const token = (await axios.get(`${REST_URL}/users/validate`)).data;
+            await setUserData(token);
+        } catch {
+            return false;
+        }
+        return true;
     };
 
     return {
@@ -111,6 +127,7 @@ export const useUserStore = defineStore('user', () => {
         userProfile,
         getProfile,
         saveProfile,
-        validate
+        validate,
+        setUserData
     };
 });

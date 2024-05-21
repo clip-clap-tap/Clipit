@@ -26,16 +26,15 @@ public class JWTServiceImpl implements JWTService {
     @Override
     public String createToken(UserInfo userInfo) {
         SecretKey secretKey = Keys.hmacShaKeyFor(secret_key.getBytes(StandardCharsets.UTF_8));
-//        System.out.println(secretKey);
         Date exp = new Date(System.currentTimeMillis() + 1000 * 60 * 60);
-        return Jwts.builder().header().add("typ", "JWT").and().claim("id", userInfo.getId()).expiration(exp).signWith(secretKey).compact();
+        return Jwts.builder().header().add("typ", "JWT").and().claim("id", userInfo.getId()).claim("username", userInfo.getUsername()).expiration(exp).signWith(secretKey).compact();
     }
 
     @Override
     public Boolean validate(String token) {
-        Map<String, ?> decodedToken = decode(token);
-        System.out.println(decodedToken);
-        return decodedToken == null;
+        SecretKey secretKey = Keys.hmacShaKeyFor(secret_key.getBytes(StandardCharsets.UTF_8));
+        Jws<Claims> jwsClaims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
+        return !jwsClaims.getPayload().getExpiration().before(new Date());
     }
 
     public String getUserIdFromToken(String token) {
@@ -46,9 +45,8 @@ public class JWTServiceImpl implements JWTService {
     public Map<String, ?> decode(String token) {
         SecretKey secretKey = Keys.hmacShaKeyFor(secret_key.getBytes(StandardCharsets.UTF_8));
         Jws<Claims> jwsClaims = Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token);
-//        System.out.println(jwsClaims.getPayload().get("id"));
         Claims payload = jwsClaims.getPayload();
-        Map<String, ?> decodedToken = Map.of("id", payload.get("id"));
+        Map<String, ?> decodedToken = Map.of("id", payload.get("id"), "exp", payload.get("exp"));
         return decodedToken;
     }
 
