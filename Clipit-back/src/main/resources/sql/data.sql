@@ -508,4 +508,7 @@ where status != 'disabled'
   and v_post.post_id = post.id
   and RN = 1
 order by v_post.visited_at
-limit 5
+limit 5;
+
+select *
+from user_info;
