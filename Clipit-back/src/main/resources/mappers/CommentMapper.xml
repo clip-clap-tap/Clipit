@@ -3,13 +3,25 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clipit.clipitback.model.dao.CommentDao">
+
+    <resultMap id="commentMap" type="Comment">
+        <id property="id" column="id"/>
+        <result property="postId" column="post_id"/>
+        <result property="writerId" column="writer_id"/>
+        <result property="writerName" column="username"/>
+        <result property="content" column="content"/>
+    </resultMap>
+
     <select id="selectCommentById" parameterType="int" resultType="Comment">
         SELECT * FROM comment
         WHERE id = #{id}
     </select>
-    <select id="selectCommentsByPostId" parameterType="int" resultType="Comment">
-        SELECT * FROM comment
-        WHERE post_id = #{id}
+
+    <select id="selectCommentsByPostId" parameterType="int" resultMap="commentMap">
+        SELECT c.id, c.post_id, c.writer_id, ui.username ,c.content
+        FROM comment c
+        JOIN user_info ui ON c.writer_id = ui.id
+        WHERE c.post_id = #{id}
     </select>
     <select id="selectCommentsByUserId" parameterType="String" resultType="Comment">
         SELECT * FROM comment

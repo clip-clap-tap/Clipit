@@ -7,8 +7,8 @@ import { onMounted } from 'vue';
 const postStore = usePostStore();
 
 onMounted(async () => {
-    postStore.getRecentPosts();
-    postStore.getPopularPosts();
+    await postStore.getRecentPosts();
+    await postStore.getPopularPosts();
 });
 </script>
 <template>

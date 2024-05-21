@@ -131,15 +131,17 @@ public class PostController {
             videoService.checkVideoInfo(post.getVideos());
         }
         int result = postService.addPost(post);
-        postSearchService.insertPost(post);
+        postSearchService.insertPost(postService.getPostDetailById(post.getId()));
         return new ResponseEntity<>(result, result == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.CREATED);
     }
 
     @Operation(summary = "포스트 수정")
     @PutMapping("/{id}")
-    ResponseEntity<?> modifyPost(@PathVariable("id") int id, @RequestBody Post post) {
+    ResponseEntity<?> modifyPost(@PathVariable("id") int id, @CookieValue("token") String token,@RequestBody Post post) {
         post.setId(id);
+        post.setWriterId(jwtService.getUserIdFromToken(token));
         int result = postService.modifyPost(post);
+        postSearchService.updatePost(postService.getPostDetailById(post.getId()));
         if (result == 0) {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }
@@ -190,6 +192,9 @@ public class PostController {
     @GetMapping("/{id}/comments")
     ResponseEntity<?> getPostComments(@PathVariable("id") int postId) {
         List<Comment> comments = commentService.getCommentsByPostId(postId);
+        for(Comment comment : comments) {
+            System.out.println(comment);
+        }
         return new ResponseEntity<>(comments, HttpStatus.OK);
     }
 

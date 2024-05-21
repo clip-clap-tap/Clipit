@@ -11,11 +11,11 @@ defineProps({
         </div>
 
         <div class="grid grid-cols-1 gap-8 md:grid-cols-2 mt-12 max-w-5xl w-full">
-            <PostCardComponent
+            <!-- <PostCardComponent
                 v-for="item in posts"
                 :post="item"
                 :key="item.id"
-            ></PostCardComponent>
+            ></PostCardComponent> -->
         </div>
     </section>
 </template>

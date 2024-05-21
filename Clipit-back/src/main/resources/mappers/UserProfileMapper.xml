@@ -5,8 +5,10 @@
 <mapper namespace="com.clipit.clipitback.model.dao.UserProfileDao">
 
     <select id="selectUserProfile" parameterType="String" resultType="UserProfile">
-        SELECT * FROM user_profile
-        WHERE id=#{id}
+        SELECT up.id, ui.username, up.gender, up.height, up.weight, up.age, up.goal
+        FROM user_profile up
+        JOIN user_info ui ON up.id = ui.id
+        WHERE up.id = #{id}
     </select>
 
     <insert id="insertUserProfile" parameterType="UserProfile">

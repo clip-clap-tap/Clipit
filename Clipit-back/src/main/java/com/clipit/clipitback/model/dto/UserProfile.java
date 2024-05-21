@@ -3,6 +3,7 @@ package com.clipit.clipitback.model.dto;
 public class UserProfile {
 
 	private String id;
+	private String username;
 	private String gender;
 	private float height;
 	private float weight;
@@ -13,9 +14,10 @@ public class UserProfile {
 		super();
 	}
 
-	public UserProfile(String id, String gender, float height, float weight, int age, String goal) {
+	public UserProfile(String id, String Username, String gender, float height, float weight, int age, String goal) {
 		super();
 		this.id = id;
+		this.username = Username;
 		this.gender = gender;
 		this.height = height;
 		this.weight = weight;
@@ -29,6 +31,14 @@ public class UserProfile {
 
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getGender() {
@@ -73,8 +83,14 @@ public class UserProfile {
 
 	@Override
 	public String toString() {
-		return "UserProfile [id=" + id + ", gender=" + gender + ", height=" + height + ", weight=" + weight + ", age="
-				+ age + ", goal=" + goal + "]";
+		return "UserProfile{" +
+				"id='" + id + '\'' +
+				", username='" + username + '\'' +
+				", gender='" + gender + '\'' +
+				", height=" + height +
+				", weight=" + weight +
+				", age=" + age +
+				", goal='" + goal + '\'' +
+				'}';
 	}
-
 }
