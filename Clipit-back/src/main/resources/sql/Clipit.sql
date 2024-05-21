@@ -100,7 +100,7 @@ CREATE TABLE IF NOT EXISTS `visited_post`
     `id`         integer PRIMARY KEY NOT NULL AUTO_INCREMENT,
     `user_id`    varchar(20),
     `post_id`    integer,
-    `visited_at` timestamp default current_timestamp,
+    `visited_at` timestamp           not null default current_timestamp on update current_timestamp,
     CONSTRAINT FOREIGN KEY (`user_id`) REFERENCES `user_info` (`id`) on delete cascade,
     CONSTRAINT FOREIGN KEY (`post_id`) REFERENCES `post` (`id`) on delete cascade
 );

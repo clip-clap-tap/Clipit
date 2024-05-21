@@ -86,10 +86,14 @@ public class PostController {
     }
 
 
-    @Operation(summary = "id로 포스트 검색")
+    @Operation(summary = "id로 포스트 detail 받아오기")
     @GetMapping("/{id}")
-    ResponseEntity<?> getPostById(@PathVariable("id") int id) {
+    ResponseEntity<?> getPostById(@PathVariable("id") int id, @CookieValue(name = "token", required = false) String token) {
         Post post = postService.getPostDetailById(id);
+        if (token != null) {
+            postService.addVisitedPost(jwtService.getUserIdFromToken(token), post.getId());
+        }
+        int result = postService.increaseViewCount(post.getId());
         return new ResponseEntity<>(post, HttpStatus.OK);
     }
 
@@ -104,6 +108,13 @@ public class PostController {
     @GetMapping("/recent")
     ResponseEntity<?> getRecentPosts() {
         List<Post> posts = postService.getRecentPosts();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
+    @Operation(summary = "인기 포스트 목록")
+    @GetMapping("/popular")
+    ResponseEntity<?> getPopularPosts() {
+        List<Post> posts = postService.getPopularPosts();
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
