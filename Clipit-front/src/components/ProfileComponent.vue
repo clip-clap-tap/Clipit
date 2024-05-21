@@ -1,14 +1,18 @@
 <script setup>
 import { onMounted } from 'vue';
 import { useUserStore } from '@/stores/UserStore';
+import { useCookies } from 'vue3-cookies';
 
 const store = useUserStore();
+const { cookies } = useCookies();
+
 onMounted(() => {
-    store.getProfile(store.loginUser.id);
+    store.getProfile(cookies.get('user'));
+    console.log(store.userProfile.username);
 });
 
 const saveProfile = function () {
-    store.saveProfile(store.loginUser.id);
+    store.saveProfile(cookies.get('user'));
 };
 </script>
 
@@ -18,7 +22,13 @@ const saveProfile = function () {
             className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600"
         >
             <td className="whitespace-nowrap px-6 py-4 font-medium">닉네임</td>
-            <td className="whitespace-nowrap px-6 py-4">{{ store.loginUser.username }}</td>
+            <td className="whitespace-nowrap px-6 py-4">
+                {{
+                    store.userProfile.username === undefined
+                        ? store.loginUser.username
+                        : store.userProfile.username
+                }}
+            </td>
         </tr>
         <tr
             className="border-b transition duration-300 ease-in-out hover:bg-neutral-100 dark:border-neutral-500 dark:hover:bg-neutral-600"
