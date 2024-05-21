@@ -44,6 +44,11 @@ public class PostServiceImpl implements PostService {
         return postDao.selectRecentPosts();
     }
 
+    @Override
+    public List<Post> getPopularPosts() {
+        return postDao.selectPopularPosts();
+    }
+
 
     @Override
     public List<Post> getVisitedPostsByUserId(String userId) {

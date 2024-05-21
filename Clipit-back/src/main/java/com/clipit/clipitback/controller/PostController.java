@@ -111,6 +111,13 @@ public class PostController {
         return new ResponseEntity<>(posts, HttpStatus.OK);
     }
 
+    @Operation(summary = "인기 포스트 목록")
+    @GetMapping("/popular")
+    ResponseEntity<?> getPopularPosts() {
+        List<Post> posts = postService.getPopularPosts();
+        return new ResponseEntity<>(posts, HttpStatus.OK);
+    }
+
     @Operation(summary = "포스트 등록")
     @PostMapping()
     ResponseEntity<?> addPost(@RequestBody Post post, @CookieValue("token") String token) {

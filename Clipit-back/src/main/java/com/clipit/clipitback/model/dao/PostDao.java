@@ -12,6 +12,8 @@ public interface PostDao {
 
     List<Post> selectRecentPosts();
 
+    List<Post> selectPopularPosts();
+
     List<Post> selectUserRelatedPostsByUserId(String id);
 
     List<Post> selectPostsByWriterId(String id);

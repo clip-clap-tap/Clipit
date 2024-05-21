@@ -483,11 +483,9 @@ from (select v_post.post_id, v_post.visited_at, post.*
                    ROW_NUMBER() over (PARTITION BY vp.post_id order by vp.post_id desc) as RN
             from visited_post vp) as v_post
       where status != 'disabled'
-        and post.writer_id != 'user2'
-        and v_post.user_id = 'user2'
         and v_post.post_id = post.id
         and RN = 1
-      order by v_post.visited_at
+      order by post.view_count desc
       limit 5) as post
          LEFT JOIN post_tag on post.id = post_tag.post_id
          LEFT JOIN tag on post_tag.tag_id = tag.id

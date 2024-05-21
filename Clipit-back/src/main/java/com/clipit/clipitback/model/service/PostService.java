@@ -16,6 +16,8 @@ public interface PostService {
 
     List<Post> getRecentPosts();
 
+    List<Post> getPopularPosts();
+
     int addPost(Post post);
 
     int modifyPost(Post post);
