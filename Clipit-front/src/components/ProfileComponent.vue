@@ -8,11 +8,10 @@ const { cookies } = useCookies();
 
 onMounted(() => {
     store.getProfile(cookies.get('user'));
-    console.log(store.userProfile.username);
 });
 
 const saveProfile = function () {
-    store.saveProfile(cookies.get('user'));
+    store.saveProfile(cookies.get('user'), store.userProfile);
 };
 </script>
 

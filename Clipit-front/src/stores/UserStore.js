@@ -68,7 +68,6 @@ export const useUserStore = defineStore('user', () => {
             url: `${URL}/profile/${id}`,
             method: 'GET'
         }).then((res) => {
-            console.log(res.data);
             if (res.status != 204) {
                 userProfile.value = res.data;
                 initialRegist.value = false;
@@ -76,12 +75,12 @@ export const useUserStore = defineStore('user', () => {
         });
     };
 
-    const saveProfile = function (id) {
+    const saveProfile = function (id, profile) {
         if (initialRegist.value === true) {
             axios({
                 url: `${URL}/profile/${id}`,
                 method: 'POST',
-                data: userProfile
+                data: profile
             }).then(() => {
                 router.push({ name: 'main' });
                 userProfile.value = {};
@@ -90,7 +89,7 @@ export const useUserStore = defineStore('user', () => {
             axios({
                 url: `${URL}/profile/${id}`,
                 method: 'PUT',
-                data: userProfile
+                data: profile
             }).then(() => {
                 router.push({ name: 'main' });
                 userProfile.value = {};
