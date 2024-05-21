@@ -45,7 +45,7 @@ export const useYoutubeStore = defineStore('youtube', () => {
     const savePost = async () => {
         const YOUTUBE_URL = 'https://www.youtube.com/';
         const REST_URL = import.meta.env.VITE_REST_API_URL;
-        console.log(strength.value);
+
         await axios.post(`${REST_URL}/posts`, {
             ...post.value,
             tags: selectedTags.value,

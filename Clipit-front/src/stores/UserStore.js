@@ -27,7 +27,6 @@ export const useUserStore = defineStore('user', () => {
         const user = (await axios.get(`${URL}/${id}/info`)).data;
         cookies.set('user', id);
         localStorage.setItem('username', user.username);
-        console.log(user);
     };
 
     const logout = async () => {
@@ -49,24 +48,15 @@ export const useUserStore = defineStore('user', () => {
         });
     };
 
-    const loginUser = ref({});
-
     const register = function (user) {
         axios({
             url: `${URL}/signup`,
             method: 'POST',
             data: user
-        }).then(() => {
-            loginUser.value = user;
-
-            axios({
-                url: `${URL}/login`,
-                method: 'POST',
-                data: user
-            }).then((res) => {
-                cookies.set('user', JSON.parse(atob(res.data.split('.')[1]))['id']);
-            });
-            router.push({ name: 'profile' });
+        }).then((res) => {
+            setUserData(res.data).then(() =>
+                router.push({ name: 'profile' }).then(() => router.go(0))
+            );
         });
     };
 
@@ -122,7 +112,6 @@ export const useUserStore = defineStore('user', () => {
         login,
         duplicateCheck,
         register,
-        loginUser,
         logout,
         userProfile,
         getProfile,

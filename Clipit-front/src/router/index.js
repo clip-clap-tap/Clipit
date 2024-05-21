@@ -17,15 +17,6 @@ const routes = [
         path: '/',
         name: 'main',
         component: MainPage
-        // beforeEnter: async () => {
-        //     const userStore = useUserStore();
-        //     try {
-        //         const token = (await axios.get('http://localhost:8080/users/validate')).data;
-        //         userStore.setUserData(token);
-        //     } catch (error) {
-        //         console.log('login needed');
-        //     }
-        // }
     },
     { path: '/template', name: 'template', component: TemplatePage },
     { path: '/search', name: 'search', component: SearchPage },

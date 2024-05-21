@@ -1,12 +1,16 @@
 <script setup>
 import CommentSection from '@/components/section/CommentSection.vue';
 import { usePostStore } from '@/stores/PostStore';
+import { ref } from 'vue';
 import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { useCookies } from 'vue3-cookies';
 
 const store = usePostStore();
 const route = useRoute();
 const router = useRouter();
+const { cookies } = useCookies();
+const user = ref(cookies.get('user'));
 
 onMounted(() => {
     store.getPostDetail(route.params.id);
@@ -36,8 +40,20 @@ const removePost = async () => {
                 </TagComponent>
                 <div class="grow"></div>
                 <div>
-                    <Button text severity="info" label="수정" @click="modifyPost" />
-                    <Button text severity="danger" label="삭제" @click="removePost" />
+                    <Button
+                        v-if="store.post.writerId == user"
+                        text
+                        severity="info"
+                        label="수정"
+                        @click="modifyPost"
+                    />
+                    <Button
+                        v-if="store.post.writerId == user"
+                        text
+                        severity="danger"
+                        label="삭제"
+                        @click="removePost"
+                    />
                 </div>
             </div>
             <div class="flex flex-col gap-4">

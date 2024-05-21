@@ -66,7 +66,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserProfile getUserProfileById(String id) {
-
         return userProfileDao.selectUserProfile(id);
     }
 

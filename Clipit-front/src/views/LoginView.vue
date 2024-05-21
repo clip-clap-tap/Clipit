@@ -7,7 +7,6 @@ import { useRouter } from 'vue-router';
 const userStore = useUserStore();
 const router = useRouter();
 onMounted(async () => {
-    console.log(await userStore.validate());
     if (await userStore.validate()) {
         router.push({ name: 'main' }).then(() => router.go(0));
     }
