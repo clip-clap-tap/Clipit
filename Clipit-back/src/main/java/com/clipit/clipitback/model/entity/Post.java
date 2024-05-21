@@ -52,12 +52,12 @@ public class Post {
     private List<String> bodyPart;
 
     @Field(type = FieldType.Integer)
-    private String strength;
+    private int strength;
 
     public Post() {
     }
 
-    public Post(int id, String title, String description, String writerId, String writerName, String status, String createDate, int viewCount, String updateDate, List<Tag> tags, List<Video> video, List<Integer> ageRange, List<String> bodyPart, String strength) {
+    public Post(int id, String title, String description, String writerId, String writerName, String status, String createDate, int viewCount, String updateDate, List<Tag> tags, List<Video> video, List<Integer> ageRange, List<String> bodyPart, int strength) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -178,11 +178,11 @@ public class Post {
         this.bodyPart = bodyPart;
     }
 
-    public String getStrength() {
+    public int getStrength() {
         return strength;
     }
 
-    public void setStrength(String strength) {
+    public void setStrength(int strength) {
         this.strength = strength;
     }
 }

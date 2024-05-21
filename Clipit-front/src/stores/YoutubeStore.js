@@ -9,9 +9,9 @@ export const useYoutubeStore = defineStore('youtube', () => {
     const selectedVideos = ref([]);
     const nextToken = ref('');
     const post = ref({ title: '', desc: '' });
-    const ages = ref([10, 20]);
-    const bodyParts = ref(['neck', 'leg']);
-    const strength = ref('hard');
+    const ages = ref([40]);
+    const bodyParts = ref(['leg']);
+    const strength = ref(0);
     const selectedTags = ref([{ name: 'new' }, { name: 'good' }]);
 
     const youtubeSearch = function (keyword) {
@@ -45,6 +45,7 @@ export const useYoutubeStore = defineStore('youtube', () => {
     const savePost = async () => {
         const YOUTUBE_URL = 'https://www.youtube.com/';
         const REST_URL = import.meta.env.VITE_REST_API_URL;
+        console.log(strength.value);
         await axios.post(`${REST_URL}/posts`, {
             ...post.value,
             tags: selectedTags.value,

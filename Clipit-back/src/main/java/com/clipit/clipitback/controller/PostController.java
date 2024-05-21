@@ -39,14 +39,12 @@ public class PostController {
     @Operation(summary = "포스트 검색")
     @GetMapping("/search")
     ResponseEntity<?> searchPost(SearchInfo searchInfo) {
-        if (searchInfo.getCategory() == null) searchInfo.setCategory("");
-        List<com.clipit.clipitback.model.entity.Post> posts = switch (searchInfo.getCategory()) {
-            case "title" -> postSearchService.searchPostsByTitle(searchInfo.getKeyword());
-            case "description" -> postSearchService.searchPostsByDescription(searchInfo.getKeyword());
-            case "tag" -> postSearchService.searchPostsByTag(searchInfo.getKeyword());
-            default -> postSearchService.searchPostsByTitleOrDescription(searchInfo.getKeyword());
-        };
-
+        List<com.clipit.clipitback.model.entity.Post> posts = null;
+        if (searchInfo.getCategory() == null || searchInfo.getCategory().equals("all")) {
+            posts = postSearchService.search(searchInfo);
+        } else {
+            posts = postSearchService.searchByCategory(searchInfo);
+        }
         return new ResponseEntity<>(posts, HttpStatus.OK);
 
     }
@@ -113,6 +111,7 @@ public class PostController {
     @PostMapping()
     ResponseEntity<?> addPost(@RequestBody Post post, @CookieValue("token") String token) {
         post.setWriterId(jwtService.getUserIdFromToken(token));
+        System.out.println(post);
         if (post.getTags() != null && !post.getTags().isEmpty()) {
             tagService.checkTagInfo(post.getTags());
         }
@@ -140,6 +139,7 @@ public class PostController {
     @PatchMapping("/{id}")
     ResponseEntity<?> modifyPostStatus(@PathVariable("id") int id, @RequestBody Map<String, String> statusInfo) {
         int result = postService.modifyPostStatus(id, statusInfo.get("status"));
+        postSearchService.deletePost(id);
         if (result == 0) {
             return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
         }

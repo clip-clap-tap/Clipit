@@ -54,7 +54,11 @@ const search = () => {
 };
 </script>
 <template>
-    <form ref="categoryModal" @submit.prevent="search" class="relative w-full flex justify-center">
+    <form
+        ref="categoryModal"
+        @submit.prevent="search"
+        class="relative w-full flex justify-center px-2"
+    >
         <div ref="categoryModal" class="flex mt-8 w-full gap-1">
             <Dropdown
                 v-model="postStore.searchInfo.category"
@@ -75,7 +79,12 @@ const search = () => {
                     autocomplete="off"
                 />
             </IconField>
-            <Button type="submit" class="" severity="success" label="검색" />
+            <Button
+                class="break-keep justify-center"
+                type="submit"
+                severity="success"
+                label="검색"
+            />
         </div>
         <div
             v-if="showCategory"

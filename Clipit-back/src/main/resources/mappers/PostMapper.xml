@@ -60,28 +60,42 @@
         LEFT JOIN post_age_range on post.id=post_age_range.post_id
         LEFT JOIN post_body_part on post.id=post_body_part.post_id
         LEFT JOIN post_strength on post.id=post_strength.post_id
-        WHERE post.id = #{id}
+        WHERE post.id = #{id} and post.status!="disabled"
     </select>
 
     <select id="selectRecentPosts" parameterType="String" resultMap="postMap">
-        SELECT post.id, post.title,
-        post.description, post.writer_id, post.writer_name,
-        post.status, post.created_at, post.view_count, post.updated_at,
-        tag.id as tag_id, tag.name as tag_name,
-        video.id as video_id, video.title as video_title, video.url as video_url, video_length,
+        SELECT post.id,
+        post.title,
+        post.description,
+        post.writer_id,
+        post.writer_name,
+        post.status,
+        post.created_at,
+        post.view_count,
+        post.updated_at,
+        tag.id as tag_id,
+        tag.name as tag_name,
+        video.id as video_id,
+        video.title as video_title,
+        video.url as video_url,
+        video_length,
         post_video.index as video_index,
         post_age_range.age_range,
         post_body_part.body_part,
         post_strength.strength
+        from (select *
         from post
+        WHERE post.status = 'public'
+        ORDER BY created_at DESC
+        LIMIT 4) as post
         LEFT JOIN post_tag on post.id = post_tag.post_id
         LEFT JOIN tag on post_tag.tag_id = tag.id
         LEFT JOIN post_video on post.id = post_video.post_id
         LEFT JOIN video on post_video.video_id = video.id
-        LEFT JOIN post_age_range on post.id=post_age_range.post_id
-        LEFT JOIN post_body_part on post.id=post_body_part.post_id
-        LEFT JOIN post_strength on post.id=post_strength.post_id
-        ORDER BY created_at DESC LIMIT 4;
+        LEFT JOIN post_age_range on post.id = post_age_range.post_id
+        LEFT JOIN post_body_part on post.id = post_body_part.post_id
+        LEFT JOIN post_strength on post.id = post_strength.post_id
+
     </select>
 
     <select id="selectPostsByWriterId" parameterType="String" resultMap="postMap">
@@ -102,7 +116,7 @@
         LEFT JOIN post_age_range on post.id=post_age_range.post_id
         LEFT JOIN post_body_part on post.id=post_body_part.post_id
         LEFT JOIN post_strength on post.id=post_strength.post_id
-        WHERE post.writer_id = #{userId}
+        WHERE post.writer_id = #{userId} and post.status!="disabled"
 
     </select>
 
@@ -124,7 +138,7 @@
         LEFT JOIN post_age_range on post.id=post_age_range.post_id
         LEFT JOIN post_body_part on post.id=post_body_part.post_id
         LEFT JOIN post_strength on post.id=post_strength.post_id
-        where writer_id = #{id}
+        where (writer_id = #{id} and post.status!="disabled")
         or post.id in (select post_id from favorite_post fp where fp.user_id = #{id} and fp.post_id = post.id);
     </select>
 
