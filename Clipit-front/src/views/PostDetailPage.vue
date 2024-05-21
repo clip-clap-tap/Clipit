@@ -12,6 +12,10 @@ onMounted(() => {
     store.getPostDetail(route.params.id);
 });
 
+const modifyPost = function () {
+    router.push({ name: 'postModify', params: { id: route.params.id } });
+};
+
 const removePost = async () => {
     await store.disablePost(route.params.id);
     router.push({ name: 'myRoutine' }).then(() => router.go(0));
@@ -32,7 +36,7 @@ const removePost = async () => {
                 </TagComponent>
                 <div class="grow"></div>
                 <div>
-                    <Button text severity="info" label="수정" />
+                    <Button text severity="info" label="수정" @click="modifyPost" />
                     <Button text severity="danger" label="삭제" @click="removePost" />
                 </div>
             </div>

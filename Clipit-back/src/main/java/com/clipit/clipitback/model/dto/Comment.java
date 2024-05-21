@@ -4,15 +4,17 @@ public class Comment {
     private int id;
     private int postId;
     private String writerId;
+    private String writerName;
     private String content;
 
     public Comment() {
     }
 
-    public Comment(int id, int postId, String writerId, String content) {
+    public Comment(int id, int postId, String writerId, String writerName, String content) {
         this.id = id;
         this.postId = postId;
         this.writerId = writerId;
+        this.writerName = writerName;
         this.content = content;
     }
 
@@ -22,6 +24,14 @@ public class Comment {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getWriterName() {
+        return writerName;
+    }
+
+    public void setWriterName(String writerName) {
+        this.writerName = writerName;
     }
 
     public String getContent() {
@@ -53,7 +63,8 @@ public class Comment {
         return "Comment{" +
                 "id=" + id +
                 ", postId=" + postId +
-                ", writerId=" + writerId +
+                ", writerId='" + writerId + '\'' +
+                ", writerName='" + writerName + '\'' +
                 ", content='" + content + '\'' +
                 '}';
     }

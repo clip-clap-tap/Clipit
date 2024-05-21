@@ -24,7 +24,8 @@ const routes = [
         name: 'myRoutine',
         component: MyRoutine
     },
-    { path: '/new', name: 'newPost', component: NewPost }
+    { path: '/new', name: 'newPost', component: NewPost },
+    { path: '/post/modify/:id', name: 'postModify', component: NewPost }
 ];
 
 const router = createRouter({

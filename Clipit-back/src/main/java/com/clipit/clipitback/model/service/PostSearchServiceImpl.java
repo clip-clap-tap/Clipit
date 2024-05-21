@@ -73,6 +73,12 @@ public class PostSearchServiceImpl implements PostSearchService {
     }
 
     @Override
+    public Post updatePost(com.clipit.clipitback.model.dto.Post post) {
+        Post result = postRepository.save(convertPost(post));
+        return result;
+    }
+
+    @Override
     public int deletePost(int id) {
         return postRepository.deleteById(id);
     }
