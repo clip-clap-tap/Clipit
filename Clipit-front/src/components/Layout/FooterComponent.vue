@@ -140,8 +140,8 @@
                     <h3 class="mx-2">Blog</h3>
                 </a> -->
 
-            <p class="mt-4 text-sm text-gray-500 sm:mt-0 dark:text-gray-300">
-                © Copyright 2021. All Rights Reserved.
+            <p class="mt-4 text-sm text-gray-500 sm:mt-0 dark:text-gray-300 text-center">
+                © Copyright 2024 clip-clap-tap. All Rights Reserved.
             </p>
         </div>
         <!-- </div> -->
