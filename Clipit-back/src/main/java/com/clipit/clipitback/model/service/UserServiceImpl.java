@@ -4,11 +4,15 @@ import com.clipit.clipitback.model.dao.UserInfoDao;
 import com.clipit.clipitback.model.dao.UserProfileDao;
 import com.clipit.clipitback.model.dto.UserInfo;
 import com.clipit.clipitback.model.dto.UserProfile;
+import com.clipit.clipitback.model.dto.mapperDTO.HistoryMap;
+import com.clipit.clipitback.model.dto.mapperDTO.StatisticsMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -78,6 +82,30 @@ public class UserServiceImpl implements UserService {
     @Override
     public int registUserProfile(UserProfile userProfile) {
         return userProfileDao.insertUserProfile(userProfile);
+    }
+
+    @Override
+    public int[] getUserExerciseHistory(String id) {
+        List<HistoryMap> history = userProfileDao.selectUserExerciseHistory(id);
+        int[] staticLog = new int[294];
+        for (HistoryMap day : history) {
+            staticLog[day.getDateDiff()] = day.getCount();
+        }
+        return staticLog;
+    }
+
+    @Override
+    public Map<String, Integer> getUserExerciseStatistics(String id) {
+        List<StatisticsMap> statistics = userProfileDao.selectUserExerciseStatistics(id);
+        Map<String, Integer> result = statistics.stream().collect(Collectors.toMap(StatisticsMap::getBodyPart, StatisticsMap::getCount));
+        return result;
+    }
+
+    @Override
+    public Map<String, Integer> getUserPostStatistics(String id) {
+        List<StatisticsMap> statistics = userProfileDao.selectUserPostStatistics(id);
+        Map<String, Integer> result = statistics.stream().collect(Collectors.toMap(StatisticsMap::getBodyPart, StatisticsMap::getCount));
+        return result;
     }
 
 

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 @RequestMapping("/users")
 @RestController
@@ -259,6 +260,24 @@ public class UserController {
     public ResponseEntity<?> validateToken(@CookieValue(value = "token", required = false) String token) {
         boolean result = token != null ? jwtService.validate(token) : false;
         return new ResponseEntity<>(token, result ? HttpStatus.OK : HttpStatus.FORBIDDEN);
+    }
+
+    @GetMapping("/{id}/exercise-history")
+    public ResponseEntity<?> getHistory(@PathVariable("id") String id) {
+        int[] history = userService.getUserExerciseHistory(id);
+        return new ResponseEntity<>(history, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/exercise-statistics")
+    public ResponseEntity<?> getExerciseStatistics(@PathVariable("id") String id) {
+        Map<String, Integer> statistics = userService.getUserExerciseStatistics(id);
+        return new ResponseEntity<>(statistics, HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/post-statistics")
+    public ResponseEntity<?> getPostStatistics(@PathVariable("id") String id) {
+        Map<String, Integer> statistics = userService.getUserPostStatistics(id);
+        return new ResponseEntity<>(statistics, HttpStatus.OK);
     }
 
 }

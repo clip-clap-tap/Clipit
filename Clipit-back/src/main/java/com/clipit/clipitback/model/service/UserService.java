@@ -4,6 +4,7 @@ import com.clipit.clipitback.model.dto.UserInfo;
 import com.clipit.clipitback.model.dto.UserProfile;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService {
 
@@ -33,4 +34,10 @@ public interface UserService {
 
     // 회원프로필 등록
     public int registUserProfile(UserProfile userProfile);
+
+    public int[] getUserExerciseHistory(String id);
+
+    public Map<String, Integer> getUserExerciseStatistics(String id);
+
+    public Map<String, Integer> getUserPostStatistics(String id);
 }
