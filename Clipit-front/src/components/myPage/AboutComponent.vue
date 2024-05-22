@@ -7,6 +7,7 @@ const router = useRouter();
 const handleTagClick = (tag) => {
     router.push({ name: 'tagSearch', params: { name: tag } });
 };
+const username = localStorage.getItem('username');
 </script>
 <script>
 import TagModalComponent from '@/components/util/tag/TagModalComponent.vue';
@@ -17,8 +18,9 @@ export default { components: { TagComponent } };
 </script>
 
 <template>
+    <div class="text-xl font-bold">{{ username }}님의 운동 기록</div>
     <div class="w-full border p-5 flex items-center flex-col h-fit rounded relative">
-        <div class="text-xl font-bold">뭉크님은 주n회 운동 도전 중!</div>
+        <div class="text-lg font-bold">관심 태그</div>
         <!-- 태그 수정 버튼 -->
 
         <!-- 태그 목록 -->

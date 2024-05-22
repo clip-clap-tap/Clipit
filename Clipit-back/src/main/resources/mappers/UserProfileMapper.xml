@@ -15,6 +15,19 @@
         visited_post vp group by date(visited_at), user_id, dateDiff
         having user_id = #{id};
     </select>
+
+    <select id="selectUserExerciseStatistics" parameterType="String" resultType="StatisticsMap">
+        select count(*) as count, pbp.body_part as bodyPart, vp.user_id as user
+        from visited_post vp left join post on vp.post_id=post.id left join post_body_part pbp on post.id=pbp.post_id
+        group by bodyPart, vp.user_id having user=#{id};
+    </select>
+    <select id="selectUserPostStatistics" parameterType="String" resultType="StatisticsMap">
+        select count(*) as count, pbp.body_part as bodyPart
+        from post left join post_body_part pbp on post.id=pbp.post_id
+        where writer_id='admin2'
+        or id in (select fp.post_id as post_id from favorite_post fp where fp.user_id='admin2')
+        group by bodyPart;
+    </select>
     <insert id="insertUserProfile" parameterType="UserProfile">
         INSERT INTO user_profile
         VALUES (#{id}, #{gender}, #{height}, #{weight}, #{age}, #{goal})
