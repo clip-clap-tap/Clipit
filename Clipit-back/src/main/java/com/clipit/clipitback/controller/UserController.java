@@ -152,30 +152,40 @@ public class UserController {
 
         List<FavoriteTag> list = tagService.getFavoriteTagsByUserId(id);
 
+        System.out.println(list);
+
+        if(list.size()==0){
+            return new ResponseEntity<>(list, HttpStatus.NO_CONTENT);
+        }
+
         return new ResponseEntity<>(list, HttpStatus.OK);
 
     }
 
     @Operation(summary = "관심 태그 등록")
     @PostMapping("/{id}/tags")
-    public ResponseEntity<?> addFavoriteTagsByUserId(@PathVariable("id") String id, @RequestBody List<Tag> tags) {
+    public ResponseEntity<?> addFavoriteTagsByUserId(@PathVariable("id") String id, @RequestBody List<Tag> tags, @CookieValue("token") String token) {
 
        tagService.checkTagInfo(tags);
 
        int res =  tagService.addUserFavoriteTag(id, tags);
 
-       return new ResponseEntity<>(res, res == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+       return new ResponseEntity<>(res, res == 0  ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
     @Operation(summary = "관심 태그 수정")
     @PutMapping("/{id}/tags")
     public ResponseEntity<?> modifyFavoriteTagsByUserId(@PathVariable("id") String id, @RequestBody List<Tag> tags) {
 
+        for(Tag tag : tags){
+            System.out.println(tag);
+        }
+
         tagService.checkTagInfo(tags);
 
         int res = tagService.modifyFavoriteTag(id, tags);
 
-        return new ResponseEntity<>(res, res == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(res, res == 0  ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
 

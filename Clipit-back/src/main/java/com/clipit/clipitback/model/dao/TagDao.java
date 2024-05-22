@@ -9,6 +9,8 @@ import java.util.Map;
 public interface TagDao {
     Tag selectTagByName(String name);
 
+    int selectTagIdByName(String name);
+
     int insertTag(Tag tag);
 
     int deleteTag();

@@ -1,46 +1,58 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { useTagStore } from '@/stores/TagStore';
+import { useCookies } from 'vue3-cookies';
 
 const tagStore = useTagStore();
+const { cookies } = useCookies();
 
 const visible = ref(false);
 const setVisible = () => {
     visible.value = !visible.value;
 };
 
-const newTags = ref(['tag1', 'tag2']);
+const newTags = ref([]);
+
+onMounted(async () => {
+    await tagStore.getFavoriteTags(cookies.get('user'));
+    newTags.value = tagStore.tags;
+});
+
+// const newTags = ref(['tag1', 'tag2']);
 const removeTag = (index) => {
     newTags.value.splice(index, 1);
 };
 
 const newTag = ref('');
 const addTag = () => {
-    newTags.value.push(newTag.value);
+    newTags.value.push({ name: newTag.value });
     newTag.value = '';
 };
 
 const handleSubmit = () => {
     newTag.value = '';
-    tagStore.tags.value = newTags.value;
+    tagStore.tags = newTags.value;
+    // console.log(tagStore.tags);
     setVisible();
+    tagStore.addTag(cookies.get('user'));
 };
 </script>
 <template>
     <Button
+        v-if="tagStore.tags.length == 0"
         @click="setVisible"
         class="text-clip-primary px-3 py-2"
         label="관심 태그를 추가해주세요"
         outlined=""
         severity="info"
-    />
+    ></Button>
     <Button
-        v-if="tagStore.tags.length > 0"
+        v-else
         @click="setVisible"
         class="absolute right-2 top-2 text-clip-primary px-2 py-1 text-sm"
         label="수정"
         text
-    />
+    ></Button>
 
     <!-- 태그 추가/수정창 -->
     <ModalComponent :visible="visible">
@@ -60,8 +72,12 @@ const handleSubmit = () => {
                     style="scrollbar-width: thin"
                     class="flex w-80 gap-2 flex-wrap overflow-y-auto grow max-h-[25vh]"
                 >
-                    <Chip v-for="(tag, index) in newTags" :key="`tag-${index}`" :label="tag">
-                        <span class="text-sm font-medium">{{ tag }}</span>
+                    <Chip
+                        v-for="(tag, index) in newTags"
+                        :key="`tag-${index}`"
+                        :label="`tag_${index}`"
+                    >
+                        <span class="text-sm font-medium">{{ tag.name }}</span>
                         <button @click="removeTag(index)">
                             <i class="pi pi-times text-xs ml-2 text-gray-500"></i></button
                     ></Chip>

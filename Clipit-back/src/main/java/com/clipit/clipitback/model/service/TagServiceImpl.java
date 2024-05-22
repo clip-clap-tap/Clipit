@@ -77,13 +77,21 @@ public class TagServiceImpl implements TagService {
         List<FavoriteTag> newFavoriteTags = new ArrayList<>();
 
         for(Tag tag : tags){
-            newFavoriteTags.add(new FavoriteTag(userId, tagDao.selectTagByName(tag.getName()).getId()));
+            newFavoriteTags.add(new FavoriteTag(userId, tagDao.selectTagIdByName(tag.getName())));
         }
 
-        tagDao.deleteFavoriteTagByUserId(Map.of("userId", userId, "tags", compareFavoriteTags(currentFavoriteTags,newFavoriteTags)));
-        int res = tagDao.insertExtraFavoriteTag(Map.of("userId", userId, "tags", compareFavoriteTags(newFavoriteTags,currentFavoriteTags)));
+        List<FavoriteTag> wantToRemove = compareFavoriteTags(currentFavoriteTags,newFavoriteTags);
+        List<FavoriteTag> wantToAdd = compareFavoriteTags(newFavoriteTags,currentFavoriteTags);
 
-        return res;
+        if(wantToRemove.size()>0){
+           int res1 = tagDao.deleteFavoriteTagByUserId(Map.of("userId", userId, "tags", wantToRemove));
+        }
+
+        if(wantToAdd.size()>0){
+            int res2 = tagDao.insertExtraFavoriteTag(Map.of("userId", userId, "tags", wantToAdd));
+        }
+
+        return 1;
     }
 
     static List<FavoriteTag> compareFavoriteTags(List<FavoriteTag> favTag1, List<FavoriteTag> favTag2) {

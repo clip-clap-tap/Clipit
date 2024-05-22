@@ -31,7 +31,7 @@ export default { components: { TagComponent } };
                     :name="tag"
                 />
             </div>
-            <div v-else>
+            <div>
                 <TagModalComponent />
             </div>
         </div>
