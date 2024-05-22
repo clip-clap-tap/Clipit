@@ -34,8 +34,6 @@ export const useTagStore = defineStore('tag', () => {
                 router.push({ name: 'myPage' });
             });
         } else {
-            console.log(isEmpty.value);
-
             await axios({
                 url: `${URL}/${id}/tags`,
                 method: 'PUT',
