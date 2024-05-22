@@ -197,47 +197,85 @@
     </select>
 
     <select id="selectVisitedPostsByUserId" parameterType="String" resultMap="postMap">
-        SELECT post.id,
-        post.title,
-        post.description,
-        post.writer_id,
-        post.writer_name,
-        post.status,
-        post.created_at,
-        post.view_count,
-        post.updated_at,
-        tag.id as tag_id,
-        tag.name as tag_name,
-        video.id as video_id,
-        video.title as video_title,
-        video.url as video_url,
-        video_length,
-        post_video.index as video_index,
+        WITH RankedPosts AS (
+        SELECT
+        post.id AS post_id,
+        ROW_NUMBER() OVER (PARTITION BY post.id ORDER BY visited_post.visited_at) AS rn
+        FROM visited_post
+        LEFT JOIN post ON post.id = visited_post.post_id
+        WHERE visited_post.user_id = #{userId}
+        )
+        , Top5Posts AS (
+        SELECT post_id
+        FROM RankedPosts
+        WHERE rn = 1
+        ORDER BY post_id
+        LIMIT 5
+        )
+        SELECT
+        post.id, post.title,
+        post.description, post.writer_id, post.writer_name,
+        post.status, post.created_at, post.view_count, post.updated_at,
+        tag.id AS tag_id, tag.name AS tag_name,
+        video.id AS video_id, video.title AS video_title, video.url AS video_url, video_length,
+        post_video.index AS video_index,
         post_age_range.age_range,
         post_body_part.body_part,
         post_strength.strength
-        from (select v_post.post_id, v_post.visited_at, post.*
-        from post,
-        (select user_id,
-        post_id,
-        visited_at,
-        ROW_NUMBER() over (PARTITION BY vp.post_id order by vp.post_id desc) as RN
-        from visited_post vp) as v_post
-        where status != 'disabled'
-        and post.writer_id != 'user2'
-        and v_post.user_id = 'user2'
-        and v_post.post_id = post.id
-        and RN = 1
-        order by v_post.visited_at
-        limit 5) as post
-        LEFT JOIN post_tag on post.id = post_tag.post_id
-        LEFT JOIN tag on post_tag.tag_id = tag.id
-        LEFT JOIN post_video on post.id = post_video.post_id
-        LEFT JOIN video on post_video.video_id = video.id
-        LEFT JOIN post_age_range on post.id = post_age_range.post_id
-        LEFT JOIN post_body_part on post.id = post_body_part.post_id
-        LEFT JOIN post_strength on post.id = post_strength.post_id;
+        FROM Top5Posts
+        JOIN post ON post.id = Top5Posts.post_id
+        LEFT JOIN post_tag ON post.id = post_tag.post_id
+        LEFT JOIN tag ON post_tag.tag_id = tag.id
+        LEFT JOIN post_video ON post.id = post_video.post_id
+        LEFT JOIN video ON post_video.video_id = video.id
+        LEFT JOIN post_age_range ON post.id = post_age_range.post_id
+        LEFT JOIN post_body_part ON post.id = post_body_part.post_id
+        LEFT JOIN post_strength ON post.id = post_strength.post_id
+        ORDER BY post.id;
     </select>
+
+<!--    <select id="selectVisitedPostsByUserId" parameterType="String" resultMap="postMap">-->
+<!--        SELECT post.id,-->
+<!--        post.title,-->
+<!--        post.description,-->
+<!--        post.writer_id,-->
+<!--        post.writer_name,-->
+<!--        post.status,-->
+<!--        post.created_at,-->
+<!--        post.view_count,-->
+<!--        post.updated_at,-->
+<!--        tag.id as tag_id,-->
+<!--        tag.name as tag_name,-->
+<!--        video.id as video_id,-->
+<!--        video.title as video_title,-->
+<!--        video.url as video_url,-->
+<!--        video_length,-->
+<!--        post_video.index as video_index,-->
+<!--        post_age_range.age_range,-->
+<!--        post_body_part.body_part,-->
+<!--        post_strength.strength-->
+<!--        from (select v_post.post_id, v_post.visited_at, post.*-->
+<!--        from post,-->
+<!--        (select user_id,-->
+<!--        post_id,-->
+<!--        visited_at,-->
+<!--        ROW_NUMBER() over (PARTITION BY vp.post_id order by vp.post_id desc) as RN-->
+<!--        from visited_post vp) as v_post-->
+<!--        where status != 'disabled'-->
+<!--        and post.writer_id != 'user2'-->
+<!--        and v_post.user_id = 'user2'-->
+<!--        and v_post.post_id = post.id-->
+<!--        and RN = 1-->
+<!--        order by v_post.visited_at-->
+<!--        limit 5) as post-->
+<!--        LEFT JOIN post_tag on post.id = post_tag.post_id-->
+<!--        LEFT JOIN tag on post_tag.tag_id = tag.id-->
+<!--        LEFT JOIN post_video on post.id = post_video.post_id-->
+<!--        LEFT JOIN video on post_video.video_id = video.id-->
+<!--        LEFT JOIN post_age_range on post.id = post_age_range.post_id-->
+<!--        LEFT JOIN post_body_part on post.id = post_body_part.post_id-->
+<!--        LEFT JOIN post_strength on post.id = post_strength.post_id;-->
+<!--    </select>-->
 
     <insert id="insertPost" parameterType="Post">
         <selectKey keyProperty="id" resultType="int" order="BEFORE">
