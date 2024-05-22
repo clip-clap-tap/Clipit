@@ -176,8 +176,25 @@
     </select>
 
     <select id="selectFavoritePostsByUserId" parameterType="String" resultMap="postMap">
-        SELECT * FROM post
-        WHERE id in (SELECT post_id FROM favorite_post WHERE user_id=#{id})
+
+        SELECT post.id, post.title,
+        post.description, post.writer_id, post.writer_name,
+        post.status, post.created_at, post.view_count, post.updated_at,
+        tag.id as tag_id, tag.name as tag_name,
+        video.id as video_id, video.title as video_title, video.url as video_url, video_length,
+        post_video.index as video_index,
+        post_age_range.age_range,
+        post_body_part.body_part,
+        post_strength.strength
+        FROM post
+        LEFT JOIN post_tag on post.id = post_tag.post_id
+        LEFT JOIN tag on post_tag.tag_id = tag.id
+        LEFT JOIN post_video on post.id = post_video.post_id
+        LEFT JOIN video on post_video.video_id = video.id
+        LEFT JOIN post_age_range on post.id=post_age_range.post_id
+        LEFT JOIN post_body_part on post.id=post_body_part.post_id
+        LEFT JOIN post_strength on post.id=post_strength.post_id
+        WHERE post.id in (SELECT post_id FROM favorite_post WHERE user_id=#{id})
     </select>
 
     <select id="selectVisitedPostsByUserId" parameterType="String" resultMap="postMap">
