@@ -87,6 +87,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public boolean getIsFavorite(String userId, int postId) {
+        return postDao.selectIsFavorite(Map.of("userId", userId, "postId", postId)) != null;
+    }
+
+    @Override
     public int addFavoritePost(String userId, int postId) {
         int result = postDao.insertFavoritePost(Map.of("userId", userId, "postId", postId));
         return result;

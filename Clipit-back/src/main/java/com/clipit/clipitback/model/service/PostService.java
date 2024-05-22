@@ -28,6 +28,8 @@ public interface PostService {
 
     List<Post> getFavoritePostsByUserId(String userId);
 
+    boolean getIsFavorite(String userId, int postId);
+
     int addFavoritePost(String userId, int postId);
 
     int cancelFavoritePost(String userId, int postId);
