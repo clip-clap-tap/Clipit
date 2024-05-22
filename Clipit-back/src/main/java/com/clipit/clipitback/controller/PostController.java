@@ -39,12 +39,14 @@ public class PostController {
     @Operation(summary = "포스트 검색")
     @GetMapping("/search")
     ResponseEntity<?> searchPost(SearchInfo searchInfo) {
+        System.out.println(searchInfo);
         List<com.clipit.clipitback.model.entity.Post> posts = null;
-        if (searchInfo.getCategory() == null || searchInfo.getCategory().equals("all")) {
+        if (searchInfo.getCategory().isEmpty() || searchInfo.getCategory().equals("all")) {
             posts = postSearchService.search(searchInfo);
         } else {
             posts = postSearchService.searchByCategory(searchInfo);
         }
+        System.out.println(posts);
         return new ResponseEntity<>(posts, HttpStatus.OK);
 
     }

@@ -185,4 +185,24 @@ public class Post {
     public void setStrength(int strength) {
         this.strength = strength;
     }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", writerId='" + writerId + '\'' +
+                ", writerName='" + writerName + '\'' +
+                ", status='" + status + '\'' +
+                ", createDate='" + createDate + '\'' +
+                ", viewCount=" + viewCount +
+                ", updateDate='" + updateDate + '\'' +
+                ", tags=" + tags +
+                ", videos=" + videos +
+                ", ageRange=" + ageRange +
+                ", bodyPart=" + bodyPart +
+                ", strength=" + strength +
+                '}';
+    }
 }

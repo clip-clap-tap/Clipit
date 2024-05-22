@@ -15,7 +15,7 @@ const user = ref(cookies.get('user'));
 
 onMounted(async () => {
     const REST_URL = import.meta.env.VITE_REST_API_URL;
-    store.getPostDetail(route.params.id);
+    await store.getPostDetail(route.params.id);
     clipped.value = (await axios.get(`${REST_URL}/posts/${route.params.id}/favorite`)).data;
 });
 

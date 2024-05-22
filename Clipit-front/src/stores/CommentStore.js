@@ -15,6 +15,7 @@ export const useCommentStore = defineStore('comment', () => {
         const REST_URL = import.meta.env.VITE_REST_API_URL;
         await axios.post(`${REST_URL}/posts/${id}/comment`, { content: comment.value });
         await getComments(id);
+        comment.value = '';
     };
 
     const deleteComment = async (postId, commentId) => {
