@@ -4,6 +4,7 @@ import com.clipit.clipitback.model.dao.UserInfoDao;
 import com.clipit.clipitback.model.dao.UserProfileDao;
 import com.clipit.clipitback.model.dto.UserInfo;
 import com.clipit.clipitback.model.dto.UserProfile;
+import com.clipit.clipitback.model.dto.mapperDTO.HistoryMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -78,6 +79,17 @@ public class UserServiceImpl implements UserService {
     @Override
     public int registUserProfile(UserProfile userProfile) {
         return userProfileDao.insertUserProfile(userProfile);
+    }
+
+    @Override
+    public int[] getUserExerciseHistory(String id) {
+        List<HistoryMap> history = userProfileDao.selectUserExerciseHistory(id);
+        System.out.println(history);
+        int[] staticLog = new int[294];
+        for (HistoryMap day : history) {
+            staticLog[day.getDateDiff()] = day.getCount();
+        }
+        return staticLog;
     }
 
 
