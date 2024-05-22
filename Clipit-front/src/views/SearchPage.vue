@@ -6,9 +6,10 @@ import { onBeforeUnmount, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 
 const store = usePostStore();
-onMounted(() => {
+onMounted(async () => {
     const route = useRoute();
-    store.search(route.query);
+    await store.search(route.query);
+    console.log(store.posts);
 });
 onBeforeUnmount(() => {
     store.searchInfo = {};

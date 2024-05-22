@@ -44,7 +44,7 @@ export const usePostStore = defineStore('post', () => {
     };
 
     const searchInfo = ref({
-        category: null,
+        category: '',
         keyword: '',
         ageRange: [],
         bodyParts: [],

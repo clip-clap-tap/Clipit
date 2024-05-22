@@ -1,19 +1,6 @@
 {
   "index": {
-    "number_of_replicas": 1,
-    "number_of_shards": 1,
     "analysis": {
-      "analyzer": {
-        "korean_analyzer": {
-          "type": "custom",
-          "tokenizer": "korean_tokenizer",
-          "filter": [
-            "nori_readingform",
-            "lowercase",
-            "nori_posfilter"
-          ]
-        }
-      },
       "tokenizer": {
         "korean_tokenizer": {
           "type": "nori_tokenizer",

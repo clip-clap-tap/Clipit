@@ -39,12 +39,14 @@ public class PostController {
     @Operation(summary = "포스트 검색")
     @GetMapping("/search")
     ResponseEntity<?> searchPost(SearchInfo searchInfo) {
+        System.out.println(searchInfo);
         List<com.clipit.clipitback.model.entity.Post> posts = null;
-        if (searchInfo.getCategory() == null || searchInfo.getCategory().equals("all")) {
+        if (searchInfo.getCategory().isEmpty() || searchInfo.getCategory().equals("all")) {
             posts = postSearchService.search(searchInfo);
         } else {
             posts = postSearchService.searchByCategory(searchInfo);
         }
+        System.out.println(posts);
         return new ResponseEntity<>(posts, HttpStatus.OK);
 
     }
@@ -137,7 +139,7 @@ public class PostController {
 
     @Operation(summary = "포스트 수정")
     @PutMapping("/{id}")
-    ResponseEntity<?> modifyPost(@PathVariable("id") int id, @CookieValue("token") String token,@RequestBody Post post) {
+    ResponseEntity<?> modifyPost(@PathVariable("id") int id, @CookieValue("token") String token, @RequestBody Post post) {
         post.setId(id);
         post.setWriterId(jwtService.getUserIdFromToken(token));
         int result = postService.modifyPost(post);
@@ -159,6 +161,13 @@ public class PostController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @Operation(summary = "포스트 찜 여부 확인")
+    @GetMapping("/{id}/favorite")
+    ResponseEntity<?> checkIsFavorite(@PathVariable("id") int postId, @CookieValue("token") String token) {
+        boolean result = postService.getIsFavorite(jwtService.getUserIdFromToken(token), postId);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @Operation(summary = "포스트 찜하기")
     @PutMapping("/{id}/favorite")
     ResponseEntity<?> addFavoritePost(@PathVariable("id") int postId, @CookieValue("token") String token) {
@@ -168,8 +177,8 @@ public class PostController {
 
     @Operation(summary = "포스트 찜하기 취소")
     @DeleteMapping("/{id}/favorite")
-    ResponseEntity<?> cancelFavoritePost(@PathVariable("id") int postId, @SessionAttribute(name = "userId") String userId) {
-        int result = postService.cancelFavoritePost(userId, postId);
+    ResponseEntity<?> cancelFavoritePost(@PathVariable("id") int postId, @CookieValue("token") String token) {
+        int result = postService.cancelFavoritePost(jwtService.getUserIdFromToken(token), postId);
         return new ResponseEntity<>(result, HttpStatus.NO_CONTENT);
     }
 
@@ -192,7 +201,7 @@ public class PostController {
     @GetMapping("/{id}/comments")
     ResponseEntity<?> getPostComments(@PathVariable("id") int postId) {
         List<Comment> comments = commentService.getCommentsByPostId(postId);
-        for(Comment comment : comments) {
+        for (Comment comment : comments) {
             System.out.println(comment);
         }
         return new ResponseEntity<>(comments, HttpStatus.OK);

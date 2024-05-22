@@ -1,5 +1,6 @@
 package com.clipit.clipitback.model.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchInfo {
@@ -7,12 +8,17 @@ public class SearchInfo {
     private String keyword;
     private List<Integer> ageRange;
     private List<String> bodyParts;
-    private int strength;
+    Integer strength;
 
     private int limit;
     private int page;
 
     public SearchInfo() {
+        this.category = "all";
+        this.keyword = "";
+        this.ageRange = new ArrayList<>();
+        this.bodyParts = new ArrayList<>();
+        this.strength = 0;
     }
 
     public SearchInfo(String category, String keyword, List<Integer> ageRange, List<String> bodyParts, int strength, int limit, int page) {

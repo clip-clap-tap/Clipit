@@ -12,7 +12,6 @@ declare module 'vue' {
     Chip: typeof import('primevue/chip')['default']
     CommentComponent: typeof import('./src/components/util/post/CommentComponent.vue')['default']
     CommentSection: typeof import('./src/components/section/CommentSection.vue')['default']
-    copy: typeof import('./src/components/myPage/RadarChartComponent copy.vue')['default']
     Dialog: typeof import('primevue/dialog')['default']
     Dropdown: typeof import('primevue/dropdown')['default']
     FooterComponent: typeof import('./src/components/Layout/FooterComponent.vue')['default']

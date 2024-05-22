@@ -30,6 +30,8 @@ public interface PostDao {
 
     int increaseViewCount(int id);
 
+    Integer selectIsFavorite(Map<String, ?> favoritePostInfo);
+
     int insertFavoritePost(Map<String, ?> favoritePostInfo);
 
     int deleteFavoritePost(Map<String, ?> favoritePostInfo);

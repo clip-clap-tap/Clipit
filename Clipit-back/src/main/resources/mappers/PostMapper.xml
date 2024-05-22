@@ -274,6 +274,11 @@
         WHERE id = #{id};
     </update>
 
+    <select id="selectIsFavorite" parameterType="Map" resultType="int">
+        SELECT post_id FROM favorite_post
+        WHERE user_id=#{userId} and post_id=#{postId}
+    </select>
+
     <insert id="insertFavoritePost" parameterType="Map">
         INSERT INTO favorite_post
         VALUES (#{userId}, #{postId})

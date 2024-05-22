@@ -50,7 +50,7 @@ onBeforeUnmount(() => {
 });
 const router = useRouter();
 const search = () => {
-    router.push({ name: 'search', query: postStore.searchInfo });
+    router.push({ name: 'search', query: postStore.searchInfo }).then(() => router.go(0));
 };
 </script>
 <template>
