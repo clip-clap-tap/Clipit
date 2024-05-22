@@ -10,12 +10,28 @@
     </insert>
     <select id="selectTagByName" parameterType="Tag">
         SELECT * FROM tag
-        WHERE name LIKE concat('%',#{name}, '%');
+        WHERE name = #{name};
     </select>
 
     <insert id="insertUserFavoriteTag" parameterType="Map">
         INSERT INTO favorite_tag
-        VALUES(#{userId}, #{tagId})
+        VALUES
+        <foreach collection="tags" item="tag" separator="," close=";">
+            (
+            #{userId},
+            (SELECT id FROM tag WHERE name = #{tag.name})
+            )
+        </foreach>
+    </insert>
+
+    <insert id="insertExtraFavoriteTag" parameterType="Map">
+        INSERT INTO favorite_tag
+        VALUES
+        <foreach collection="tags" item="tag" separator="," close=";">
+            (
+            #{userId}, #{tag.tagId}
+            )
+        </foreach>
     </insert>
 
     <select id="selectFavoriteTagsByUserId" parameterType="String" resultType="FavoriteTag">
@@ -23,9 +39,12 @@
         WHERE user_id=#{userId}
     </select>
 
-    <delete id="deleteUserFavoriteTagByUserId" parameterType="String">
+    <delete id="deleteFavoriteTagByUserId" parameterType="Map">
         DELETE FROM favorite_tag
-        WHERE user_id=#{userId}
+        WHERE user_id=#{userId} AND tag_id IN
+        <foreach collection="tags" item="tag" separator="," open="(" close=")">
+            #{tag.tagId}
+        </foreach>
     </delete>
 
 </mapper>

@@ -9,11 +9,10 @@ public class FavoriteTag {
 
     }
 
-    public FavoriteTag(int tagId, String userId) {
-        this.tagId = tagId;
+    public FavoriteTag(String userId, int tagId) {
         this.userId = userId;
+        this.tagId = tagId;
     }
-
 
     public String getUserId() {
         return userId;

@@ -21,7 +21,7 @@ public interface TagService {
 
     int modifyFavoriteTag(String userId, List<Tag> tags);
 
-    int removeAllUserFavoriteTag(String userId);
+    int removeFavoriteTag(String userId, List<Tag> tags);
 
     int addPostTag(Post post);
 

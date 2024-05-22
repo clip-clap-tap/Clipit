@@ -164,8 +164,6 @@ public class UserController {
 
        int res =  tagService.addUserFavoriteTag(id, tags);
 
-
-
        return new ResponseEntity<>(res, res == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
     }
 
@@ -173,10 +171,9 @@ public class UserController {
     @PutMapping("/{id}/tags")
     public ResponseEntity<?> modifyFavoriteTagsByUserId(@PathVariable("id") String id, @RequestBody List<Tag> tags) {
 
-        tagService.removeAllUserFavoriteTag(id);
         tagService.checkTagInfo(tags);
 
-        int res =  tagService.addUserFavoriteTag(id, tags);
+        int res = tagService.modifyFavoriteTag(id, tags);
 
         return new ResponseEntity<>(res, res == 1 ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
     }

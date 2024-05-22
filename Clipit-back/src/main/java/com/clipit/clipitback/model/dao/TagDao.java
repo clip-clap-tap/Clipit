@@ -17,9 +17,11 @@ public interface TagDao {
 
     int insertUserFavoriteTag(Map<String, ?> favoriteTag);
 
+    int insertExtraFavoriteTag(Map<String, ?> favoriteTag);
+
     int updateUserFavoriteTag(Map<String, ?> favoriteTag);
 
-    int deleteUserFavoriteTagByUserId(String userId);
+    int deleteFavoriteTagByUserId(Map<String,?> favoriteTag);
 
     int insertPostTag(Map<String, ?> tagInfo);
 

@@ -8,6 +8,7 @@ import com.clipit.clipitback.model.dto.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +30,9 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public int removeAllUserFavoriteTag(String userId) {
-        return tagDao.deleteUserFavoriteTagByUserId(userId);
+    public int removeFavoriteTag(String userId, List<Tag> tags) {
+
+        return 0;
     }
 
     @Override
@@ -63,18 +65,39 @@ public class TagServiceImpl implements TagService {
     @Override
     public int addUserFavoriteTag(String userId, List<Tag> tags) {
 
-        boolean allTagsAdded = true;
-        for (Tag tag : tags) {
-            System.out.println(tag.getId());
-            int res = tagDao.insertUserFavoriteTag(Map.of("userId", userId,"tagId", tag.getId()));
-            if(res==0) allTagsAdded = false;
-        }
-        return allTagsAdded?1:0;
+        int res = tagDao.insertUserFavoriteTag(Map.of("userId", userId, "tags", tags));
+        return res;
+
     }
 
     @Override
     public int modifyFavoriteTag(String userId, List<Tag> tags) {
-        return 0;
+
+        List<FavoriteTag> currentFavoriteTags = tagDao.selectFavoriteTagsByUserId(userId);
+        List<FavoriteTag> newFavoriteTags = new ArrayList<>();
+
+        for(Tag tag : tags){
+            newFavoriteTags.add(new FavoriteTag(userId, tagDao.selectTagByName(tag.getName()).getId()));
+        }
+
+        tagDao.deleteFavoriteTagByUserId(Map.of("userId", userId, "tags", compareFavoriteTags(currentFavoriteTags,newFavoriteTags)));
+        int res = tagDao.insertExtraFavoriteTag(Map.of("userId", userId, "tags", compareFavoriteTags(newFavoriteTags,currentFavoriteTags)));
+
+        return res;
+    }
+
+    static List<FavoriteTag> compareFavoriteTags(List<FavoriteTag> favTag1, List<FavoriteTag> favTag2) {
+
+        List<FavoriteTag> tmp = new ArrayList<>();
+        tmp.addAll(favTag1);
+        for(FavoriteTag tag : favTag2){
+            if(favTag1.contains(tag)){
+                tmp.remove(tag);
+            }
+        }
+
+        return tmp;
+
     }
 
 
