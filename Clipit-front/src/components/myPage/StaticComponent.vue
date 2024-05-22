@@ -15,7 +15,7 @@ onMounted(async () => {
 </script>
 <template>
     <div class="w-full flex flex-col items-center p-3 gap-1 border rounded max-w-6xl">
-        <div class="font-bold w-full max-w-2xl">현재 n일</div>
+        <div class="font-bold w-full max-w-2xl">현재 {{ history.findIndex((v) => v == 0) }}일</div>
         <div
             class="py-1 overflow-x-auto w-full md:w-fit grid grid-flow-col grid-rows-7 grid-cols-[repeat(42,_1fr)] h-fit gap-1"
         >
