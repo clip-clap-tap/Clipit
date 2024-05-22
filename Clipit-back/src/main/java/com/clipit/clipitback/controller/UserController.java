@@ -221,4 +221,10 @@ public class UserController {
         return new ResponseEntity<>(token, result ? HttpStatus.OK : HttpStatus.FORBIDDEN);
     }
 
+    @GetMapping("/{id}/exercise-history")
+    public ResponseEntity<?> getHistory(@PathVariable("id") String id) {
+        int[] history = userService.getUserExerciseHistory(id);
+        return new ResponseEntity<>(history, HttpStatus.OK);
+    }
+
 }

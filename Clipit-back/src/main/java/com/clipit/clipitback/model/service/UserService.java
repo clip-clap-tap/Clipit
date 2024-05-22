@@ -33,4 +33,6 @@ public interface UserService {
 
     // 회원프로필 등록
     public int registUserProfile(UserProfile userProfile);
+
+    public int[] getUserExerciseHistory(String id);
 }

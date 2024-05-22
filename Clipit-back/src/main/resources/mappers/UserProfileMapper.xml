@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.clipit.clipitback.model.dao.UserProfileDao">
-
     <select id="selectUserProfile" parameterType="String" resultType="UserProfile">
         SELECT up.id, ui.username, up.gender, up.height, up.weight, up.age, up.goal
         FROM user_profile up
@@ -11,6 +10,11 @@
         WHERE up.id = #{id}
     </select>
 
+    <select id="selectUserExerciseHistory" parameterType="String" resultType="HistoryMap">
+        select count(*) as count, datediff(curdate(), date(visited_at)) as dateDiff, date(visited_at) as date from
+        visited_post vp group by date(visited_at), user_id, dateDiff
+        having user_id = #{id};
+    </select>
     <insert id="insertUserProfile" parameterType="UserProfile">
         INSERT INTO user_profile
         VALUES (#{id}, #{gender}, #{height}, #{weight}, #{age}, #{goal})

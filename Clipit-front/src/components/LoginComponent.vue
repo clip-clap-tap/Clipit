@@ -24,29 +24,36 @@ const login = function () {
         <div class="mb-6 w-full max-w-96">
             <img src="/src/assets/Clipit_logo.png" alt="" />
         </div>
-        <div class="flex flex-col gap-6">
-            <div class="flex justify-center">
-                <FloatLabel>
-                    <InputText class="w-80" id="username" v-model="user.id" />
-                    <label c for="username">아이디</label>
-                </FloatLabel>
+        <form @submit.prevent="login">
+            <div class="flex flex-col gap-6">
+                <div class="flex justify-center">
+                    <FloatLabel>
+                        <InputText class="w-80" id="username" v-model="user.id" />
+                        <label c for="username">아이디</label>
+                    </FloatLabel>
+                </div>
+                <div class="flex justify-center">
+                    <FloatLabel>
+                        <InputText
+                            type="password"
+                            class="w-80"
+                            id="username"
+                            v-model="user.password"
+                        />
+                        <label for="username">비밀번호</label>
+                    </FloatLabel>
+                </div>
             </div>
-            <div class="flex justify-center">
-                <FloatLabel>
-                    <InputText class="w-80" id="username" v-model="user.password" />
-                    <label for="username">비밀번호</label>
-                </FloatLabel>
+            <div class="flex flex-col items-center gap-4">
+                <div class="flex justify-center gap-2 mt-6">
+                    <RouterLink :to="{ name: 'signup' }">
+                        <Button label="회원가입" severity="success" text=""></Button>
+                    </RouterLink>
+                    <Button label="로그인" severity="info" text="" type="submit"></Button>
+                </div>
+                <a :href="url"><img src="/src/assets/kakao_login_medium_narrow.png" /></a>
             </div>
-        </div>
-        <div class="flex flex-col items-center gap-4">
-            <div class="flex justify-center gap-2 mt-6">
-                <RouterLink :to="{ name: 'signup' }">
-                    <Button label="회원가입" severity="success" text=""></Button>
-                </RouterLink>
-                <Button label="로그인" severity="info" text="" @click="login"></Button>
-            </div>
-            <a :href="url"><img src="/src/assets/kakao_login_medium_narrow.png" /></a>
-        </div>
+        </form>
     </div>
 </template>
 
