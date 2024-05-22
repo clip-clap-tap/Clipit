@@ -75,10 +75,10 @@ export const usePostStore = defineStore('post', () => {
                     url: `${YOUTUBE_URL}/watch?v=${video.id.videoId}`,
                     index: i
                 };
-            }),
-            ageRange: ages.value,
-            bodyPart: bodyParts.value,
-            strength: strength.value
+            })
+            // ageRange: ages.value,
+            // bodyPart: bodyParts.value,
+            // strength: strength.value
         });
     };
 

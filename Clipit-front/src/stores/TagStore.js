@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import axios from 'axios';
-import router from '@/router';
 import { useCookies } from 'vue3-cookies';
 
 const URL = `http://localhost:8080/users`;
