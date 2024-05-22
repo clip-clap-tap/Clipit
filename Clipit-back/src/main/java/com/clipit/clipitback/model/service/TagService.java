@@ -1,5 +1,6 @@
 package com.clipit.clipitback.model.service;
 
+import com.clipit.clipitback.model.dto.FavoriteTag;
 import com.clipit.clipitback.model.dto.Post;
 import com.clipit.clipitback.model.dto.Tag;
 
@@ -14,12 +15,13 @@ public interface TagService {
 
     void checkTagInfo(List<Tag> tags);
 
-    List<Tag> getFavoriteTagsByUserId();
+    List<FavoriteTag> getFavoriteTagsByUserId(String userId);
 
+    int addUserFavoriteTag(String userId, List<Tag> tags);
 
-    int addUserFavoriteTag();
+    int modifyFavoriteTag(String userId, List<Tag> tags);
 
-    int removeUserFavoriteTag();
+    int removeFavoriteTag(String userId, List<Tag> tags);
 
     int addPostTag(Post post);
 

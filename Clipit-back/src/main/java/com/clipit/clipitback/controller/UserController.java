@@ -1,9 +1,6 @@
 package com.clipit.clipitback.controller;
 
-import com.clipit.clipitback.model.dto.MarkedVideo;
-import com.clipit.clipitback.model.dto.Post;
-import com.clipit.clipitback.model.dto.UserInfo;
-import com.clipit.clipitback.model.dto.UserProfile;
+import com.clipit.clipitback.model.dto.*;
 import com.clipit.clipitback.model.service.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.v3.oas.annotations.Operation;
@@ -25,16 +22,17 @@ public class UserController {
 
     private final UserService userService;
     private final PostService postService;
+    private final TagService tagService;
     private final VideoService videoService;
     private final JWTService jwtService;
-
     private final KakaoService kakaoService;
 
     @Autowired
-    public UserController(UserService userService, PostService postService, VideoService videoService, JWTService jwtService, PostSearchService postSearchService, KakaoService kakaoService) {
+    public UserController(UserService userService, PostService postService, TagService tagService, VideoService videoService, JWTService jwtService, PostSearchService postSearchService, KakaoService kakaoService) {
 
         this.userService = userService;
         this.postService = postService;
+        this.tagService = tagService;
         this.videoService = videoService;
         this.jwtService = jwtService;
         this.kakaoService = kakaoService;
@@ -147,6 +145,48 @@ public class UserController {
     public ResponseEntity<?> getMarkedVideosByUserId(String id) {
         List<MarkedVideo> list = videoService.getMarkedVideosByUserId(id);
         return new ResponseEntity<>(list, HttpStatus.OK);
+    }
+
+    @Operation(summary = "관심 태그 목록")
+    @GetMapping("/{id}/tags")
+    public ResponseEntity<?> getFavoriteTagsByUserId(@PathVariable("id") String id) {
+
+        List<FavoriteTag> list = tagService.getFavoriteTagsByUserId(id);
+
+        System.out.println(list);
+
+        if(list.size()==0){
+            return new ResponseEntity<>(list, HttpStatus.NO_CONTENT);
+        }
+
+        return new ResponseEntity<>(list, HttpStatus.OK);
+
+    }
+
+    @Operation(summary = "관심 태그 등록")
+    @PostMapping("/{id}/tags")
+    public ResponseEntity<?> addFavoriteTagsByUserId(@PathVariable("id") String id, @RequestBody List<Tag> tags, @CookieValue("token") String token) {
+
+       tagService.checkTagInfo(tags);
+
+       int res =  tagService.addUserFavoriteTag(id, tags);
+
+       return new ResponseEntity<>(res, res == 0  ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+    }
+
+    @Operation(summary = "관심 태그 수정")
+    @PutMapping("/{id}/tags")
+    public ResponseEntity<?> modifyFavoriteTagsByUserId(@PathVariable("id") String id, @RequestBody List<Tag> tags) {
+
+        for(Tag tag : tags){
+            System.out.println(tag);
+        }
+
+        tagService.checkTagInfo(tags);
+
+        int res = tagService.modifyFavoriteTag(id, tags);
+
+        return new ResponseEntity<>(res, res == 0  ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
 
