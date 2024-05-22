@@ -178,10 +178,6 @@ public class UserController {
     @PutMapping("/{id}/tags")
     public ResponseEntity<?> modifyFavoriteTagsByUserId(@PathVariable("id") String id, @RequestBody List<Tag> tags) {
 
-        for(Tag tag : tags){
-            System.out.println(tag);
-        }
-
         tagService.checkTagInfo(tags);
 
         int res = tagService.modifyFavoriteTag(id, tags);

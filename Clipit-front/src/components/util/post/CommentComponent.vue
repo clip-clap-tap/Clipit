@@ -14,7 +14,7 @@ defineProps({
 </script>
 <template>
     <div class="border-b py-4 px-2">
-        <div class="flex items-center">
+        <div class="flex items-center justify-between">
             <div>{{ comment.writerName }}</div>
             <Button
                 v-if="userStore.validate(comment.writerId)"

@@ -20,6 +20,20 @@ export const usePostStore = defineStore('post', () => {
         ).data;
     };
 
+    const getMine = async () => {
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+        const { cookies } = useCookies();
+        userPosts.value = (await axios.get(`${REST_URL}/users/${cookies.get('user')}/posts`)).data;
+    };
+
+    const getFav = async () => {
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+        const { cookies } = useCookies();
+        userPosts.value = (
+            await axios.get(`${REST_URL}/users/${cookies.get('user')}/favorite-posts`)
+        ).data;
+    };
+
     const post = ref({});
     const getPostDetail = async (id) => {
         const REST_URL = import.meta.env.VITE_REST_API_URL;
@@ -73,6 +87,8 @@ export const usePostStore = defineStore('post', () => {
         posts,
         userPosts,
         getUserPosts,
+        getMine,
+        getFav,
         post,
         getPostDetail,
         search,
