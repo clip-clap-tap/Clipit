@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import { useCookies } from 'vue3-cookies';
 import qs from 'qs';
+import { useYoutubeStore } from './YoutubeStore';
 
 export const usePostStore = defineStore('post', () => {
     const posts = ref([]);
@@ -57,6 +58,30 @@ export const usePostStore = defineStore('post', () => {
         posts.value = (await axios.get(`${REST_URL}/users/visited-posts`)).data;
     };
 
+    const selectedTags = ref([{ name: 'new' }, { name: 'good' }]);
+
+    const savePost = async () => {
+        const YOUTUBE_URL = 'https://www.youtube.com/';
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+        const youtubeStore = useYoutubeStore();
+
+        await axios.post(`${REST_URL}/posts`, {
+            ...post.value,
+            tags: selectedTags.value,
+            videos: youtubeStore.selectedVideos.value.map((video, i) => {
+                return {
+                    id: video.id.videoId,
+                    title: video.snippet.title,
+                    url: `${YOUTUBE_URL}/watch?v=${video.id.videoId}`,
+                    index: i
+                };
+            }),
+            ageRange: ages.value,
+            bodyPart: bodyParts.value,
+            strength: strength.value
+        });
+    };
+
     const searchInfo = ref({
         category: '',
         keyword: '',
@@ -98,6 +123,7 @@ export const usePostStore = defineStore('post', () => {
         getRecentVisitedPosts,
         getPopularPosts,
         recentPosts,
-        popularPosts
+        popularPosts,
+        savePost
     };
 });

@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue';
 import { useTagStore } from '@/stores/TagStore';
 import { useCookies } from 'vue3-cookies';
+import { useRoute } from 'vue-router';
 
 const tagStore = useTagStore();
 const { cookies } = useCookies();
@@ -14,7 +15,11 @@ const setVisible = () => {
 const newTags = ref([]);
 
 onMounted(async () => {
-    await tagStore.getFavoriteTags(cookies.get('user'));
+    const route = useRoute();
+    if (route.name == 'myPage') {
+        await tagStore.getFavoriteTags();
+    }
+    console.log(tagStore.tags);
     newTags.value = tagStore.tags;
 });
 
@@ -29,12 +34,12 @@ const addTag = () => {
     newTag.value = '';
 };
 
-const handleSubmit = () => {
+const handleSubmit = async () => {
     newTag.value = '';
     tagStore.tags = newTags.value;
-    // console.log(tagStore.tags);
+    await tagStore.addTag(cookies.get('user'));
     setVisible();
-    tagStore.addTag(cookies.get('user'));
+    newTags.value = [];
 };
 </script>
 <template>

@@ -1,14 +1,16 @@
 <script setup>
 import NewRoutineComponent from '@/components/myRoutine/NewRoutineComponent.vue';
 import TagModalComponent from '@/components/util/tag/TagModalComponent.vue';
+import { usePostStore } from '@/stores/PostStore';
 import { useYoutubeStore } from '@/stores/YoutubeStore';
-import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
-const store = useYoutubeStore();
+const youtubeStore = useYoutubeStore();
 const router = useRouter();
 const handleSave = () => {
-    store.savePost();
-    store.resetVideos();
+    postStore.savePost();
+    youtubeStore.resetVideos();
     router.push({ name: 'myRoutine' }).then(() => router.go(0));
 };
 
@@ -29,10 +31,18 @@ const bodyPartsProps = [
     { part: 'abs', label: '배' },
     { part: 'waist', label: '허리' }
 ];
+const postStore = usePostStore();
+const route = useRoute();
+
+onMounted(async () => {
+    if (route.name == 'postModify') {
+        await postStore.getPostDetail(route.params.id);
+    }
+});
 </script>
 <template>
     <div class="w-full max-w-4xl px-2">
-        <InputText v-model="store.post.title" class="w-full" placeholder="title"></InputText>
+        <InputText v-model="postStore.post.title" class="w-full" placeholder="title"></InputText>
 
         <div
             class="flex flex-col w-full items-center border border-slate-300 rounded-md p-4 my-4 shadow-sm"
@@ -42,19 +52,23 @@ const bodyPartsProps = [
                 <div class="grow"></div>
                 <NewRoutineComponent></NewRoutineComponent>
             </div>
-            <div class="mb-2" v-if="store.selectedVideos.length == 0">영상을 추가해주세요</div>
-            <VideoInfoComponent
-                v-for="video in store.selectedVideos"
-                :key="`selected_${video.id.video_id}`"
-                :video="video"
-            />
+            <div class="mb-2" v-if="youtubeStore.selectedVideos.length == 0">
+                영상을 추가해주세요
+            </div>
+            <div class="flex flex-col gap-2">
+                <VideoInfoComponent
+                    v-for="video in youtubeStore.selectedVideos"
+                    :key="`selected_${video.id.video_id}`"
+                    :video="video"
+                />
+            </div>
 
             <!-- <div v-for="video in selectedVideos" :key="`selected_${video.id.video_id}`">
                     {{ video.snippet.title }}
                 </div> -->
         </div>
 
-        <Textarea class="w-full" v-model="store.post.description"></Textarea>
+        <Textarea class="w-full" v-model="postStore.post.description"></Textarea>
         <div class="bg-white w-full min-h-16 px-4 md:px-8 py-6">
             <div class="py-4 lg:flex gap-5">
                 <div class="mb-3 text-lg">연령대</div>
@@ -98,6 +112,5 @@ const bodyPartsProps = [
         <div class="flex w-full justify-center">
             <Button severity="success" @click="handleSave">저장</Button>
         </div>
-        <!-- <div>{{ store.videos }}</div> -->
     </div>
 </template>

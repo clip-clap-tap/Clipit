@@ -13,6 +13,7 @@ const username = localStorage.getItem('username');
 import TagModalComponent from '@/components/util/tag/TagModalComponent.vue';
 import TagComponent from '../util/TagComponent.vue';
 import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
 
 export default { components: { TagComponent } };
 </script>
