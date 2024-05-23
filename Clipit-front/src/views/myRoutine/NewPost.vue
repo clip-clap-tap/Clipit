@@ -47,6 +47,16 @@ onMounted(async () => {
     if (route.name == 'postModify') {
         await postStore.getPostDetail(route.params.id);
         tagStore.tags = postStore.post.tags;
+    } else {
+        postStore.post = {
+            title: '',
+            description: '',
+            tags: [],
+            videos: [],
+            ageRange: [],
+            bodyPart: [],
+            strength: 0
+        };
     }
 });
 </script>

@@ -6,7 +6,7 @@ defineProps({
 </script>
 
 <template>
-    <div class="bg-slate-100 p-6 rounded">
+    <div class="bg-slate-100 p-4 md:p-6 rounded">
         <iframe class="w-full aspect-video" :src="`${embedURL}/${video.id}`"></iframe>
     </div>
 </template>

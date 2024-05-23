@@ -92,7 +92,7 @@ const removePost = async () => {
             <hr />
             <CommentSection></CommentSection>
         </div>
-        <div class="flex flex-col gap-1 fixed right-10 top-48 py-2">
+        <div class="md:flex flex-col gap-1 hidden fixed right-10 top-48 py-2">
             <RouterLink
                 class="truncate w-48 text-slate-400 hover:text-black rounded p-3"
                 v-for="video in store.post.videos"

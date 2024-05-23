@@ -32,7 +32,7 @@ const current = ref('all');
         <div class="flex justify-between w-full px-4 items-center">
             <span class="text-xl font-bold">My Routines</span>
             <div class="grow"></div>
-            <div class="flex mr-5">
+            <div class="flex mr-1 lg:mr-5">
                 <Button
                     :class="`${current == 'all' ? 'underline' : ''} underline-offset-4`"
                     @click="getAll"
@@ -53,7 +53,7 @@ const current = ref('all');
                 >
             </div>
             <RouterLink :to="{ name: `newPost` }">
-                <Button severity="info" outlined>추가</Button>
+                <Button class="break-keep" severity="info" outlined>추가</Button>
             </RouterLink>
         </div>
 

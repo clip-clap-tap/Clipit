@@ -92,7 +92,7 @@ const search = () => {
         >
             <div class="py-4">
                 <div class="mb-3 text-lg">연령대</div>
-                <div class="flex gap-2">
+                <div class="flex gap-2 flex-wrap">
                     <div v-for="ageRange in ageRangeProps" :key="`age_${ageRange.age}`">
                         <input
                             v-model="postStore.searchInfo.ageRange"
@@ -103,7 +103,7 @@ const search = () => {
                         />
                         <label
                             :for="ageRange.age"
-                            class="peer-checked:bg-slate-200 py-2 px-3 rounded border-2 border-slate-200 cursor-pointer"
+                            class="peer-checked:bg-slate-200 py-2 px-3 rounded border-2 border-slate-200 cursor-pointer block"
                             >{{ ageRange.label }}</label
                         >
                     </div>
@@ -111,7 +111,7 @@ const search = () => {
             </div>
             <div class="py-4">
                 <div class="mb-3 text-lg">운동 부위</div>
-                <div class="flex gap-2">
+                <div class="flex gap-2 flex-wrap">
                     <div v-for="bodyPart in bodyPartsProps" :key="`bodypart_${bodyPart.part}`">
                         <input
                             v-model="postStore.searchInfo.bodyParts"
@@ -122,7 +122,7 @@ const search = () => {
                         />
                         <label
                             :for="bodyPart.part"
-                            class="peer-checked:bg-slate-200 py-2 px-3 rounded border-2 border-slate-200 cursor-pointer"
+                            class="peer-checked:bg-slate-200 py-2 px-3 rounded border-2 border-slate-200 cursor-pointer block"
                             >{{ bodyPart.label }}</label
                         >
                     </div>

@@ -19,7 +19,7 @@ const router = useRouter();
         />
         <div class="flex flex-col h-full w-full">
             <h1
-                class="my-1 text-xl font-semibold text-gray-800 dark:text-white truncate text-left shrink-0"
+                class="my-1 text-xl font-semibold text-gray-800 dark:text-white line-clamp-1 text-ellipsis text-left shrink-0"
             >
                 {{ post.title }}
             </h1>
@@ -38,11 +38,11 @@ const router = useRouter();
                 {{ post.description }}
             </p>
             <div class="grow"></div>
-            <div class="flex gap-2">
+            <div class="flex gap-2 flex-nowrap max-w-[45vw] overflow-clip md:w-full">
                 <Chip
                     v-for="(tag, index) in post.tags"
                     :key="index"
-                    class="text-sm bg-slate-100 w-fit"
+                    class="text-sm bg-slate-100 w-fit break-keep"
                     :label="tag.name"
                 />
             </div>
