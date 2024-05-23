@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
 import axios from 'axios';
-import router from '@/router';
+import { useCookies } from 'vue3-cookies';
 
 const URL = `http://localhost:8080/users`;
 
@@ -9,10 +9,11 @@ export const useTagStore = defineStore('tag', () => {
     const isEmpty = ref(true);
 
     const tags = ref([]);
+    const { cookies } = useCookies();
 
-    const getFavoriteTags = async function (id) {
+    const getFavoriteTags = async function () {
         await axios({
-            url: `${URL}/${id}/tags`,
+            url: `${URL}/${cookies.get('user')}/tags`,
             method: 'GET'
         }).then((res) => {
             if (res.status != 204) {
@@ -24,24 +25,12 @@ export const useTagStore = defineStore('tag', () => {
         });
     };
 
-    const addTag = async function (id) {
-        if (isEmpty.value === true) {
-            await axios({
-                url: `${URL}/${id}/tags`,
-                method: 'POST',
-                data: tags.value
-            }).then(() => {
-                router.push({ name: 'myPage' });
-            });
-        } else {
-            await axios({
-                url: `${URL}/${id}/tags`,
-                method: 'PUT',
-                data: tags.value
-            }).then(() => {
-                router.push({ name: 'myPage' });
-            });
-        }
+    const addTag = async function () {
+        await axios({
+            url: `${URL}/${cookies.get('user')}/tags`,
+            method: isEmpty.value === true ? 'POST' : 'PUT',
+            data: tags.value
+        });
     };
 
     return {
