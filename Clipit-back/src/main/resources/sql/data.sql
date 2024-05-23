@@ -510,5 +510,9 @@ where status != 'disabled'
 order by v_post.visited_at
 limit 5;
 
+DELETE
+FROM video
+where id = 9;
+
 select *
 from user_info;

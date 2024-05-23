@@ -9,6 +9,7 @@ const { cookies } = useCookies();
 
 const visible = ref(false);
 const setVisible = () => {
+    if (!visible.value) newTags.value = tagStore.tags;
     visible.value = !visible.value;
 };
 

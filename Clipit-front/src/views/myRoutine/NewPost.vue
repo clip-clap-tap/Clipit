@@ -10,7 +10,14 @@ import { useRoute, useRouter } from 'vue-router';
 const youtubeStore = useYoutubeStore();
 const router = useRouter();
 const handleSave = async () => {
-    await postStore.savePost();
+    if (youtubeStore.selectedVideos.length == 0 && postStore.post.videos.length == 0) {
+        return;
+    }
+    if (route.name == 'postModify') {
+        await postStore.modifyPost();
+    } else {
+        await postStore.savePost();
+    }
     youtubeStore.resetVideos();
     router.push({ name: 'myRoutine' }).then(() => router.go(0));
 };
@@ -39,6 +46,7 @@ const route = useRoute();
 onMounted(async () => {
     if (route.name == 'postModify') {
         await postStore.getPostDetail(route.params.id);
+        tagStore.tags = postStore.post.tags;
     }
 });
 </script>

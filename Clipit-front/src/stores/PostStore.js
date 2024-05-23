@@ -85,6 +85,24 @@ export const usePostStore = defineStore('post', () => {
                 };
             })
         });
+        post.value = {
+            title: '',
+            description: '',
+            tags: [],
+            videos: [],
+            ageRange: [],
+            bodyPart: [],
+            strength: 0
+        };
+    };
+
+    const modifyPost = async () => {
+        const REST_URL = import.meta.env.VITE_REST_API_URL;
+
+        await axios.put(`${REST_URL}/posts/${post.value.id}`, {
+            ...post.value,
+            tags: tagStore.tags
+        });
     };
 
     const searchInfo = ref({
@@ -129,6 +147,7 @@ export const usePostStore = defineStore('post', () => {
         getPopularPosts,
         recentPosts,
         popularPosts,
-        savePost
+        savePost,
+        modifyPost
     };
 });
