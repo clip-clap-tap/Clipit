@@ -28,5 +28,7 @@ public interface PostSearchService {
 
     Post convertPost(com.clipit.clipitback.model.dto.Post post);
 
+    List<Post> getTestQuery(String keyword);
+
 
 }

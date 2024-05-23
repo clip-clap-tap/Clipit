@@ -38,5 +38,7 @@ public interface PostService {
 
     int addVisitedPost(String userId, int postId);
 
+    List<Post> getTestQuery(String keyword);
+
 
 }

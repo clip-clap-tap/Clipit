@@ -104,6 +104,11 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    public List<Post> getTestQuery(String keyword) {
+        return postDao.selectAllForTest(keyword, keyword);
+    }
+
+    @Override
     public int cancelFavoritePost(String userId, int postId) {
         int result = postDao.deleteFavoritePost(Map.of("userId", userId, "postId", postId));
         return result;

@@ -26,5 +26,7 @@ public interface PostRepository extends ElasticsearchRepository<Post, String> {
 
     List<Post> searchAllByTagsName(String tagName);
 
+//    List<Post> searchAllByTitleContainingOrDescriptionContaining(String keyword, String keyword2);
+
 
 }

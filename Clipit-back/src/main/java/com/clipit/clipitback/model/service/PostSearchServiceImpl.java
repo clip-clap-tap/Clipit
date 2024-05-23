@@ -93,6 +93,11 @@ public class PostSearchServiceImpl implements PostSearchService {
     }
 
     @Override
+    public List<Post> getTestQuery(String keyword) {
+        return postRepository.searchAllByTitleContainingOrDescriptionContaining(keyword, keyword);
+    }
+
+    @Override
     public List<Post> searchPostsByTag(String tagName) {
         List<Post> result = postRepository.searchAllByTagsName(tagName);
         return result;

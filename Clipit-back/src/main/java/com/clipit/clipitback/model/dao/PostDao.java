@@ -39,4 +39,6 @@ public interface PostDao {
 
     int insertVisitedPost(Map<String, ?> VisitedPostId);
 
+    List<Post> selectAllForTest(String keyword, String keyword2);
+
 }
