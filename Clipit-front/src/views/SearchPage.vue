@@ -9,7 +9,6 @@ const store = usePostStore();
 onMounted(async () => {
     const route = useRoute();
     await store.search(route.query);
-    console.log(store.posts);
 });
 onBeforeUnmount(() => {
     store.searchInfo = {};

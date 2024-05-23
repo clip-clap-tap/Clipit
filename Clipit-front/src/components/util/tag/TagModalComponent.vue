@@ -18,7 +18,6 @@ onMounted(async () => {
     if (route.name == 'myPage') {
         await tagStore.getFavoriteTags();
     }
-    console.log(tagStore.tags);
     newTags.value = tagStore.tags;
 });
 
