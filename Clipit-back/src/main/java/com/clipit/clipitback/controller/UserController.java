@@ -155,7 +155,7 @@ public class UserController {
 
         System.out.println(list);
 
-        if(list.size()==0){
+        if (list.size() == 0) {
             return new ResponseEntity<>(list, HttpStatus.NO_CONTENT);
         }
 
@@ -167,11 +167,11 @@ public class UserController {
     @PostMapping("/{id}/tags")
     public ResponseEntity<?> addFavoriteTagsByUserId(@PathVariable("id") String id, @RequestBody List<Tag> tags, @CookieValue("token") String token) {
 
-       tagService.checkTagInfo(tags);
+        tagService.checkTagInfo(tags);
 
-       int res =  tagService.addUserFavoriteTag(id, tags);
+        int res = tagService.addUserFavoriteTag(id, tags);
 
-       return new ResponseEntity<>(res, res == 0  ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+        return new ResponseEntity<>(res, res == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
     @Operation(summary = "관심 태그 수정")
@@ -182,7 +182,7 @@ public class UserController {
 
         int res = tagService.modifyFavoriteTag(id, tags);
 
-        return new ResponseEntity<>(res, res == 0  ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
+        return new ResponseEntity<>(res, res == 0 ? HttpStatus.BAD_REQUEST : HttpStatus.OK);
     }
 
 

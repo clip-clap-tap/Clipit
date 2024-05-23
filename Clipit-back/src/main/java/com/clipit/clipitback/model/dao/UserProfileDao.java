@@ -17,5 +17,5 @@ public interface UserProfileDao {
 
     List<StatisticsMap> selectUserExerciseStatistics(String id);
 
-    List<StatisticsMap> selectUserPostStatistics(String id);
+    List<StatisticsMap> selectUserPostStatistics(String id, String id2);
 }

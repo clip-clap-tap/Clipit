@@ -103,7 +103,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Map<String, Integer> getUserPostStatistics(String id) {
-        List<StatisticsMap> statistics = userProfileDao.selectUserPostStatistics(id);
+        List<StatisticsMap> statistics = userProfileDao.selectUserPostStatistics(id, id);
         Map<String, Integer> result = statistics.stream().collect(Collectors.toMap(StatisticsMap::getBodyPart, StatisticsMap::getCount));
         return result;
     }

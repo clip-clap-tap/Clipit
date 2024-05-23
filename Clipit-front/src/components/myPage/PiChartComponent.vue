@@ -61,7 +61,7 @@ export default {
             const stRawData = (
                 await axios.get(`${REST_URL}/users/${cookies.get('user')}/post-statistics`)
             ).data;
-            if (Object.values(stRawData) == 0) {
+            if (Object.values(stRawData).length == 0) {
                 const ctx = this.$refs.MyChart.getContext('2d');
                 ctx.font = '16px sans-serif';
                 ctx.textAlign = 'center';
