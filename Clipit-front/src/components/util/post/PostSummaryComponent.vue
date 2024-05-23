@@ -14,7 +14,7 @@ const router = useRouter();
         <img
             v-if="post.videos.length > 0"
             class="object-cover object-center w-36 h-full rounded-lg"
-            :src="`https://i.ytimg.com/vi/${post.videos[0].id}/default.jpg`"
+            :src="`https://i.ytimg.com/vi/${post.videos[0].id}/hqdefault.jpg`"
             alt=""
         />
         <div class="flex flex-col h-full w-full">
@@ -38,12 +38,14 @@ const router = useRouter();
                 {{ post.description }}
             </p>
             <div class="grow"></div>
-            <Chip
-                v-for="(tag, index) in post.tags"
-                :key="index"
-                class="text-sm bg-slate-100 w-fit"
-                :label="tag.name"
-            />
+            <div class="flex gap-2">
+                <Chip
+                    v-for="(tag, index) in post.tags"
+                    :key="index"
+                    class="text-sm bg-slate-100 w-fit"
+                    :label="tag.name"
+                />
+            </div>
         </div>
     </button>
 </template>

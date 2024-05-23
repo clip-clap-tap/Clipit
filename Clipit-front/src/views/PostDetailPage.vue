@@ -56,7 +56,7 @@ const removePost = async () => {
             <h1 class="text-3xl font-bold py-2 lg:py-4 pl-4">{{ store.post.title }}</h1>
             <div class="flex mb-4 items-center">
                 <TagComponent
-                    :name="tag.name"
+                    :name="tag"
                     class="text-black"
                     v-for="tag in store.post.tags"
                     :key="`tag_${tag.id}`"

@@ -2,14 +2,15 @@
 import NewRoutineComponent from '@/components/myRoutine/NewRoutineComponent.vue';
 import TagModalComponent from '@/components/util/tag/TagModalComponent.vue';
 import { usePostStore } from '@/stores/PostStore';
+import { useTagStore } from '@/stores/TagStore';
 import { useYoutubeStore } from '@/stores/YoutubeStore';
 import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
 const youtubeStore = useYoutubeStore();
 const router = useRouter();
-const handleSave = () => {
-    postStore.savePost();
+const handleSave = async () => {
+    await postStore.savePost();
     youtubeStore.resetVideos();
     router.push({ name: 'myRoutine' }).then(() => router.go(0));
 };
@@ -32,6 +33,7 @@ const bodyPartsProps = [
     { part: 'waist', label: '허리' }
 ];
 const postStore = usePostStore();
+const tagStore = useTagStore();
 const route = useRoute();
 
 onMounted(async () => {
@@ -74,7 +76,13 @@ onMounted(async () => {
                 <div class="mb-3 text-lg">연령대</div>
                 <div class="flex gap-2">
                     <div v-for="ageRange in ageRangeProps" :key="`age_${ageRange.age}`">
-                        <input type="checkbox" class="hidden peer" />
+                        <input
+                            :value="ageRange.age"
+                            v-model="postStore.post.ageRange"
+                            type="checkbox"
+                            :id="ageRange.age"
+                            class="hidden peer"
+                        />
                         <label
                             :for="ageRange.age"
                             class="peer-checked:bg-slate-200 py-2 px-3 rounded border-2 border-slate-200 cursor-pointer"
@@ -87,7 +95,13 @@ onMounted(async () => {
                 <div class="mb-3 text-lg">운동 부위</div>
                 <div class="flex gap-2">
                     <div v-for="bodyPart in bodyPartsProps" :key="`bodypart_${bodyPart.part}`">
-                        <input type="checkbox" class="hidden peer" />
+                        <input
+                            :value="bodyPart.part"
+                            :id="bodyPart.part"
+                            v-model="postStore.post.bodyPart"
+                            type="checkbox"
+                            class="hidden peer"
+                        />
                         <label
                             :for="bodyPart.part"
                             class="peer-checked:bg-slate-200 py-2 px-3 rounded border-2 border-slate-200 cursor-pointer"
@@ -99,15 +113,34 @@ onMounted(async () => {
             <div class="py-4">
                 <div class="mb-3 text-lg">강도</div>
                 <div class="flex gap-6 items-center px-6">
-                    <Slider class="w-full" tap :step="20" :end="100" />
-                    <!-- <span>{{ postStore.searchInfo.strength }}</span> -->
+                    <Slider
+                        v-model="postStore.post.strength"
+                        class="w-full"
+                        tap
+                        :step="20"
+                        :end="100"
+                    />
+                    <span>{{ postStore.post.strength }}</span>
                 </div>
             </div>
         </div>
+
         <div
-            class="flex flex-col w-full items-center border border-slate-300 rounded-md p-4 my-4 shadow-sm"
+            class="flex flex-col w-full items-center border border-slate-300 rounded-md p-4 my-4 shadow-sm relative"
         >
-            <TagModalComponent />
+            <div class="h-fit min-h-48 grow flex items-center">
+                <div class="flex flex-wrap p-6" v-if="tagStore.tags.length > 0">
+                    <TagComponent
+                        @click="handleTagClick(tag)"
+                        v-for="(tag, index) in tagStore.tags"
+                        :key="`${index}-tag`"
+                        :name="tag"
+                    />
+                </div>
+                <div>
+                    <TagModalComponent />
+                </div>
+            </div>
         </div>
         <div class="flex w-full justify-center">
             <Button severity="success" @click="handleSave">저장</Button>

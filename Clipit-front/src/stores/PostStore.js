@@ -4,6 +4,7 @@ import { ref } from 'vue';
 import { useCookies } from 'vue3-cookies';
 import qs from 'qs';
 import { useYoutubeStore } from './YoutubeStore';
+import { useTagStore } from './TagStore';
 
 export const usePostStore = defineStore('post', () => {
     const posts = ref([]);
@@ -35,7 +36,15 @@ export const usePostStore = defineStore('post', () => {
         ).data;
     };
 
-    const post = ref({});
+    const post = ref({
+        title: '',
+        description: '',
+        tags: [],
+        videos: [],
+        ageRange: [],
+        bodyPart: [],
+        strength: 0
+    });
     const getPostDetail = async (id) => {
         const REST_URL = import.meta.env.VITE_REST_API_URL;
         post.value = (await axios.get(`${REST_URL}/posts/${id}`)).data;
@@ -58,8 +67,7 @@ export const usePostStore = defineStore('post', () => {
         posts.value = (await axios.get(`${REST_URL}/users/visited-posts`)).data;
     };
 
-    const selectedTags = ref([{ name: 'new' }, { name: 'good' }]);
-
+    const tagStore = useTagStore();
     const savePost = async () => {
         const YOUTUBE_URL = 'https://www.youtube.com/';
         const REST_URL = import.meta.env.VITE_REST_API_URL;
@@ -67,8 +75,8 @@ export const usePostStore = defineStore('post', () => {
 
         await axios.post(`${REST_URL}/posts`, {
             ...post.value,
-            tags: selectedTags.value,
-            videos: youtubeStore.selectedVideos.value.map((video, i) => {
+            tags: tagStore.tags,
+            videos: youtubeStore.selectedVideos.map((video, i) => {
                 return {
                     id: video.id.videoId,
                     title: video.snippet.title,
@@ -76,9 +84,6 @@ export const usePostStore = defineStore('post', () => {
                     index: i
                 };
             })
-            // ageRange: ages.value,
-            // bodyPart: bodyParts.value,
-            // strength: strength.value
         });
     };
 

@@ -13,9 +13,8 @@ const setVisible = () => {
 };
 
 const newTags = ref([]);
-
+const route = useRoute();
 onMounted(async () => {
-    const route = useRoute();
     if (route.name == 'myPage') {
         await tagStore.getFavoriteTags();
     }
@@ -37,7 +36,9 @@ const addTag = () => {
 const handleSubmit = async () => {
     newTag.value = '';
     tagStore.tags = newTags.value;
-    await tagStore.addTag(cookies.get('user'));
+    if (route.name == 'myPage') {
+        await tagStore.addTag(cookies.get('user'));
+    }
     setVisible();
     newTags.value = [];
 };
@@ -47,7 +48,7 @@ const handleSubmit = async () => {
         v-if="tagStore.tags.length == 0"
         @click="setVisible"
         class="text-clip-primary px-3 py-2"
-        label="관심 태그를 추가해주세요"
+        label="태그를 추가해주세요"
         outlined=""
         severity="info"
     ></Button>

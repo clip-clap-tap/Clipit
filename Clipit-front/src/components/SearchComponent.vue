@@ -82,7 +82,7 @@ const search = () => {
             <Button
                 class="break-keep justify-center"
                 type="submit"
-                severity="success"
+                severity="primary"
                 label="검색"
             />
         </div>

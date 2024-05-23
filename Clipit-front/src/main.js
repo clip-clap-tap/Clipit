@@ -1,5 +1,5 @@
 import './assets/input.css';
-import 'primevue/resources/themes/aura-light-noir/theme.css';
+import './assets/themes/mytheme/theme.scss';
 import 'primeicons/primeicons.css';
 import 'v3-infinite-loading/lib/style.css';
 

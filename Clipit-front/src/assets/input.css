@@ -14,7 +14,7 @@
 
 @layer base {
     :root {
-        --primary: '#3396F4';
+        --primary: '#449AB3';
     }
 }
 
@@ -31,27 +31,27 @@
 }
 
 .title-word-1 {
-    --color-1: #df8453;
-    --color-2: #3d8dae;
-    --color-3: #e4a9a8;
+    --color-1: #fbeeac;
+    --color-2: #a3f7bf;
+    --color-3: #ffc0c2;
 }
 
 .title-word-2 {
-    --color-1: #dbad4a;
-    --color-2: #accfcb;
-    --color-3: #17494d;
+    --color-1: #f4d160;
+    --color-2: #75c2f6;
+    --color-3: #a0eecc;
 }
 
 .title-word-3 {
-    --color-1: #accfcb;
-    --color-2: #e4a9a8;
-    --color-3: #accfcb;
+    --color-1: #75c2f6;
+    --color-2: #ffc0c2;
+    --color-3: #75c2f6;
 }
 
 .title-word-4 {
-    --color-1: #3d8dae;
-    --color-2: #df8453;
-    --color-3: #e4a9a8;
+    --color-1: #a3f7bf;
+    --color-2: #fbeeac;
+    --color-3: #ffc0c2;
 }
 
 @keyframes color-animation {
